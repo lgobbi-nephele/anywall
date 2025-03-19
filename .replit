@@ -6,3 +6,124 @@ channel = "stable-24_05"
 
 [deployment]
 run = ["sh", "-c", "python ./dev/monitor.py"]
+
+[[ports]]
+localPort = 3306
+externalPort = 3000
+
+[[ports]]
+localPort = 33060
+externalPort = 80
+
+[workflows]
+runButton = "Run App"
+
+[[workflows.workflow]]
+name = "Start MySQL"
+author = 40465866
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "#!/bin/bash"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "# Check if MySQL is already running"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "if [ ! -f /home/runner/workspace/mysql_data/mysql.pid ] || ! ps -p $(cat /home/runner/workspace/mysql_data/mysql.pid 2>/dev/null) > /dev/null 2>&1; then"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  # Create data directory if it doesn't exist"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  mkdir -p /home/runner/workspace/mysql_data"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  "
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  # Initialize MySQL if needed"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  if [ ! -d /home/runner/workspace/mysql_data/mysql ]; then"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "    mysqld --initialize-insecure --datadir=/home/runner/workspace/mysql_data"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  fi"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  "
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  # Start MySQL"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  mysqld --datadir=/home/runner/workspace/mysql_data --socket=/home/runner/workspace/mysql_data/mysql.sock --pid-file=/home/runner/workspace/mysql_data/mysql.pid --user=runner &"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  "
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  # Wait for MySQL to start"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  sleep 5"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  "
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  # Create database if needed"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  mysql --socket=/home/runner/workspace/mysql_data/mysql.sock -u root -e \"CREATE DATABASE IF NOT EXISTS myDatabase;\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  "
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  echo \"MySQL started successfully!\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "else"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "  echo \"MySQL is already running.\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "fi"
+
+[[workflows.workflow]]
+name = "Run App"
+author = 40465866
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = 'bash -c "$(./workspace/.workflows/Start\ MySQL) && python ./dev/monitor.py"'
