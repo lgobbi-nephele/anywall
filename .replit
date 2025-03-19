@@ -126,4 +126,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "bash -c \"cd /home/runner/workspace && $(which mysql) --socket=/home/runner/workspace/mysql_data/mysql.sock -u root -e 'CREATE DATABASE IF NOT EXISTS myDatabase;' || true && cd dev && python monitor.py\""
+args = "bash -c \"cd /home/runner/workspace && $(which mysql) --socket=/home/runner/workspace/mysql_data/mysql.sock -u root -e 'CREATE DATABASE IF NOT EXISTS myDatabase;' || true && cd dev && python3 monitor.py\""
