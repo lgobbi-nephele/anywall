@@ -17,6 +17,7 @@ class WindowHandler:
         self.stream = window_attrs.pop("stream")
         self.urlBrowser = window_attrs.pop("urlBrowser")
         self.labelText = window_attrs.pop("labelText")
+        self.refresh_stream = True  # Flag to track if stream needs refreshing
         self.isAlarm = window_attrs.pop("isAlarm") 
         self.enableLogo = window_attrs.pop("enableLogo")
         self.enableAlarmIcon = window_attrs.pop("enableAlarmIcon")

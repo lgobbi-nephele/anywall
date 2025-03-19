@@ -71,7 +71,10 @@ class Screen:
                     lines_in_offset = zoom if lines_in_offset <= 0 else lines_in_offset
                     offset_multiplier = zoom
 
-                makeProcessWindow(self.process_manager, windows_list[i], size_x, size_y, zoom, coord_x, coord_y)
+                window = windows_list[i]
+                if hasattr(window, 'refresh_stream'):
+                    window.refresh_stream = True
+                makeProcessWindow(self.process_manager, window, size_x, size_y, zoom, coord_x, coord_y)
                 coord_x += size_x * zoom
 
 
