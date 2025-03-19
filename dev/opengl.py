@@ -48,15 +48,6 @@ class RTSPStreamCaptureConfig:
     def __init__(self, max_buffer_size=100, target_fps=15):
         self.max_buffer_size = max_buffer_size
         self.target_fps = target_fps
-        self.refresh_required = False
-
-    def refresh_stream(self):
-        """Refresh the stream with new dimensions"""
-        self.refresh_required = True
-        if hasattr(self, 'cap') and self.cap is not None:
-            self.cap.release()
-            time.sleep(0.5)  # Allow time for cleanup
-            self.initialize_capture()
 
 class RTSPStreamCapture:
     def __init__(self, rtsp_url, width, height, config=None):
