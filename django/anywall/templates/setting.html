@@ -1,49 +1,3 @@
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const resetButton = document.getElementById('resetButton');
-    
-    resetButton.addEventListener('click', async function() {
-        if (confirm('Are you sure you want to reset the application? This will restart all processes.')) {
-            try {
-                const response = await fetch('/api/reset/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-                    },
-                    body: JSON.stringify({ reset: true })
-                });
-                
-                if (response.ok) {
-                    alert('Application reset initiated. Please wait while the system restarts.');
-                } else {
-                    alert('Failed to reset application. Please try again.');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to reset application. Please try again.');
-            }
-        }
-    });
-});
-</script>
-<style>
-.dangerous-button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.dangerous-button:hover {
-    background-color: #c82333;
-}
-</style>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -461,12 +415,6 @@ document.addEventListener('DOMContentLoaded', function() {
                         <i class="fas fa-upload"></i> Upload Image
                     </a>
                 </form>
-            </div>
-            <div class="form-box">
-                <h2>System Control</h2>
-                <button id="resetButton" class="button dangerous-button">
-                    <i class="fas fa-power-off"></i> Reset Application
-                </button>
             </div>
             <div class="form-box" id="alarmFormBox">
                 <h2>Alarm Settings</h2>
