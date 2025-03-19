@@ -168,9 +168,9 @@ WSGI_APPLICATION = 'anywall.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql.connector.django',
-        'NAME': 'myDatabase',  # Name of your MySQL database
-        'USER': 'root',  # Your MySQL username
-        'HOST': 'localhost',  # Hostname where your MySQL server is located
+        'OPTIONS': {
+            'read_default_file': os.path.join(BASE_DIR, 'my.cnf'),
+        },
         'PORT': '3306',  # Default port for MySQL
         'OPTIONS': {
             'unix_socket': os.getenv('MYSQL_UNIX_PORT', '/home/runner/workspace/mysql_data/mysql.sock'),

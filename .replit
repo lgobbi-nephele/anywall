@@ -126,4 +126,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = 'bash -c "$(./workspace/.workflows/Start\ MySQL) && python ./dev/monitor.py"'
+args = 'bash -c "cd /home/runner/workspace && $(dirname $PWD)/.workflows/Start\ MySQL && python ./dev/monitor.py"'
