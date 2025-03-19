@@ -1,0 +1,983 @@
+2025-01-10 14:26:46,417 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:46,417 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:46,421 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:46,422 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:47,505 - __main__ - DEBUG - Monitor current process PID is: 23904
+2025-01-10 14:26:48,735 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:48,735 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:48,736 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:48,736 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:49,042 - process_manager - DEBUG - PM Process PID: 10556
+2025-01-10 14:26:49,042 - __main__ - INFO - Application started
+2025-01-10 14:26:49,043 - __main__ - DEBUG - Parent Process PID: 23904
+2025-01-10 14:26:49,046 - __main__ - DEBUG - server process started
+2025-01-10 14:26:49,046 - __main__ - DEBUG - init: init_windows
+2025-01-10 14:26:49,049 - __main__ - DEBUG - Manager process started
+2025-01-10 14:26:49,320 - __main__ - INFO - Starting windows after reset
+2025-01-10 14:26:49,322 - __main__ - DEBUG - Finestre ready?: False
+2025-01-10 14:26:49,322 - __main__ - DEBUG - start_windows: dentro while
+2025-01-10 14:26:49,830 - __main__ - DEBUG - start_windows: dentro while
+2025-01-10 14:26:49,919 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:49,919 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:49,919 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:49,920 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:49,920 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:49,920 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:49,920 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:49,921 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:50,275 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:50,275 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:50,343 - __main__ - DEBUG - start_windows: dentro while
+2025-01-10 14:26:50,472 - manager - DEBUG - cur_dir = os.path.dirname(__file__): C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:50,473 - process_manager - DEBUG - PM Process PID: 38348
+2025-01-10 14:26:50,662 - anywall_app.service - DEBUG - Window.objects.all(): 
+2025-01-10 14:26:50,662 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7F70>, 'window_id': 0, 'stream': 'rtsp://SS0601DG05/cd060122912.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 1920, 'height': 1080, 'coord_x': 0, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,663 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7E50>, 'window_id': 1, 'stream': 'rtsp://SS0601DG05/cd060121311.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,663 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7DF0>, 'window_id': 2, 'stream': 'rtsp://SS0601DG05/cd06012263.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,663 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7D00>, 'window_id': 3, 'stream': 'rtsp://SS0601DG03/ti060106720.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 1280, 'height': 720, 'coord_x': 0, 'coord_y': 360, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,663 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7CD0>, 'window_id': 4, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 360, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,663 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7BB0>, 'window_id': 5, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 360, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'http://localhost:8000/clock-view', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,663 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7B50>, 'window_id': 6, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 0, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,664 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7AC0>, 'window_id': 7, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,664 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7A30>, 'window_id': 8, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 720, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'https://crismasecurity.it', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,664 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4A7970>, 'window_id': 9, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,665 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232DF912730>, 'window_id': 10, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,665 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4C5100>, 'window_id': 11, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,665 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4C5190>, 'window_id': 12, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 0, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,666 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4C5220>, 'window_id': 13, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,666 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4C52B0>, 'window_id': 14, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,666 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000232BF4C5340>, 'window_id': 15, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:26:50,667 - screen_helper - INFO - Screen_helper: Trovata display size: 1920x1200
+2025-01-10 14:26:50,668 - screen_helper - INFO - Screen_helper: Finestra 0: 1920x1080, (0, 0), True
+2025-01-10 14:26:50,670 - screen_helper - INFO - Screen_helper: Finestra 1: 640x360, (640, 0), False
+2025-01-10 14:26:50,670 - screen_helper - INFO - Screen_helper: Finestra 2: 640x360, (1280, 0), False
+2025-01-10 14:26:50,671 - screen_helper - INFO - Screen_helper: Finestra 3: 1280x720, (0, 360), False
+2025-01-10 14:26:50,671 - screen_helper - INFO - Screen_helper: Finestra 4: 640x360, (640, 360), False
+2025-01-10 14:26:50,672 - screen_helper - INFO - Screen_helper: Finestra 5: 640x360, (1280, 360), False
+2025-01-10 14:26:50,672 - screen_helper - INFO - Screen_helper: Finestra 6: 640x360, (0, 720), False
+2025-01-10 14:26:50,673 - screen_helper - INFO - Screen_helper: Finestra 7: 640x360, (640, 720), False
+2025-01-10 14:26:50,673 - screen_helper - INFO - Screen_helper: Finestra 8: 640x360, (1280, 720), False
+2025-01-10 14:26:50,674 - screen_helper - INFO - Screen_helper: Finestra 9: 480x270, (480, 540), False
+2025-01-10 14:26:50,674 - screen_helper - INFO - Screen_helper: Finestra 10: 480x270, (960, 540), False
+2025-01-10 14:26:50,675 - screen_helper - INFO - Screen_helper: Finestra 11: 480x270, (1440, 540), False
+2025-01-10 14:26:50,675 - screen_helper - INFO - Screen_helper: Finestra 12: 480x270, (0, 810), False
+2025-01-10 14:26:50,676 - screen_helper - INFO - Screen_helper: Finestra 13: 480x270, (480, 810), False
+2025-01-10 14:26:50,676 - screen_helper - INFO - Screen_helper: Finestra 14: 480x270, (960, 810), False
+2025-01-10 14:26:50,677 - screen_helper - INFO - Screen_helper: Finestra 15: 480x270, (1440, 810), False
+2025-01-10 14:26:50,929 - __main__ - DEBUG - processes: {'PM_process': <SpawnProcess name='SyncManager-1' pid=10556 parent=23904 started>, 'server_process': <Process name='Process-2' pid=27972 parent=23904 started>, 'manager_process': <Process name='Process-3' pid=38348 parent=23904 started>, 'window_p_0': <Process name='Process-4' pid=37408 parent=23904 started>, 'window_p_1': <Process name='Process-5' pid=20860 parent=23904 started>, 'window_p_2': <Process name='Process-6' pid=30308 parent=23904 started>, 'window_p_3': <Process name='Process-7' pid=28332 parent=23904 started>, 'window_p_4': <Process name='Process-8' pid=30292 parent=23904 started>, 'window_p_5': <Process name='Process-9' pid=23772 parent=23904 started>, 'window_p_6': <Process name='Process-10' pid=15032 parent=23904 started>, 'window_p_7': <Process name='Process-11' pid=5524 parent=23904 started>, 'window_p_8': <Process name='Process-12' pid=4296 parent=23904 started>, 'window_p_9': <Process name='Process-13' pid=31492 parent=23904 started>, 'window_p_10': <Process name='Process-14' pid=7680 parent=23904 started>, 'window_p_11': <Process name='Process-15' pid=29876 parent=23904 started>, 'window_p_12': <Process name='Process-16' pid=35700 parent=23904 started>, 'window_p_13': <Process name='Process-17' pid=15188 parent=23904 started>, 'window_p_14': <Process name='Process-18' pid=18572 parent=23904 started>, 'window_p_15': <Process name='Process-19' pid=11092 parent=23904 started>}
+2025-01-10 14:26:55,283 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,284 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,285 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,285 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,293 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,293 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,295 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,295 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,296 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,315 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,316 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,317 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,317 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,319 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,319 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,316 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,356 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,357 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,359 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,359 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,359 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,360 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,361 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,361 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,379 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,380 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,381 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,381 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,387 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,387 - anywall.settings - DEBUG - admin
+file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,387 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,388 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,389 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,390 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,389 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,390 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,391 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,392 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,437 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,438 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,439 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,440 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,442 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,442 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,443 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,443 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,444 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,444 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,446 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,446 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,461 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,462 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,464 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,465 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,488 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,490 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,494 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,495 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:55,593 - anywall.settings - DEBUG - admin
+2025-01-10 14:26:55,594 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:26:55,596 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:26:55,596 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:26:58,007 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,007 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,009 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,010 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,010 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,012 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,014 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,014 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,014 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+ev/anywall
+2025-01-10 14:26:58,015 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,016 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,016 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+ev/anywall
+2025-01-10 14:26:58,018 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,018 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,019 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,020 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,021 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,022 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,042 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,042 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,066 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,066 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,066 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,067 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,309 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:26:58,309 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:26:58,620 - process_manager - DEBUG - PM Process PID: 35700
+2025-01-10 14:26:58,620 - process_manager - DEBUG - PM Process PID: 5524
+2025-01-10 14:26:58,621 - window_handler - INFO - 640x360, (640, 720), window_id=7
+2025-01-10 14:26:58,621 - window_handler - INFO - 480x270, (0, 810), window_id=12
+2025-01-10 14:26:58,622 - process_manager - DEBUG - PM Process PID: 30292
+2025-01-10 14:26:58,623 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,623 - window_handler - INFO - 480x270, (1440, 540), window_id=11
+2025-01-10 14:26:58,623 - process_manager - DEBUG - PM Process PID: 37408
+2025-01-10 14:26:58,623 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,624 - window_handler - INFO - 640x360, (640, 360), window_id=4
+2025-01-10 14:26:58,625 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,625 - window_handler - INFO - 1920x1080, (0, 0), window_id=0
+0
+2025-01-10 14:26:58,626 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,628 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,628 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,630 - process_manager - DEBUG - PM Process PID: 28332
+2025-01-10 14:26:58,631 - window_handler - INFO - 1280x720, (0, 360), window_id=3
+2025-01-10 14:26:58,632 - process_manager - DEBUG - PM Process PID: 15188
+2025-01-10 14:26:58,632 - window_handler - INFO - selectViewer detect OPENGL
+id=13
+2025-01-10 14:26:58,632 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,639 - process_manager - DEBUG - PM Process PID: 20860
+2025-01-10 14:26:58,640 - window_handler - INFO - 640x360, (640, 0), window_id=1
+2025-01-10 14:26:58,640 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,654 - process_manager - DEBUG - PM Process PID: 15032
+2025-01-10 14:26:58,655 - window_handler - INFO - 640x360, (0, 720), window_id=6
+2025-01-10 14:26:58,655 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,665 - process_manager - DEBUG - PM Process PID: 30308
+2025-01-10 14:26:58,666 - window_handler - INFO - 640x360, (1280, 0), window_id=2
+2025-01-10 14:26:58,666 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,710 - process_manager - DEBUG - PM Process PID: 23772
+2025-01-10 14:26:58,710 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,716 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,735 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,736 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,736 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,742 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,744 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,745 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,753 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,757 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,757 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,759 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,762 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,771 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,771 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,772 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,772 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,776 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,786 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,791 - process_manager - DEBUG - PM Process PID: 31492
+2025-01-10 14:26:58,792 - window_handler - INFO - 480x270, (480, 540), window_id=9
+2025-01-10 14:26:58,791 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,792 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,793 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,833 - process_manager - DEBUG - PM Process PID: 11092
+2025-01-10 14:26:58,834 - window_handler - INFO - 480x270, (1440, 810), window_id=15
+2025-01-10 14:26:58,834 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,849 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,864 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,896 - process_manager - DEBUG - PM Process PID: 18572
+2025-01-10 14:26:58,897 - window_handler - INFO - 480x270, (960, 810), window_id=14
+2025-01-10 14:26:58,898 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:26:58,898 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,916 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:26:58,949 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:26:58,963 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:00,289 - opengl - INFO - Started capturing from rtsp://SS0601DG05/cd060122912.sdp at resolution 1920x1080
+2025-01-10 14:27:00,794 - window_handler - INFO - 640x360, (1280, 360), window_id=5
+2025-01-10 14:27:00,794 - window_handler - INFO - 640x360, (1280, 720), window_id=8
+2025-01-10 14:27:00,795 - window_handler - INFO - selectViewer detect BROWSERWINDOW
+2025-01-10 14:27:46,251 - opengl - ERROR - Signal received, cleaning up...
+ting down...
+2025-01-10 14:27:46,251 - __main__ - INFO - Cleaning up processes...
+2025-01-10 14:27:46,252 - __main__ - INFO - Terminating process PM_process with PID 10556
+2025-01-10 14:27:46,253 - manager - WARNING - Caught KeyboardInterrupt, terminating processes...
+2025-01-10 14:27:46,253 - manager - DEBUG - {}
+2025-01-10 14:27:46,254 - __mp_main__ - ERROR - 'NoneType' object has no attribute 'terminate'
+2025-01-10 14:27:46,262 - __main__ - INFO - Terminating process server_process with PID 27972
+2025-01-10 14:27:46,276 - __main__ - INFO - Terminating process manager_process with PID 38348
+2025-01-10 14:27:46,289 - opengl - INFO - Exiting capture loop
+2025-01-10 14:27:46,292 - opengl - INFO - Stopped capturing
+2025-01-10 14:27:46,292 - __main__ - INFO - Terminating process window_p_0 with PID 37408
+2025-01-10 14:27:46,339 - __main__ - INFO - Terminating process window_p_1 with PID 20860
+2025-01-10 14:27:46,372 - __main__ - INFO - Terminating process window_p_2 with PID 30308
+2025-01-10 14:27:46,403 - __main__ - INFO - Terminating process window_p_3 with PID 28332
+2025-01-10 14:27:46,437 - __main__ - INFO - Terminating process window_p_4 with PID 30292
+2025-01-10 14:27:46,448 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:27:46,449 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:27:46,450 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:27:46,450 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:27:46,451 - opengl - INFO - Window 11 closed
+cleaning up...
+2025-01-10 14:27:46,452 - opengl - INFO - Window 12 closed2025-01-10 14:27:46,452 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 14:27:46,453 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 14:27:46,453 - opengl - INFO - Window 10 closed
+cleaning up...
+2025-01-10 14:27:46,453 - opengl - ERROR - Signal received, cleaning up...
+sura della pipe
+2025-01-10 14:27:46,453 - opengl - INFO - Window 11 closed
+2025-01-10 14:27:46,453 - opengl - INFO - Window 6 closed
+2025-01-10 14:27:46,454 - opengl - ERROR - [WinError 232] È in corso la chiu2025-01-10 14:27:46,454 - opengl - INFO - Window 12 closed
+2025-01-10 14:27:46,455 - opengl - INFO - Window 15 closed
+2025-01-10 14:27:46,456 - opengl - INFO - Window 9 closed
+ in corso la chiusura della pipe
+2025-01-10 14:27:46,456 - opengl - INFO - Window 14 closed
+2025-01-10 14:27:46,456 - opengl - INFO - Window 10 closed
+2025-01-10 14:27:46,456 - opengl - INFO - Window 13 closed
+2025-01-10 14:27:46,458 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 14:27:46,458 - opengl - INFO - Window 10 closed
+2025-01-10 14:27:46,458 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 14:27:46,459 - opengl - INFO - Window 6 closed
+
+in corso la chiusura della pipe
+2025-01-10 14:27:46,460 - opengl - INFO - Window 13 closed
+2025-01-10 14:27:46,460 - opengl - INFO - Window 7 closed
+2025-01-10 14:27:46,460 - opengl - INFO - Window 14 closed
+2025-01-10 14:27:46,462 - opengl - INFO - Window 7 closed
+
+2025-01-10 14:27:46,479 - __main__ - INFO - Terminating process window_p_5 with PID 23772
+2025-01-10 14:27:46,536 - __main__ - INFO - Terminating process window_p_6 with PID 15032
+2025-01-10 14:27:46,554 - __main__ - INFO - Terminating process window_p_7 with PID 5524
+2025-01-10 14:27:46,571 - __main__ - INFO - Terminating process window_p_8 with PID 4296
+2025-01-10 14:27:46,625 - __main__ - INFO - Terminating process window_p_9 with PID 31492
+2025-01-10 14:27:46,627 - __main__ - INFO - Terminating process window_p_10 with PID 7680
+2025-01-10 14:27:46,636 - __main__ - INFO - Terminating process window_p_11 with PID 29876
+2025-01-10 14:27:46,636 - __main__ - INFO - Terminating process window_p_12 with PID 35700
+2025-01-10 14:27:46,637 - __main__ - INFO - Terminating process window_p_13 with PID 15188
+2025-01-10 14:27:46,638 - __main__ - INFO - Terminating process window_p_14 with PID 18572
+2025-01-10 14:27:46,638 - __main__ - INFO - Terminating process window_p_15 with PID 11092
+2025-01-10 14:27:48,830 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:48,831 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:48,832 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:48,832 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:49,147 - __main__ - DEBUG - Monitor current process PID is: 9624
+2025-01-10 14:27:49,735 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:49,736 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:49,736 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:49,737 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:50,086 - process_manager - DEBUG - PM Process PID: 37824
+2025-01-10 14:27:50,100 - __main__ - INFO - Application started
+2025-01-10 14:27:50,100 - __main__ - DEBUG - Parent Process PID: 9624
+2025-01-10 14:27:50,104 - __main__ - DEBUG - server process started
+2025-01-10 14:27:50,105 - __main__ - DEBUG - init: init_windows
+2025-01-10 14:27:50,108 - __main__ - DEBUG - Manager process started
+2025-01-10 14:27:50,302 - __main__ - INFO - Starting windows after reset
+2025-01-10 14:27:50,305 - __main__ - DEBUG - Finestre ready?: False
+2025-01-10 14:27:50,306 - __main__ - DEBUG - start_windows: dentro while
+2025-01-10 14:27:50,813 - __main__ - DEBUG - start_windows: dentro while
+2025-01-10 14:27:51,324 - __main__ - DEBUG - start_windows: dentro while
+2025-01-10 14:27:51,327 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:51,328 - anywall.settings - DEBUG - admin
+exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:51,357 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:51,358 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:51,358 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:51,842 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:51,896 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:52,101 - manager - DEBUG - cur_dir = os.path.dirname(__file__): C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:52,116 - process_manager - DEBUG - PM Process PID: 35408
+2025-01-10 14:27:52,166 - anywall_app.service - DEBUG - Window.objects.all(): 
+2025-01-10 14:27:52,168 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E8E7EB0>, 'window_id': 0, 'stream': 'rtsp://SS0601DG05/cd060122912.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 1920, 'height': 1080, 'coord_x': 0, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,194 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E8E7E50>, 'window_id': 1, 'stream': 'rtsp://SS0601DG05/cd060121311.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,194 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E8E7D90>, 'window_id': 2, 'stream': 'rtsp://SS0601DG05/cd06012263.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,195 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E8E7D60>, 'window_id': 3, 'stream': 'rtsp://SS0601DG03/ti060106720.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 1280, 'height': 720, 'coord_x': 0, 'coord_y': 360, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,196 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E8E7C10>, 'window_id': 4, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 360, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,197 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E8E7BB0>, 'window_id': 5, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 360, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'http://localhost:8000/clock-view', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,197 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E8E7B20>, 'window_id': 6, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 0, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,198 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E8E79A0>, 'window_id': 7, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,199 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E8E7A90>, 'window_id': 8, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 720, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'https://crismasecurity.it', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,199 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000187BED50670>, 'window_id': 9, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,200 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E9050A0>, 'window_id': 10, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,200 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E905130>, 'window_id': 11, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,201 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E9051C0>, 'window_id': 12, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 0, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,202 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E905250>, 'window_id': 13, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,205 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E9052E0>, 'window_id': 14, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,206 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E905370>, 'window_id': 15, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:27:52,208 - screen_helper - INFO - Screen_helper: Trovata display size: 1920x1200
+2025-01-10 14:27:52,209 - screen_helper - INFO - Screen_helper: Finestra 0: 1920x1080, (0, 0), True
+2025-01-10 14:27:52,211 - screen_helper - INFO - Screen_helper: Finestra 1: 640x360, (640, 0), False
+2025-01-10 14:27:52,212 - screen_helper - INFO - Screen_helper: Finestra 2: 640x360, (1280, 0), False
+2025-01-10 14:27:52,213 - screen_helper - INFO - Screen_helper: Finestra 3: 1280x720, (0, 360), False
+2025-01-10 14:27:52,214 - screen_helper - INFO - Screen_helper: Finestra 4: 640x360, (640, 360), False
+2025-01-10 14:27:52,214 - screen_helper - INFO - Screen_helper: Finestra 5: 640x360, (1280, 360), False
+2025-01-10 14:27:52,215 - screen_helper - INFO - Screen_helper: Finestra 6: 640x360, (0, 720), False
+2025-01-10 14:27:52,216 - screen_helper - INFO - Screen_helper: Finestra 7: 640x360, (640, 720), False
+2025-01-10 14:27:52,217 - screen_helper - INFO - Screen_helper: Finestra 8: 640x360, (1280, 720), False
+2025-01-10 14:27:52,218 - screen_helper - INFO - Screen_helper: Finestra 9: 480x270, (480, 540), False
+2025-01-10 14:27:52,219 - screen_helper - INFO - Screen_helper: Finestra 10: 480x270, (960, 540), False
+2025-01-10 14:27:52,224 - screen_helper - INFO - Screen_helper: Finestra 11: 480x270, (1440, 540), False
+2025-01-10 14:27:52,225 - screen_helper - INFO - Screen_helper: Finestra 12: 480x270, (0, 810), False
+2025-01-10 14:27:52,226 - screen_helper - INFO - Screen_helper: Finestra 13: 480x270, (480, 810), False
+2025-01-10 14:27:52,227 - screen_helper - INFO - Screen_helper: Finestra 14: 480x270, (960, 810), False
+2025-01-10 14:27:52,286 - screen_helper - INFO - Screen_helper: Finestra 15: 480x270, (1440, 810), False
+2025-01-10 14:27:52,484 - __main__ - DEBUG - processes: {'PM_process': <SpawnProcess name='SyncManager-1' pid=37824 parent=9624 started>, 'server_process': <Process name='Process-2' pid=23304 parent=9624 started>, 'manager_process': <Process name='Process-3' pid=35408 parent=9624 started>, 'window_p_0': <Process name='Process-4' pid=25904 parent=9624 started>, 'window_p_1': <Process name='Process-5' pid=6696 parent=9624 started>, 'window_p_2': <Process name='Process-6' pid=24864 parent=9624 started>, 'window_p_3': <Process name='Process-7' pid=27088 parent=9624 started>, 'window_p_4': <Process name='Process-8' pid=24268 parent=9624 started>, 'window_p_5': <Process name='Process-9' pid=14940 parent=9624 started>, 'window_p_6': <Process name='Process-10' pid=2292 parent=9624 started>, 'window_p_7': <Process name='Process-11' pid=35444 parent=9624 started>, 'window_p_8': <Process name='Process-12' pid=33672 parent=9624 started>, 'window_p_9': <Process name='Process-13' pid=15152 parent=9624 started>, 'window_p_10': <Process name='Process-14' pid=33668 parent=9624 started>, 'window_p_11': <Process name='Process-15' pid=16720 parent=9624 started>, 'window_p_12': <Process name='Process-16' pid=14608 parent=9624 started>, 'window_p_13': <Process name='Process-17' pid=23624 parent=9624 started>, 'window_p_14': <Process name='Process-18' pid=12700 parent=9624 started>, 'window_p_15': <Process name='Process-19' pid=36360 parent=9624 started>}
+2025-01-10 14:27:56,640 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,641 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,642 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,642 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,646 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,646 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,648 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,649 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,651 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,652 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,653 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,653 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,683 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,684 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,685 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,686 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,692 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,692 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,693 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,694 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,697 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,698 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,699 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,700 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,710 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,710 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,711 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,712 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,715 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,716 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,717 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,718 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,743 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,744 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,745 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,745 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,761 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,761 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,763 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,763 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,772 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,773 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,774 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,774 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,775 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+ttings.py
+2025-01-10 14:27:56,776 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,777 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,808 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,809 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,811 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,811 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,837 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,838 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,839 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,840 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,861 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,862 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,863 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,864 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:56,947 - anywall.settings - DEBUG - admin
+2025-01-10 14:27:56,948 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\git\AnywallPython\env\Scripts\python.exe
+2025-01-10 14:27:56,950 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\git\AnywallPython\django\anywall\anywall
+2025-01-10 14:27:56,951 - anywall.settings - DEBUG - Path(__file__): C:\Users\Administrator\git\AnywallPython\django\anywall\anywall\settings.py
+2025-01-10 14:27:58,468 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,470 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,498 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,499 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,526 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,527 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,542 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,542 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,558 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,559 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,562 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,562 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,640 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,642 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,647 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,648 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,714 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,716 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+ev/anywall
+2025-01-10 14:27:58,717 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,730 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,731 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,770 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,773 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,780 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,780 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,785 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,786 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,812 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,813 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,870 - manager - DEBUG - sys path: C:\Users\Administrator\git\AnywallPython\dev
+2025-01-10 14:27:58,871 - manager - DEBUG - python path: :C:/Users/Administrator/git/AnywallPython/dev/anywall
+2025-01-10 14:27:58,976 - process_manager - DEBUG - PM Process PID: 25904
+2025-01-10 14:27:58,978 - window_handler - INFO - 1920x1080, (0, 0), window_id=0
+2025-01-10 14:27:58,978 - process_manager - DEBUG - PM Process PID: 35444
+2025-01-10 14:27:58,979 - window_handler - INFO - selectViewer detect OPENGL
+id=7
+2025-01-10 14:27:58,981 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,016 - process_manager - DEBUG - PM Process PID: 15152
+2025-01-10 14:27:59,042 - window_handler - INFO - 480x270, (480, 540), window_id=9
+2025-01-10 14:27:59,042 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,044 - process_manager - DEBUG - PM Process PID: 14940
+2025-01-10 14:27:59,055 - process_manager - DEBUG - PM Process PID: 6696
+2025-01-10 14:27:59,056 - window_handler - INFO - 640x360, (640, 0), window_id=1
+2025-01-10 14:27:59,057 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,091 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,105 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,139 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,160 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,166 - process_manager - DEBUG - PM Process PID: 24864
+2025-01-10 14:27:59,167 - window_handler - INFO - 640x360, (1280, 0), window_id=2
+2025-01-10 14:27:59,168 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,169 - process_manager - DEBUG - PM Process PID: 2292
+2025-01-10 14:27:59,170 - window_handler - INFO - 640x360, (0, 720), window_id=6
+2025-01-10 14:27:59,170 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,221 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,229 - process_manager - DEBUG - PM Process PID: 12700
+2025-01-10 14:27:59,230 - window_handler - INFO - 480x270, (960, 810), window_id=14
+2025-01-10 14:27:59,230 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,234 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,235 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,246 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,259 - process_manager - DEBUG - PM Process PID: 33668
+2025-01-10 14:27:59,259 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,261 - window_handler - INFO - 480x270, (960, 540), window_id=10
+2025-01-10 14:27:59,261 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,268 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,281 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,297 - process_manager - DEBUG - PM Process PID: 23624
+2025-01-10 14:27:59,299 - window_handler - INFO - 480x270, (480, 810), window_id=13
+2025-01-10 14:27:59,301 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,309 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,310 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,321 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,365 - process_manager - DEBUG - PM Process PID: 16720
+2025-01-10 14:27:59,366 - window_handler - INFO - 480x270, (1440, 540), window_id=11
+2025-01-10 14:27:59,378 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,393 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,396 - process_manager - DEBUG - PM Process PID: 14608
+2025-01-10 14:27:59,397 - window_handler - INFO - 480x270, (0, 810), window_id=12
+2025-01-10 14:27:59,397 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,401 - process_manager - DEBUG - PM Process PID: 36360
+2025-01-10 14:27:59,402 - window_handler - INFO - 480x270, (1440, 810), window_id=15
+2025-01-10 14:27:59,402 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,407 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,435 - process_manager - DEBUG - PM Process PID: 24268
+2025-01-10 14:27:59,436 - window_handler - INFO - 640x360, (640, 360), window_id=4
+2025-01-10 14:27:59,437 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,440 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,460 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,478 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,480 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,497 - process_manager - DEBUG - PM Process PID: 33672
+2025-01-10 14:27:59,512 - process_manager - DEBUG - PM Process PID: 27088
+2025-01-10 14:27:59,513 - window_handler - INFO - 1280x720, (0, 360), window_id=3
+2025-01-10 14:27:59,513 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:27:59,522 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,537 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:27:59,560 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:27:59,572 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:28:00,364 - opengl - INFO - Started capturing from rtsp://SS0601DG05/cd060122912.sdp at resolution 1920x1080
+2025-01-10 14:28:00,452 - window_handler - INFO - 640x360, (1280, 360), window_id=5
+2025-01-10 14:28:00,453 - window_handler - INFO - selectViewer detect BROWSERWINDOW
+2025-01-10 14:28:00,678 - window_handler - INFO - 640x360, (1280, 720), window_id=8
+2025-01-10 14:28:00,678 - window_handler - INFO - selectViewer detect BROWSERWINDOW
+2025-01-10 14:30:08,162 - anywall_app.service - DEBUG - kwargs:
+2025-01-10 14:30:08,163 - anywall_app.service - DEBUG - removing _state and id
+2025-01-10 14:30:08,164 - anywall_app.service - DEBUG - cloned_fileds:
+2025-01-10 14:30:08,165 - anywall_app.service - DEBUG - {'created': datetime.datetime(2025, 1, 8, 15, 52, 28, 989997, tzinfo=datetime.timezone.utc), 'windows_number': 4, 'active_windows': 4, 'alarm_windows': 0, 'alarm_border_color': '#FF0000', 'alarm_border_thickness': 5, 'mode': 0, 'browserUrl': '', 'isActive': True}
+2025-01-10 14:30:08,240 - anywall_app.service - DEBUG - Window.objects.all(): 
+2025-01-10 14:30:08,241 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EFB20>, 'window_id': 0, 'stream': 'rtsp://SS0601DG05/cd060122912.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 1920, 'height': 1080, 'coord_x': 0, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,242 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EFA90>, 'window_id': 1, 'stream': 'rtsp://SS0601DG05/cd060121311.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,242 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EFAC0>, 'window_id': 2, 'stream': 'rtsp://SS0601DG05/cd06012263.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,243 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EFA60>, 'window_id': 3, 'stream': 'rtsp://SS0601DG03/ti060106720.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 1280, 'height': 720, 'coord_x': 0, 'coord_y': 360, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,245 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EFA00>, 'window_id': 4, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 360, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,246 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF9A0>, 'window_id': 5, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 360, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'http://localhost:8000/clock-view', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,247 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF940>, 'window_id': 6, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 0, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,248 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF8E0>, 'window_id': 7, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,248 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF880>, 'window_id': 8, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 720, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'https://crismasecurity.it', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,249 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF820>, 'window_id': 9, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,250 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF7C0>, 'window_id': 10, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,251 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF760>, 'window_id': 11, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,251 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF700>, 'window_id': 12, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 0, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,252 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF6A0>, 'window_id': 13, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,253 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF640>, 'window_id': 14, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,253 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EF5E0>, 'window_id': 15, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,254 - anywall_app.service - DEBUG - Service: win_number: 4
+2025-01-10 14:30:08,254 - anywall_app.service - DEBUG - window 0 in service createLayout:
+2025-01-10 14:30:08,255 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EFB20>, 'window_id': 0, 'stream': 'rtsp://SS0601DG05/cd060122912.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 0, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,255 - anywall_app.service - DEBUG - window 1 in service createLayout:
+2025-01-10 14:30:08,256 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EFA90>, 'window_id': 1, 'stream': 'rtsp://SS0601DG05/cd060121311.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 960, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,257 - anywall_app.service - DEBUG - window 2 in service createLayout:
+2025-01-10 14:30:08,257 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EFAC0>, 'window_id': 2, 'stream': 'rtsp://SS0601DG05/cd06012263.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 0, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,258 - anywall_app.service - DEBUG - window 3 in service createLayout:
+2025-01-10 14:30:08,258 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000012F6B0EFA60>, 'window_id': 3, 'stream': 'rtsp://SS0601DG03/ti060106720.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 960, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:08,552 - anywall_app.service - DEBUG - kwargs:
+2025-01-10 14:30:08,554 - anywall_app.service - DEBUG - removing _state and id
+2025-01-10 14:30:08,555 - anywall_app.service - DEBUG - cloned_fileds:
+2025-01-10 14:30:08,555 - anywall_app.service - DEBUG - {'created': None, 'call_id': UUID('fbf7ae77-c7c5-4607-a27b-a948f627b292'), 'window_id': -1, 'windows_column_name': '', 'readState': True}
+2025-01-10 14:30:09,768 - manager - DEBUG - Delta list splittata:
+2025-01-10 14:30:09,774 - manager - INFO - letta modalità TELECAMERE
+2025-01-10 14:30:09,774 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.774710+01:00
+2025-01-10 14:30:09,775 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,775 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E93F4F0>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 588981, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 0, 'windows_column_name': 'width', 'readState': False, 'id': 8927}
+2025-01-10 14:30:09,781 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.781715+01:00
+2025-01-10 14:30:09,782 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,782 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E93FF70>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 597494, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 0, 'windows_column_name': 'height', 'readState': False, 'id': 8928}
+2025-01-10 14:30:09,782 - manager - DEBUG - new_info:
+2025-01-10 14:30:09,783 - manager - DEBUG - {'width': 960, 'height': 540}
+2025-01-10 14:30:09,783 - manager - DEBUG - Finestra 0 - ricevute nuove informazioni:
+2025-01-10 14:30:09,783 - manager - DEBUG - width: 960
+2025-01-10 14:30:09,784 - manager - DEBUG - height: 540
+2025-01-10 14:30:09,784 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.784708+01:00
+2025-01-10 14:30:09,784 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,785 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E93FAF0>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 627466, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 1, 'windows_column_name': 'width', 'readState': False, 'id': 8929}
+2025-01-10 14:30:09,790 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.790023+01:00
+2025-01-10 14:30:09,791 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,791 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D130>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 635393, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 1, 'windows_column_name': 'height', 'readState': False, 'id': 8930}
+2025-01-10 14:30:09,791 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.791132+01:00
+2025-01-10 14:30:09,791 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,791 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D1F0>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 643663, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 1, 'windows_column_name': 'coord_x', 'readState': False, 'id': 8931}
+2025-01-10 14:30:09,792 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.792103+01:00
+2025-01-10 14:30:09,792 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,792 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D2B0>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 652777, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 1, 'windows_column_name': 'isActive', 'readState': False, 'id': 8932}
+2025-01-10 14:30:09,793 - manager - DEBUG - Win 1: rilevato isActive
+2025-01-10 14:30:09,793 - manager - DEBUG - new_info:
+2025-01-10 14:30:09,794 - manager - DEBUG - {'width': 960, 'height': 540, 'coord_x': 960, 'isActive': True}
+2025-01-10 14:30:09,794 - manager - DEBUG - Finestra 1 - ricevute nuove informazioni:
+2025-01-10 14:30:09,794 - manager - DEBUG - width: 960
+2025-01-10 14:30:09,794 - manager - DEBUG - height: 540
+2025-01-10 14:30:09,795 - manager - DEBUG - coord_x: 960
+2025-01-10 14:30:09,795 - manager - DEBUG - isActive: True
+2025-01-10 14:30:09,795 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.795033+01:00
+2025-01-10 14:30:09,795 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,795 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D370>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 677829, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 2, 'windows_column_name': 'width', 'readState': False, 'id': 8933}
+2025-01-10 14:30:09,801 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.801708+01:00
+2025-01-10 14:30:09,801 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,801 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D430>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 684830, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 2, 'windows_column_name': 'height', 'readState': False, 'id': 8934}
+2025-01-10 14:30:09,803 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.803217+01:00
+2025-01-10 14:30:09,803 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,803 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D4F0>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 699346, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 2, 'windows_column_name': 'coord_x', 'readState': False, 'id': 8935}
+2025-01-10 14:30:09,804 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.804231+01:00
+2025-01-10 14:30:09,804 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,805 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D5B0>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 711487, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 2, 'windows_column_name': 'coord_y', 'readState': False, 'id': 8936}
+2025-01-10 14:30:09,805 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.805227+01:00
+2025-01-10 14:30:09,805 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,806 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D670>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 719506, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 2, 'windows_column_name': 'isActive', 'readState': False, 'id': 8937}
+2025-01-10 14:30:09,806 - manager - DEBUG - Win 2: rilevato isActive
+2025-01-10 14:30:09,807 - manager - DEBUG - new_info:
+2025-01-10 14:30:09,807 - manager - DEBUG - {'width': 960, 'height': 540, 'coord_x': 0, 'coord_y': 540, 'isActive': True}
+2025-01-10 14:30:09,807 - manager - DEBUG - Finestra 2 - ricevute nuove informazioni:
+2025-01-10 14:30:09,808 - manager - DEBUG - width: 960
+2025-01-10 14:30:09,808 - manager - DEBUG - height: 540
+2025-01-10 14:30:09,808 - manager - DEBUG - coord_x: 0
+2025-01-10 14:30:09,808 - manager - DEBUG - coord_y: 540
+2025-01-10 14:30:09,808 - manager - DEBUG - isActive: True
+2025-01-10 14:30:09,809 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.809231+01:00
+2025-01-10 14:30:09,809 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,809 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D730>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 742565, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 3, 'windows_column_name': 'width', 'readState': False, 'id': 8938}
+2025-01-10 14:30:09,816 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.816232+01:00
+2025-01-10 14:30:09,817 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,817 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D7F0>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 751567, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 3, 'windows_column_name': 'height', 'readState': False, 'id': 8939}
+2025-01-10 14:30:09,817 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.817237+01:00
+2025-01-10 14:30:09,818 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,818 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D8B0>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 760081, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 3, 'windows_column_name': 'coord_x', 'readState': False, 'id': 8940}
+2025-01-10 14:30:09,818 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.818255+01:00
+2025-01-10 14:30:09,819 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,819 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95D970>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 768150, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 3, 'windows_column_name': 'coord_y', 'readState': False, 'id': 8941}
+2025-01-10 14:30:09,819 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.819232+01:00
+2025-01-10 14:30:09,819 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,820 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95DA30>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 775161, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': 3, 'windows_column_name': 'isActive', 'readState': False, 'id': 8942}
+2025-01-10 14:30:09,820 - manager - DEBUG - Win 3: rilevato isActive
+2025-01-10 14:30:09,821 - manager - DEBUG - new_info:
+2025-01-10 14:30:09,821 - manager - DEBUG - {'width': 960, 'height': 540, 'coord_x': 960, 'coord_y': 540, 'isActive': True}
+2025-01-10 14:30:09,822 - manager - DEBUG - Finestra 3 - ricevute nuove informazioni:
+2025-01-10 14:30:09,822 - manager - DEBUG - width: 960
+2025-01-10 14:30:09,822 - manager - DEBUG - height: 540
+2025-01-10 14:30:09,822 - manager - DEBUG - coord_x: 960
+2025-01-10 14:30:09,822 - manager - DEBUG - coord_y: 540
+2025-01-10 14:30:09,823 - manager - DEBUG - isActive: True
+2025-01-10 14:30:09,823 - manager - DEBUG - chiamato a 2025-01-10 14:30:09.823360+01:00
+2025-01-10 14:30:09,823 - manager - DEBUG - elemento:
+2025-01-10 14:30:09,824 - manager - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E93F430>, 'created': datetime.datetime(2025, 1, 10, 13, 30, 8, 563827, tzinfo=datetime.timezone.utc), 'call_id': 'fbf7ae77-c7c5-4607-a27b-a948f627b292', 'window_id': -1, 'windows_column_name': '', 'readState': True, 'id': 8926}
+2025-01-10 14:30:09,829 - anywall_app.service - DEBUG - Window.objects.all(): 
+2025-01-10 14:30:09,830 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95DFA0>, 'window_id': 0, 'stream': 'rtsp://SS0601DG05/cd060122912.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 0, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,830 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95DCA0>, 'window_id': 1, 'stream': 'rtsp://SS0601DG05/cd060121311.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 960, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,830 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E95DFD0>, 'window_id': 2, 'stream': 'rtsp://SS0601DG05/cd06012263.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 0, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,831 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E93F310>, 'window_id': 3, 'stream': 'rtsp://SS0601DG03/ti060106720.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 960, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,831 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E93FB20>, 'window_id': 4, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 360, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,831 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E93FCD0>, 'window_id': 5, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 360, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'http://localhost:8000/clock-view', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,832 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E93F730>, 'window_id': 6, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 0, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,832 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E9683A0>, 'window_id': 7, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,832 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E9688B0>, 'window_id': 8, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 720, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'https://crismasecurity.it', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,833 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E968850>, 'window_id': 9, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,833 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E968790>, 'window_id': 10, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,833 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E968760>, 'window_id': 11, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,833 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E9685B0>, 'window_id': 12, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 0, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,833 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E9684C0>, 'window_id': 13, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,833 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E9683D0>, 'window_id': 14, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,835 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001879E968070>, 'window_id': 15, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:30:09,959 - opengl - INFO - new_window_data for window 1: {'width': 960, 'height': 540, 'coord_x': 960, 'isActive': True}
+2025-01-10 14:30:09,971 - opengl - INFO - Started capturing from rtsp://SS0601DG05/cd060121311.sdp at resolution 960x540
+2025-01-10 14:30:10,013 - manager - DEBUG - last_api_call_dt_creation: 2025-01-10 14:30:08.889633+01:00
+2025-01-10 14:30:10,346 - opengl - INFO - new_window_data for window 2: {'width': 960, 'height': 540, 'coord_x': 0, 'coord_y': 540, 'isActive': True}
+2025-01-10 14:30:10,355 - opengl - INFO - Started capturing from rtsp://SS0601DG05/cd06012263.sdp at resolution 960x540
+2025-01-10 14:30:10,371 - opengl - INFO - new_window_data for window 0: {'width': 960, 'height': 540}
+2025-01-10 14:30:10,625 - opengl - INFO - new_window_data for window 3: {'width': 960, 'height': 540, 'coord_x': 960, 'coord_y': 540, 'isActive': True}
+2025-01-10 14:30:10,639 - opengl - INFO - Started capturing from rtsp://SS0601DG03/ti060106720.sdp at resolution 960x540
+2025-01-10 14:31:09,328 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:31:09,329 - manager - WARNING - Caught KeyboardInterrupt, terminating processes...
+2025-01-10 14:31:09,335 - manager - DEBUG - {}
+oardInterrupt received. Shutting down...
+2025-01-10 14:31:09,333 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:31:09,341 - __main__ - INFO - Cleaning up processes...
+2025-01-10 14:31:09,349 - opengl - INFO - Exiting capture loop
+ning up...
+2025-01-10 14:31:09,355 - opengl - ERROR - Signal received, cleaning up...
+ribute 'terminate'
+2025-01-10 14:31:09,354 - opengl - ERROR - Signal received, cleaning up...
+ith PID 37824
+2025-01-10 14:31:09,391 - opengl - INFO - Stopped capturing
+2025-01-10 14:31:09,404 - opengl - INFO - Exiting capture loop
+2025-01-10 14:31:09,409 - opengl - INFO - Window 7 closed
+oop
+2025-01-10 14:31:09,411 - opengl - INFO - Stopped capturing
+p
+2025-01-10 14:31:09,411 - opengl - INFO - Window 0 closed
+2025-01-10 14:31:09,416 - opengl - INFO - Stopped capturing
+2025-01-10 14:31:09,417 - opengl - INFO - Stopped capturing
+2025-01-10 14:31:09,417 - opengl - INFO - Stopped capturing
+2025-01-10 14:31:09,420 - opengl - INFO - Window 2 closed
+2025-01-10 14:31:09,421 - opengl - INFO - Stopped capturing
+2025-01-10 14:31:09,424 - opengl - INFO - Window 2 closed
+2025-01-10 14:31:09,425 - opengl - INFO - Window 1 closed
+2025-01-10 14:31:09,444 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:31:09,457 - opengl - INFO - Window 10 closed
+2025-01-10 14:31:09,457 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:31:09,491 - opengl - INFO - Window 14 closed
+2025-01-10 14:31:09,514 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:31:09,519 - opengl - INFO - Window 11 closed
+2025-01-10 14:31:09,530 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:31:09,535 - opengl - INFO - Window 13 closed
+2025-01-10 14:31:09,536 - opengl - ERROR - 
+2025-01-10 14:31:09,536 - opengl - ERROR - 
+2025-01-10 14:31:09,537 - opengl - INFO - Window 10 closed
+2025-01-10 14:31:09,537 - opengl - ERROR - 
+2025-01-10 14:31:09,537 - opengl - INFO - Window 13 closed
+2025-01-10 14:31:09,537 - opengl - INFO - Window 6 closed
+2025-01-10 14:31:09,539 - opengl - INFO - Window 14 closed
+2025-01-10 14:31:09,539 - opengl - INFO - Window 11 closed
+2025-01-10 14:31:09,539 - opengl - INFO - Window 9 closed
+2025-01-10 14:31:09,540 - opengl - INFO - Window 13 closed
+2025-01-10 14:31:09,540 - opengl - INFO - Window 10 closed
+2025-01-10 14:31:09,542 - opengl - INFO - Window 11 closed
+2025-01-10 14:31:09,543 - opengl - INFO - Window 9 closed
+2025-01-10 14:31:09,567 - opengl - INFO - Stopped capturing
+2025-01-10 14:31:09,579 - opengl - INFO - Window 3 closed
+2025-01-10 14:31:09,611 - __main__ - INFO - Terminating process server_process with PID 23304
+2025-01-10 14:31:09,652 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:31:09,656 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:31:09,660 - opengl - INFO - Window 12 closed
+2025-01-10 14:31:09,662 - opengl - INFO - Window 15 closed
+in corso la chiusura della pipe
+2025-01-10 14:31:09,663 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 14:31:09,667 - opengl - INFO - Window 15 closed
+2025-01-10 14:31:09,670 - opengl - INFO - Window 12 closed
+2025-01-10 14:31:09,671 - opengl - INFO - Window 15 closed
+2025-01-10 14:31:09,683 - opengl - ERROR - Signal received, cleaning up...
+2025-01-10 14:31:09,684 - __main__ - INFO - Terminating process manager_process with PID 35408
+2025-01-10 14:31:09,689 - opengl - INFO - Window 4 closed
+2025-01-10 14:31:09,690 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 14:31:09,692 - opengl - INFO - Window 4 closed
+2025-01-10 14:31:09,693 - opengl - INFO - Window 4 closed
+2025-01-10 14:31:09,722 - __main__ - INFO - Terminating process window_p_0 with PID 25904
+2025-01-10 14:31:09,872 - __main__ - INFO - Terminating process window_p_1 with PID 6696
+2025-01-10 14:31:09,901 - __main__ - INFO - Terminating process window_p_2 with PID 24864
+2025-01-10 14:31:09,908 - __main__ - INFO - Terminating process window_p_3 with PID 27088
+2025-01-10 14:31:09,910 - __main__ - INFO - Terminating process window_p_4 with PID 24268
+2025-01-10 14:31:09,927 - __main__ - INFO - Terminating process window_p_5 with PID 14940
+2025-01-10 14:31:10,025 - __main__ - INFO - Terminating process window_p_6 with PID 2292
+2025-01-10 14:31:10,026 - __main__ - INFO - Terminating process window_p_7 with PID 35444
+2025-01-10 14:31:10,026 - __main__ - INFO - Terminating process window_p_8 with PID 33672
+2025-01-10 14:31:10,158 - __main__ - INFO - Terminating process window_p_9 with PID 15152
+2025-01-10 14:31:10,160 - __main__ - INFO - Terminating process window_p_10 with PID 33668
+2025-01-10 14:31:10,160 - __main__ - INFO - Terminating process window_p_11 with PID 16720
+2025-01-10 14:31:10,161 - __main__ - INFO - Terminating process window_p_12 with PID 14608
+2025-01-10 14:31:10,162 - __main__ - INFO - Terminating process window_p_13 with PID 23624
+2025-01-10 14:31:10,163 - __main__ - INFO - Terminating process window_p_14 with PID 12700
+2025-01-10 14:31:10,164 - __main__ - INFO - Terminating process window_p_15 with PID 36360
+2025-01-10 14:31:34,844 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:34,845 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:34,845 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:34,845 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:35,419 - __main__ - DEBUG - Monitor current process PID is: 30312
+2025-01-10 14:31:36,249 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:36,249 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:36,250 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:36,250 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:36,435 - process_manager - DEBUG - PM Process PID: 24708
+2025-01-10 14:31:36,435 - __main__ - INFO - Application started
+2025-01-10 14:31:36,435 - __main__ - DEBUG - Parent Process PID: 30312
+2025-01-10 14:31:36,440 - __main__ - DEBUG - server process started
+2025-01-10 14:31:36,440 - __main__ - DEBUG - init: init_windows
+2025-01-10 14:31:36,445 - __main__ - DEBUG - Manager process started
+2025-01-10 14:31:36,681 - __main__ - INFO - Starting windows after reset
+2025-01-10 14:31:36,684 - __main__ - DEBUG - Finestre ready?: False
+2025-01-10 14:31:36,684 - __main__ - DEBUG - start_windows: dentro while
+2025-01-10 14:31:37,196 - __main__ - DEBUG - start_windows: dentro while
+2025-01-10 14:31:37,490 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:37,490 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:37,491 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:37,491 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:37,494 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:37,494 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:37,495 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:37,495 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:37,704 - __main__ - DEBUG - start_windows: dentro while
+2025-01-10 14:31:37,900 - manager - DEBUG - cur_dir = os.path.dirname(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442
+2025-01-10 14:31:37,900 - process_manager - DEBUG - PM Process PID: 32504
+2025-01-10 14:31:37,925 - anywall_app.service - DEBUG - Window.objects.all(): 
+2025-01-10 14:31:37,925 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001585673BF10>, 'window_id': 0, 'stream': 'rtsp://SS0601DG05/cd060122912.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 0, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,926 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001585673BE20>, 'window_id': 1, 'stream': 'rtsp://SS0601DG05/cd060121311.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 960, 'coord_y': 0, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,926 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001585673BDF0>, 'window_id': 2, 'stream': 'rtsp://SS0601DG05/cd06012263.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 0, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,926 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001585673BCD0>, 'window_id': 3, 'stream': 'rtsp://SS0601DG03/ti060106720.sdp', 'labelText': 'PROVA', 'zoom': 1, 'isZoom': False, 'width': 960, 'height': 540, 'coord_x': 960, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': True, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,926 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001585673BC70>, 'window_id': 4, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 360, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,926 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001585673BBE0>, 'window_id': 5, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 360, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'http://localhost:8000/clock-view', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,926 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001585673BB50>, 'window_id': 6, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 0, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,927 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x000001585673BA90>, 'window_id': 7, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 640, 'coord_y': 720, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,927 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000015856707280>, 'window_id': 8, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 640, 'height': 360, 'coord_x': 1280, 'coord_y': 720, 'shifted_index': None, 'isBrowser': True, 'urlBrowser': 'https://crismasecurity.it', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 1, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,927 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000015856757100>, 'window_id': 9, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,927 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000015856757190>, 'window_id': 10, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,927 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000015856757220>, 'window_id': 11, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 540, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,927 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000158567572B0>, 'window_id': 12, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 0, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,927 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000015856757340>, 'window_id': 13, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 480, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,927 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x00000158567573D0>, 'window_id': 14, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 960, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,927 - anywall_app.service - DEBUG - {'_state': <django.db.models.base.ModelState object at 0x0000015856757460>, 'window_id': 15, 'stream': '', 'labelText': '', 'zoom': 1, 'isZoom': False, 'width': 480, 'height': 270, 'coord_x': 1440, 'coord_y': 810, 'shifted_index': None, 'isBrowser': False, 'urlBrowser': '', 'isActive': False, 'isAlarm': False, 'isRolling': False, 'timerRolling': 5, 'timeout': None, 'visualizzazione': 0, 'enableLogo': False, 'enableAlarmIcon': False, 'enableWatermark': False, 'logoPath': '', 'alarmIconPath': ''}
+2025-01-10 14:31:37,929 - screen_helper - INFO - Screen_helper: Trovata display size: 1920x1200
+2025-01-10 14:31:37,929 - screen_helper - INFO - Screen_helper: Finestra 0: 960x540, (0, 0), True
+2025-01-10 14:31:37,931 - screen_helper - INFO - Screen_helper: Finestra 1: 960x540, (960, 0), True
+2025-01-10 14:31:37,932 - screen_helper - INFO - Screen_helper: Finestra 2: 960x540, (0, 540), True
+2025-01-10 14:31:37,933 - screen_helper - INFO - Screen_helper: Finestra 3: 960x540, (960, 540), True
+2025-01-10 14:31:37,933 - screen_helper - INFO - Screen_helper: Finestra 4: 640x360, (640, 360), False
+2025-01-10 14:31:37,935 - screen_helper - INFO - Screen_helper: Finestra 5: 640x360, (1280, 360), False
+2025-01-10 14:31:37,935 - screen_helper - INFO - Screen_helper: Finestra 6: 640x360, (0, 720), False
+2025-01-10 14:31:37,936 - screen_helper - INFO - Screen_helper: Finestra 7: 640x360, (640, 720), False
+2025-01-10 14:31:37,937 - screen_helper - INFO - Screen_helper: Finestra 8: 640x360, (1280, 720), False
+2025-01-10 14:31:37,937 - screen_helper - INFO - Screen_helper: Finestra 9: 480x270, (480, 540), False
+2025-01-10 14:31:37,938 - screen_helper - INFO - Screen_helper: Finestra 10: 480x270, (960, 540), False
+2025-01-10 14:31:37,938 - screen_helper - INFO - Screen_helper: Finestra 11: 480x270, (1440, 540), False
+2025-01-10 14:31:37,939 - screen_helper - INFO - Screen_helper: Finestra 12: 480x270, (0, 810), False
+2025-01-10 14:31:37,939 - screen_helper - INFO - Screen_helper: Finestra 13: 480x270, (480, 810), False
+2025-01-10 14:31:37,940 - screen_helper - INFO - Screen_helper: Finestra 14: 480x270, (960, 810), False
+2025-01-10 14:31:37,940 - screen_helper - INFO - Screen_helper: Finestra 15: 480x270, (1440, 810), False
+2025-01-10 14:31:38,328 - __main__ - DEBUG - processes: {'PM_process': <SpawnProcess name='SyncManager-1' pid=24708 parent=30312 started>, 'server_process': <Process name='Process-2' pid=13716 parent=30312 started>, 'manager_process': <Process name='Process-3' pid=32504 parent=30312 started>, 'window_p_0': <Process name='Process-4' pid=28260 parent=30312 started>, 'window_p_1': <Process name='Process-5' pid=33448 parent=30312 started>, 'window_p_2': <Process name='Process-6' pid=31968 parent=30312 started>, 'window_p_3': <Process name='Process-7' pid=38348 parent=30312 started>, 'window_p_4': <Process name='Process-8' pid=37616 parent=30312 started>, 'window_p_5': <Process name='Process-9' pid=32796 parent=30312 started>, 'window_p_6': <Process name='Process-10' pid=11112 parent=30312 started>, 'window_p_7': <Process name='Process-11' pid=17316 parent=30312 started>, 'window_p_8': <Process name='Process-12' pid=34448 parent=30312 started>, 'window_p_9': <Process name='Process-13' pid=6696 parent=30312 started>, 'window_p_10': <Process name='Process-14' pid=35444 parent=30312 started>, 'window_p_11': <Process name='Process-15' pid=16720 parent=30312 started>, 'window_p_12': <Process name='Process-16' pid=12700 parent=30312 started>, 'window_p_13': <Process name='Process-17' pid=35420 parent=30312 started>, 'window_p_14': <Process name='Process-18' pid=22252 parent=30312 started>, 'window_p_15': <Process name='Process-19' pid=2124 parent=30312 started>}
+2025-01-10 14:31:44,010 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,011 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,012 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,013 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,029 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,029 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,030 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,031 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,046 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,047 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,050 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,051 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,069 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,070 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,073 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,073 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,134 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,136 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,138 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,139 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,160 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,161 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,163 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,165 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,212 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,212 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,214 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,214 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,227 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,227 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,230 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,231 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,607 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,608 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,609 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,611 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,708 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,708 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,708 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,709 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,710 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,710 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,711 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,712 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:44,776 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:44,777 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:44,779 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:44,780 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:45,044 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:45,044 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:45,046 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:45,047 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:45,077 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:45,077 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:45,080 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:45,081 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:45,081 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:45,081 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:45,082 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:45,083 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:45,397 - anywall.settings - DEBUG - admin
+2025-01-10 14:31:45,397 - anywall.settings - DEBUG - python_exe_path: C:\Users\Administrator\Desktop\Anywall-test\new\Anywall.exe
+2025-01-10 14:31:45,401 - anywall.settings - DEBUG - settings BASE_DIR + 1: C:\Users\Administrator\AppData\Local\Temp\_MEI387442\anywall
+2025-01-10 14:31:45,402 - anywall.settings - DEBUG - Path(__file__): C:\Users\ADMINI~1\AppData\Local\Temp\_MEI387442\anywall\settings.pyc
+2025-01-10 14:31:47,934 - process_manager - DEBUG - PM Process PID: 16720
+2025-01-10 14:31:47,939 - process_manager - DEBUG - PM Process PID: 34448
+2025-01-10 14:31:47,939 - process_manager - DEBUG - PM Process PID: 28260
+2025-01-10 14:31:47,941 - window_handler - INFO - 960x540, (0, 0), window_id=0
+2025-01-10 14:31:47,942 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:47,939 - window_handler - INFO - 480x270, (1440, 540), window_id=11
+2025-01-10 14:31:47,944 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:47,967 - process_manager - DEBUG - PM Process PID: 33448
+2025-01-10 14:31:47,969 - window_handler - INFO - 960x540, (960, 0), window_id=1
+2025-01-10 14:31:47,969 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:47,979 - process_manager - DEBUG - PM Process PID: 35444
+2025-01-10 14:31:47,980 - window_handler - INFO - 480x270, (960, 540), window_id=10
+2025-01-10 14:31:47,992 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:48,018 - process_manager - DEBUG - PM Process PID: 37616
+2025-01-10 14:31:48,019 - window_handler - INFO - 640x360, (640, 360), window_id=4
+2025-01-10 14:31:48,019 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:48,037 - process_manager - DEBUG - PM Process PID: 6696
+2025-01-10 14:31:48,039 - window_handler - INFO - 480x270, (480, 540), window_id=9
+2025-01-10 14:31:48,039 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:48,072 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,091 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,191 - process_manager - DEBUG - PM Process PID: 31968
+2025-01-10 14:31:48,218 - window_handler - INFO - 960x540, (0, 540), window_id=2
+2025-01-10 14:31:48,218 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:48,228 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,232 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,257 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,281 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,284 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,283 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,332 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,332 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,356 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,416 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,435 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,468 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,495 - process_manager - DEBUG - PM Process PID: 22252
+2025-01-10 14:31:48,496 - window_handler - INFO - 480x270, (960, 810), window_id=14
+2025-01-10 14:31:48,496 - process_manager - DEBUG - PM Process PID: 17316
+2025-01-10 14:31:48,496 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:48,496 - window_handler - INFO - 640x360, (640, 720), window_id=7
+2025-01-10 14:31:48,500 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:48,593 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,623 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,626 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,648 - process_manager - DEBUG - PM Process PID: 35420
+2025-01-10 14:31:48,650 - window_handler - INFO - 480x270, (480, 810), window_id=13
+2025-01-10 14:31:48,650 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:48,655 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,731 - process_manager - DEBUG - PM Process PID: 38348
+2025-01-10 14:31:48,731 - window_handler - INFO - 960x540, (960, 540), window_id=3
+2025-01-10 14:31:48,732 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:48,771 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,794 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,854 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:48,881 - opengl - INFO - Started capturing from rtsp://SS0601DG05/cd060122912.sdp at resolution 960x540
+2025-01-10 14:31:48,903 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:48,934 - opengl - INFO - Started capturing from rtsp://SS0601DG05/cd060121311.sdp at resolution 960x540
+2025-01-10 14:31:49,009 - process_manager - DEBUG - PM Process PID: 11112
+2025-01-10 14:31:49,011 - window_handler - INFO - 640x360, (0, 720), window_id=6
+2025-01-10 14:31:49,012 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:49,094 - opengl - INFO - Started capturing from rtsp://SS0601DG05/cd06012263.sdp at resolution 960x540
+2025-01-10 14:31:49,118 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:49,138 - process_manager - DEBUG - PM Process PID: 12700
+2025-01-10 14:31:49,139 - window_handler - INFO - 480x270, (0, 810), window_id=12
+2025-01-10 14:31:49,140 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:49,143 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:49,252 - process_manager - DEBUG - PM Process PID: 32796
+2025-01-10 14:31:49,255 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:49,296 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:49,410 - opengl - INFO - Started capturing from rtsp://SS0601DG03/ti060106720.sdp at resolution 960x540
+2025-01-10 14:31:49,532 - process_manager - DEBUG - PM Process PID: 2124
+2025-01-10 14:31:49,533 - window_handler - INFO - 480x270, (1440, 810), window_id=15
+2025-01-10 14:31:49,533 - window_handler - INFO - selectViewer detect OPENGL
+2025-01-10 14:31:49,583 - opengl - WARNING - No selected image found for scope 4
+2025-01-10 14:31:49,597 - opengl - WARNING - No selected image found for scope 1
+2025-01-10 14:31:49,794 - window_handler - INFO - 640x360, (1280, 720), window_id=8
+2025-01-10 14:31:49,796 - window_handler - INFO - selectViewer detect BROWSERWINDOW
+2025-01-10 14:31:49,956 - window_handler - INFO - 640x360, (1280, 360), window_id=5
+2025-01-10 14:31:49,957 - window_handler - INFO - selectViewer detect BROWSERWINDOW
+2025-01-10 15:03:32,302 - opengl - ERROR - 
+2025-01-10 15:03:32,305 - opengl - INFO - Window 4 closed
+2025-01-10 15:03:32,306 - opengl - INFO - Window 4 closed
+2025-01-10 15:03:32,319 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 15:03:32,378 - opengl - INFO - Exiting capture loop
+2025-01-10 15:03:32,379 - opengl - INFO - Stopped capturing
+2025-01-10 15:03:32,382 - opengl - INFO - Window 3 closed
+2025-01-10 15:03:32,384 - opengl - INFO - Stopped capturing
+2025-01-10 15:03:32,385 - opengl - INFO - Window 3 closed
+2025-01-10 15:03:32,525 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 15:03:32,528 - opengl - INFO - Window 7 closed
+2025-01-10 15:03:32,529 - opengl - INFO - Window 7 closed
+2025-01-10 15:03:32,541 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 15:03:32,545 - opengl - INFO - Window 14 closed
+2025-01-10 15:03:32,546 - opengl - INFO - Window 14 closed
+2025-01-10 15:03:33,008 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 15:03:33,008 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 15:03:33,011 - opengl - INFO - Window 13 closed
+2025-01-10 15:03:33,012 - opengl - INFO - Window 12 closed
+2025-01-10 15:03:33,012 - opengl - INFO - Window 13 closed
+2025-01-10 15:03:33,012 - opengl - INFO - Window 12 closed
+2025-01-10 15:03:33,024 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 15:03:33,024 - opengl - ERROR - [WinError 232] È in corso la chiusura della pipe
+2025-01-10 15:03:33,027 - opengl - INFO - Window 15 closed
+2025-01-10 15:03:33,027 - opengl - INFO - Window 11 closed
+2025-01-10 15:03:33,028 - opengl - INFO - Window 15 closed
+2025-01-10 15:03:33,029 - opengl - INFO - Window 11 closed
