@@ -1,3 +1,27 @@
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_http_methods
+import os
+import signal
+import psutil
+
+@csrf_protect
+@require_http_methods(["POST"])
+def restart_application(request):
+    try:
+        # Get the monitor.py process
+        current_process = psutil.Process(os.getpid())
+        parent = current_process.parent()
+        
+        # Send SIGTERM to parent process (monitor.py)
+        if parent:
+            parent.terminate()
+            
+        return JsonResponse({'status': 'success', 'message': 'Restart initiated'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+
 from rest_framework import generics
 from rest_framework.response import Response
 

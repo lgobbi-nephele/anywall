@@ -206,6 +206,12 @@
             background: #444;
             color: #f0f0f0;
         }
+        .dangerous-button {
+            background-color: #FF5733; /* A dangerous red color */
+        }
+        .dangerous-button:hover {
+            background-color: #CC4422; /* Darker red on hover */
+        }
         /*
         Schermo 0] rtsp://SS0601DG04/cd06011003.sdp
         Schermo 1] rtsp://SS0601DG05/cd060121311.sdp
@@ -448,6 +454,15 @@
                     </div>
                 </div>
             </div>
+            <div class="form-box">
+                <h2>System Control</h2>
+                <button id="resetButton" class="button dangerous-button">
+                    <i class="fas fa-power-off"></i> Reset Application
+                </button>
+                <button id="restartButton" class="button dangerous-button" style="margin-top: 10px;">
+                    <i class="fas fa-sync"></i> Restart Application
+                </button>
+            </div>
         </div>
     </div>
     </form>
@@ -687,7 +702,7 @@
             });
 
         // Reset API call
-        document.getElementById('clockViewForm').addEventListener('submit', function() {
+        document.getElementById('clockViewForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const windowId = document.getElementById('clockWindowId').value;
             const csrfToken = getCSRFToken();
@@ -717,7 +732,7 @@
             });
         });
 
-        document.getElementById('screenShareForm').addEventListener('submit', function() {
+        document.getElementById('screenShareForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const windowId = document.getElementById('screenShareWindowId').value;
             const csrfToken = getCSRFToken();
@@ -747,12 +762,39 @@
             });
         });
 
+        document.getElementById('restartButton').addEventListener('click', function() {
+            const csrfToken = getCSRFToken();
+            openOverlay('<p>Restarting application...</p>');
+            fetch('/api/restart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (response.status === 403) {
+                    window.location.href = '/login';
+                } else if (response.ok) {
+                    openOverlay('<p>Restart successful!</p>');
+                    // Optionally, you might want to reload the page after a successful restart.
+                    // setTimeout(() => window.location.reload(), 3000); // Reload after 3 seconds
+                } else {
+                    throw new Error('Failed to restart.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
+
         $(document).ready(function() {
             $('#image_scope').on('change', function() {
                 var selectedScope = $(this).val();
                 $.ajax({
                     url: '{% url "get_images_by_scope" %}',
-                    method: 'GET',
+                                        method: 'GET',
                     data: { scope: selectedScope },
                     success: function(data) {
                         var imagesSelect = $('#images');

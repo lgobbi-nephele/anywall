@@ -17,9 +17,18 @@ schema_view = get_schema_view(
     permission_classes=(AllowAny,),  # Use AllowAny directly
 )
 
+# Placeholder for the actual restart view function.  This needs a proper implementation.
+def restart_application(request):
+    # Add your application restart logic here. This is a placeholder.
+    return HttpResponse("Restarting...")
+
+
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', include('anywall_app.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('api/restart/', restart_application, name='restart_application'),
 ]
+
+from django.http import HttpResponse
