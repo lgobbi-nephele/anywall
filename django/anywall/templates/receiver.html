@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Receive Screen Share</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Background color while loading */
+            overflow: hidden; /* Prevent scrolling */
+        }
+
+        video {
+            position: absolute; /* Fill the entire viewport */
+            top: 5;
+            left: 5;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover; /* Maintain aspect ratio and cover the entire area */
+            background-color: black; /* Black background to notice loading delays */
+        }
+    </style>
+</head>
+<body>
+    <input type="hidden" id="window_id" value="">
+    <video id="remoteVideo" autoplay muted></video>
+    <script>
+        let peerConnection;
+        let window_id = null;
+        const config = {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' }
+            ]
+        };
+
+        async function waitForWindowId() {
+            while (window_id === null || window_id === '') {
+                window_id = document.getElementById('window_id').value;
+                console.log('window_id: ' + window_id);
+                await new Promise(r => setTimeout(r, 1000));
+            }
+        }
+
+        waitForWindowId().then(() => {
+            const roomName = 'room_window_' + window_id;  // Use the same unique room name as the sender
+            const signalingSocket = new WebSocket(`wss://172.20.112.13/ws/signaling/${roomName}/`);
+            // const signalingSocket = new WebSocket(`ws://192.168.1.13:8000/ws/signaling/${roomName}/`);
+            // const signalingSocket = new WebSocket(`wss://192.168.1.13:8000/ws/signaling/${roomName}/`);
+            let iceCandidatesQueue = [];
+
+            signalingSocket.onmessage = async (event) => {
+                const message = JSON.parse(event.data);
+                console.log(message);
+                if (message.type === 'offer') {
+                    await peerConnection.setRemoteDescription(new RTCSessionDescription(message.offer));
+                    const answer = await peerConnection.createAnswer();
+                    await peerConnection.setLocalDescription(answer);
+                    signalingSocket.send(JSON.stringify({
+                        type: 'answer',
+                        answer: peerConnection.localDescription
+                    }));
+
+                    // Add queued ICE candidates
+                    iceCandidatesQueue.forEach(candidate => {
+                        peerConnection.addIceCandidate(new RTCIceCandidate(candidate));
+                    });
+                    iceCandidatesQueue = [];
+                } else if (message.type === 'candidate') {
+                    if (peerConnection.remoteDescription) {
+                        await peerConnection.addIceCandidate(new RTCIceCandidate(message.candidate));
+                    } else {
+                        iceCandidatesQueue.push(message.candidate);
+                    }
+                }
+            };
+
+            signalingSocket.onclose = () => {
+                console.log("WebSocket connection closed, reloading page");
+                location.reload();
+            };
+
+            async function startReceiving() {
+                console.log('startReceiving');
+                peerConnection = new RTCPeerConnection(config);
+
+                peerConnection.onicecandidate = event => {
+                    if (event.candidate) {
+                        signalingSocket.send(JSON.stringify({
+                            type: 'candidate',
+                            candidate: event.candidate
+                        }));
+                    }
+                };
+
+                peerConnection.ontrack = event => {
+                    console.log("Received remote track");
+                    const remoteVideo = document.getElementById('remoteVideo');
+                    remoteVideo.srcObject = event.streams[0];
+
+                    // Monitor the video stream to detect interruptions
+                    remoteVideo.onended = () => {
+                        console.log("Video stream ended, reloading page");
+                        location.reload();
+                    };
+                };
+
+                // Handle ICE connection state changes
+                peerConnection.oniceconnectionstatechange = () => {
+                    console.log(`ICE connection state changed to ${peerConnection.iceConnectionState}`);
+                    if (peerConnection.iceConnectionState === 'disconnected' ||
+                        peerConnection.iceConnectionState === 'failed' ||
+                        peerConnection.iceConnectionState === 'closed') {
+                        console.log("ICE connection state is disconnected, failed, or closed. Reloading page.");
+                        location.reload();
+                    }
+                };
+
+                // Aggiungi un evento loadedmetadata per assicurarti che il video sia pronto per essere riprodotto
+                const remoteVideo = document.getElementById('remoteVideo');
+                remoteVideo.addEventListener('loadedmetadata', () => {
+                    console.log("Video metadata loaded");
+                    remoteVideo.play().catch(error => {
+                        console.log("Autoplay prevented, video is muted");
+                    });
+                });
+            }
+
+            startReceiving();
+
+            window.addEventListener('beforeunload', () => {
+                if (peerConnection) {
+                    peerConnection.close();
+                }
+                if (signalingSocket) {
+                    signalingSocket.close();
+                }
+            });
+
+            window.addEventListener('unload', () => {
+                if (peerConnection) {
+                    peerConnection.close();
+                }
+                if (signalingSocket) {
+                    signalingSocket.close();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anywall Settings</title>
+    <link rel="icon" src="{% static 'anywall_app/cropped-favicon-192x192.png' %}" sizes="192x192">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0d0d0d, #3e3e3e);
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            height: 100vh;
+        }
+        header {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            color: #ADD8E6;
+            text-transform: uppercase;
+            flex: 0 0 auto;
+        }
+        .container {
+            flex: 1 1 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .form-container {
+            width: 100%;
+            max-width: 1500px;
+            height: 85%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            overflow-y: hidden;
+        }
+        .form-box {
+            background: #2d2d2d;
+            padding: 20px;
+            /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);*/
+            text-align: center;
+            /*border-radius: 3%;*/
+            height: 100%;
+            /*border: 2px solid #1f1f1f;*/
+        }
+        /* Alarm Settings spans 2 columns */
+        .form-box#alarmFormBox {
+            grid-column: span 2;
+        }
+
+        #alarmDiv {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Two columns for content */
+            gap: 20px; /* Spacing between grid items */
+            align-items: center;
+            justify-items: stretch;
+            padding: 10px;
+        }
+
+
+        h2 {
+            color: #ADD8E6;
+            margin-bottom: 20px;
+        }
+        button, input[type="submit"] {
+            width: 80%;
+            background-color: #ADD8E6;
+            color: #1f1f1f;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        button:hover, input[type="submit"]:hover {
+            background-color: #668893;
+            transform: scale(1.05);
+        }
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #444;
+            width: calc(80% - 22px);
+            background: #444;
+            color: #f0f0f0;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        #screenShareDiv {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            text-align: left;
+            width: 80%;
+        }
+        .button-group {
+            margin-top: 40px;
+            width: 80%;
+            display: flex;
+            justify-content: center;
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .overlay-content {
+            background: #2d2d2d;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
+            color: #f0f0f0;
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+        }
+        .close-overlay {
+            background-color: #ADD8E6;
+            color: #1f1f1f;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .close-overlay:hover {
+            background-color: #668893;
+        }
+        .bottom-right-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 150px; /* Adjust the size as needed */
+            height: auto;
+            opacity: 0.8; /* Slight transparency */
+            transition: opacity 0.3s;
+        }
+        .bottom-right-logo:hover {
+            opacity: 1; /* Full opacity on hover */
+        }
+        .center-logo {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px; /* Adjust the size as needed */
+            height: auto;
+            opacity: 0.8; /* Slight transparency */
+            transition: opacity 0.3s;
+        }
+        .center-logo:hover {
+            opacity: 1; /* Full opacity on hover */
+        }
+        .button {
+            width: 80%;
+            padding: 10px 20px;
+            background-color: #ADD8E6; /* Bootstrap primary color */
+            color: #1f1f1f;
+            text-decoration: none;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .button i {
+            margin-right: 5px; /* Space between icon and text */
+        }
+
+        .button:hover {
+            background-color: #668893;
+            transform: scale(1.05); /* Darken on hover */
+        }
+        select {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #444;
+            width: calc(80% - 22px);
+            background: #444;
+            color: #f0f0f0;
+        }
+        /*
+        Schermo 0] rtsp://SS0601DG04/cd06011003.sdp
+        Schermo 1] rtsp://SS0601DG05/cd060121311.sdp
+        Schermo 2] rtsp://SS0601DG05/cd06012263.sdp
+        Schermo 3] rtsp://SS0601DG03/ti060106720.sdp
+        */
+    </style>
+</head>
+<body>
+    <header><img src="{% static 'anywall_app/logo-anywall.png' %}" alt="Logo" class="center-logo"></header>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-box">
+                <h2>Reset Monitor</h2>
+                <button id="resetButton"><i class="fas fa-sync-alt"></i> Reset Monitor</button>
+                <h2>Clock View</h2>
+                <form id="clockViewForm">
+                    <label for="clockWindowId">Window ID:</label>
+                    <select id="clockWindowId" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-clock"></i> Open Clock View</button>
+                </form>
+            </div>
+
+            <div class="form-box">
+                <h2>Screen Share View</h2>
+                <form id="screenShareForm">
+                    <label for="screenShareWindowId">Window ID:</label>
+                    <select id="screenShareWindowId" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-share-square"></i> Open Screen Share View</button>
+                </form>
+                <div id="screenShareDiv">
+                    <label for="screenShareWindowIdOpen">Window ID:</label>
+                    <select id="screenShareWindowIdOpen" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <button id="startScreenShare"> <i class="fas fa-play"></i> Start Screen Share</button>
+                    <script src="{% static 'anywall_app/start_screen_share.js' %}"></script>
+                </div>
+            </div>
+
+            <div class="form-box">
+                <h2>Zoom Window</h2>
+                <form id="zoomForm">
+                    <label for="windowId">Window ID:</label>
+                    <select id="windowId" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <label for="zoomLevel">Zoom Level:</label>
+                    <select id="zoomLevel" name="zoom" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-search-plus"></i> Zoom</button>
+                </form>
+            </div>
+
+            <div class="form-box">
+                <h2>Open Browser Window</h2>
+                <form id="browserWindowForm">
+                    <label for="browserWindowId">Window ID:</label>
+                    <select id="browserWindowId" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <label for="urlBrowser">URL:</label>
+                    <input type="text" id="urlBrowser" name="urlBrowser" placeholder="Enter URL" required>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-external-link-alt"></i> Open Browser</button>
+                </form>
+            </div>
+
+            <div class="form-box">
+                <h2>Change Stream</h2>
+                <form id="changeStreamForm">
+                    <label for="streamWindowId">Window ID:</label>
+                    <select id="streamWindowId" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <label for="stream">Stream URL:</label>
+                    <input type="text" id="stream" name="stream" placeholder="Enter Stream URL" required>
+                    <label for="labelText">Label Text:</label>
+                    <input type="text" id="labelText" name="labelText" placeholder="Enter Label Text">
+                    <label for="enableLogo">Enable Logo:</label>
+                    <input type="checkbox" id="enableLogo" name="enableLogo">
+                    <label for="enableWatermark">Enable Watermark:</label>
+                    <input type="checkbox" id="enableWatermark" name="enableWatermark">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-video"></i> Change Stream</button>
+                </form>
+            </div>
+            <div class="form-box">
+                <h2>Change Layout</h2>
+                <form id="changeLayoutForm">
+                    <label for="windowsNumber">Number of Windows:</label>
+                    <select id="windowsNumber" name="windows_number" required>
+                        <option value="1">1</option>
+                        <option value="4">4</option>
+                        <option value="9">9</option>
+                        <option value="16">16</option>
+                    </select>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-th-large"></i> Change Layout</button>
+                    <label for="windowsNumber">Select Image:</label>
+                    <a href="{% url 'select-image' %}" class="button">
+                        <i class="fas fa-image"></i> Select Image
+                    </a>
+                    <label for="windowsNumber">Upload Image:</label>
+                    <a href="{% url 'upload' %}" class="button">
+                        <i class="fas fa-upload"></i> Upload Image
+                    </a>
+                </form>
+            </div>
+            <div class="form-box" id="alarmFormBox">
+                <h2>Alarm Settings</h2>
+                <div id="alarmDiv">
+                    <div>
+                        <form id="alarmFormSx">
+                            <label for="stream-alarm">Stream URL:</label>
+                            <input type="text" id="stream-alarm" name="stream-alarm" placeholder="Enter Stream URL" required>
+
+                            <label for="labelText-alarm">Label Text:</label>
+                            <input type="text" id="labelText-alarm" name="labelText-alarm" placeholder="Enter Label Text">
+
+                            <label for="timer">Timer (seconds):</label>
+                            <input type="number" id="timer" name="timer" value="30" required>
+                        </form>
+                    </div>
+                    <div>
+                        <form id="alarmFormDx">
+                            <label for="enableAlarmIcon">Enable Alarm Icon:</label>
+                            <input type="checkbox" id="enableAlarmIcon" name="enableAlarmIcon">
+
+                            <label for="alarmBorderColor">Alarm Border Color:</label>
+                            <input type="text" id="alarmBorderColor" name="alarm_border_color" value="#FF0000" required>
+
+                            <label for="alarmBorderThickness">Alarm Border Thickness:</label>
+                            <input type="number" id="alarmBorderThickness" name="alarm_border_thickness" value="5" required>
+
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            <button type="submit"><i class="fas fa-bell"></i> Set Alarm</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+    <img src="{% static 'anywall_app/Risorsa-8@4x.png' %}" alt="Logo" class="bottom-right-logo">
+
+    <div class="overlay" id="overlay">
+        <div class="overlay-content" id="overlayContent">
+            <p>Loading...</p>
+            <button class="close-overlay" id="closeOverlay">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // CSRF token setup for AJAX
+        function getCSRFToken() {
+            return document.querySelector('[name=csrfmiddlewaretoken]').value;
+        }
+
+        // Function to open overlay window
+        function openOverlay(content) {
+            document.getElementById('overlayContent').innerHTML = content + '<button class="close-overlay" id="closeOverlay">Close</button>';
+            document.getElementById('overlay').style.display = 'flex';
+            document.getElementById('closeOverlay').addEventListener('click', closeOverlay);
+        }
+
+        // Function to close overlay window
+        function closeOverlay() {
+            document.getElementById('overlay').style.display = 'none';
+        }
+
+        // Reset API call
+        document.getElementById('resetButton').addEventListener('click', function() {
+            const csrfToken = getCSRFToken();
+
+            openOverlay('<p>Resetting monitor...</p>');
+
+            fetch('/api/reset/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ isReset: true })
+            })
+            .then(response => {
+                if(response.status == 403) {
+                    window.location.href = '/login'
+                } else if (response.ok) {
+                    openOverlay('<p>Reset successful!</p>');
+                } else {
+                    throw new Error('Failed to reset.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
+
+        // Zoom API call
+        document.getElementById('zoomForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const windowId = document.getElementById('windowId').value;
+            const zoomLevel = document.getElementById('zoomLevel').value;
+            const csrfToken = getCSRFToken();
+
+            openOverlay('<p>Zooming window...</p>');
+
+            fetch('/api/zoom/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ window_id: parseInt(windowId), zoom: parseInt(zoomLevel) })
+            })
+            .then(response => {
+                if(response.status == 403) {
+                    window.location.href = '/login'
+                } else if (response.ok) {
+                    openOverlay('<p>Zoom successful!</p>');
+                } else {
+                    throw new Error('Failed to zoom.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
+
+        // Browser Window API call
+        document.getElementById('browserWindowForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const windowId = document.getElementById('browserWindowId').value;
+            const urlBrowser = document.getElementById('urlBrowser').value;
+            const csrfToken = getCSRFToken();
+
+            openOverlay('<p>Opening browser window...</p>');
+
+            fetch('/api/browser-window/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: urlBrowser })
+            })
+            .then(response => {
+                if(response.status == 403) {
+                    window.location.href = '/login'
+                } else if (response.ok) {
+                    openOverlay('<p>Browser window opened successfully!</p>');
+                } else {
+                    throw new Error('Failed to open browser window.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
+
+        // Change Stream API call
+        document.getElementById('changeStreamForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const windowId = document.getElementById('streamWindowId').value;
+            const stream = document.getElementById('stream').value;
+            const labelText = document.getElementById('labelText').value;
+            const enableLogo = document.getElementById('enableLogo').checked;
+            const enableWatermark = document.getElementById('enableWatermark').checked;
+            const csrfToken = getCSRFToken();
+
+            openOverlay('<p>Changing stream...</p>');
+
+            fetch('/api/change-stream/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    window_id: parseInt(windowId),
+                    stream: stream,
+                    labelText: labelText,
+                    enableLogo: enableLogo,
+                    enableWatermark: enableWatermark
+                })
+            })
+            .then(response => {
+                if(response.status == 403) {
+                    window.location.href = '/login'
+                } else if (response.ok) {
+                    openOverlay('<p>Stream changed successfully!</p>');
+                } else {
+                    throw new Error('Failed to change stream.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
+
+        // Alarm API call
+        document.getElementById('alarmFormDx').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const stream = document.getElementById('stream-alarm').value;
+            const labelText = document.getElementById('labelText-alarm').value;
+            const timer = document.getElementById('timer').value;
+            const enableAlarmIcon = document.getElementById('enableAlarmIcon').checked;
+            const alarmBorderColor = document.getElementById('alarmBorderColor').value;
+            const alarmBorderThickness = document.getElementById('alarmBorderThickness').value;
+            const csrfToken = getCSRFToken();
+
+            openOverlay('<p>Setting alarm...</p>');
+
+            fetch('/api/alarm/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({
+                    alarm_window: {
+                        stream: stream,
+                        labelText: labelText,
+                        timer: parseInt(timer),
+                        enableAlarmIcon: enableAlarmIcon
+                    },
+                    alarm_state: {
+                        alarm_border_color: alarmBorderColor,
+                        alarm_border_thickness: parseInt(alarmBorderThickness)
+                    }
+                })
+            })
+            .then(response => {
+                if(response.status == 403) {
+                    window.location.href = '/login'
+                } else if (response.ok) {
+                    openOverlay('<p>Alarm set successfully!</p>');
+                } else {
+                    throw new Error('Failed to set alarm.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
+
+        // Change Layout API call
+        document.getElementById('changeLayoutForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                const windowsNumber = document.getElementById('windowsNumber').value;
+                const csrfToken = getCSRFToken();
+
+                openOverlay('<p>Changing layout...</p>');
+
+                fetch('/api/change-layout/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({
+                        windows_number: parseInt(windowsNumber)
+                    })
+                })
+                .then(response => {
+                    if(response.status == 403) {
+                        window.location.href = '/login'
+                    } else if (response.ok) {
+                        openOverlay('<p>Layout changed successfully!</p>');
+                    } else {
+                        throw new Error('Failed to change layout.');
+                    }
+                })
+                .catch(error => {
+                    openOverlay('<p>Error: ' + error.message + '</p>');
+                });
+            });
+
+        // Reset API call
+        document.getElementById('clockViewForm').addEventListener('submit', function() {
+            event.preventDefault();
+            const windowId = document.getElementById('clockWindowId').value;
+            const csrfToken = getCSRFToken();
+
+            openOverlay('<p>Opening clock view...</p>');
+
+            fetch('/api/browser-window/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'http://100.43.37.109:8000/clock-view' })
+                // body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'https://192.168.1.13:8000/clock-view' })
+            })
+            .then(response => {
+                if(response.status == 403) {
+                    window.location.href = '/login'
+                } else if (response.ok) {
+                    openOverlay('<p>Clock view opened successfully!</p>');
+                } else {
+                    throw new Error('Failed to open clock view.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
+
+        document.getElementById('screenShareForm').addEventListener('submit', function() {
+            event.preventDefault();
+            const windowId = document.getElementById('screenShareWindowId').value;
+            const csrfToken = getCSRFToken();
+
+            openOverlay('<p>Opening screen share view...</p>');
+
+            fetch('/api/screen-share-window/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ window_id: parseInt(windowId) })
+                // body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'https://192.168.1.13:8000/receiver' })
+            })
+            .then(response => {
+                if(response.status == 403) {
+                    window.location.href = '/login'
+                } else if (response.ok) {
+                    openOverlay('<p>Screen share view opened successfully!</p>');
+                } else {
+                    throw new Error('Failed to open Screen share view.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
+
+        $(document).ready(function() {
+            $('#image_scope').on('change', function() {
+                var selectedScope = $(this).val();
+                $.ajax({
+                    url: '{% url "get_images_by_scope" %}',
+                    method: 'GET',
+                    data: { scope: selectedScope },
+                    success: function(data) {
+                        var imagesSelect = $('#images');
+                        imagesSelect.empty();
+                        imagesSelect.append('<option value="">Select Image</option>');
+                        $.each(data, function(index, image) {
+                            imagesSelect.append($('<option>', {
+                                value: `${image.id},${image.image}`,
+                                text: image.image
+                            }));
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error fetching images:", error);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

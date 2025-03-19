@@ -1,0 +1,17 @@
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Upload</button>
+</form>
+
+<script>
+    document.querySelector('input[type="file"]').addEventListener('change', function() {
+        var filePath = this.value;
+        var allowedExtensions = /(\.png)$/i;
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Please upload only PNG files.');
+            this.value = '';
+            return false;
+        }
+    });
+</script>

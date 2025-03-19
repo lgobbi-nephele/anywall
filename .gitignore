@@ -1,0 +1,11 @@
+__pycache__/
+env
+logs
+conf
+build
+dist
+migrations
+tutorial
+.vscode
+django/anywall/staticfiles/
+django/anywall/static/
