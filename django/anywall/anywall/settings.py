@@ -167,17 +167,14 @@ WSGI_APPLICATION = 'anywall.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'mysql.connector.django',
-        'OPTIONS': {
-            'read_default_file': os.path.join(BASE_DIR, 'my.cnf'),
-        },
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'myDatabase',  # Name of your MySQL database
+        'USER': 'root',  # Your MySQL username
+        'HOST': 'localhost',  # Hostname where your MySQL server is located
         'PORT': '3306',  # Default port for MySQL
-        'OPTIONS': {
-            'unix_socket': os.getenv('MYSQL_UNIX_PORT', '/home/runner/workspace/mysql_data/mysql.sock'),
-        }
     }
 }
-DATABASES['default']['PASSWORD'] = os.getenv('DB_PASSWORD', '')
+DATABASES['default']['PASSWORD'] = os.getenv('DB_PASSWORD')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
