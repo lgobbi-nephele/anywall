@@ -16,7 +16,7 @@ localPort = 33060
 externalPort = 80
 
 [workflows]
-runButton = "Run App"
+runButton = "Run Project"
 
 [[workflows.workflow]]
 name = "Start MySQL"
@@ -126,4 +126,13 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "bash -c \"cd /home/runner/workspace && $(which mysql) --socket=/home/runner/workspace/mysql_data/mysql.sock -u root -e 'CREATE DATABASE IF NOT EXISTS myDatabase;' || true && cd dev && python3 monitor.py\""
+args = "bash -c \"cd /home/runner/workspace/dev && python3 monitor.py\""
+
+[[workflows.workflow]]
+name = "Run Project"
+author = 40465866
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = 'bash -c "cd /home/runner/workspace && bash -c \"/home/runner/workspace/dev && python3 monitor.py\""'
