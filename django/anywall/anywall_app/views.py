@@ -14,11 +14,12 @@ def restart_application(request):
         current_process = psutil.Process(os.getpid())
         parent = current_process.parent()
         
-        # Send SIGTERM to parent process (monitor.py)
+        # Tell monitor.py to restart windows only
         if parent:
-            parent.terminate()
+            import signal
+            os.kill(parent.pid, signal.SIGUSR1)
             
-        return JsonResponse({'status': 'success', 'message': 'Restart initiated'})
+        return JsonResponse({'status': 'success', 'message': 'Windows restart initiated'})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
 

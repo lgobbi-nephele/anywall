@@ -401,8 +401,17 @@ def create_window(shared_dict, **kwargs):
 
     logger.debug("window created")
 
+def handle_sigusr1(signum, frame):
+    global reset_windows
+    logger.info("Received SIGUSR1, restarting windows...")
+    restartWindows(force_restart=True)
+
 def execute():
     logger.info("Application started")
+    
+    # Set up signal handler
+    import signal
+    signal.signal(signal.SIGUSR1, handle_sigusr1)
 
     global reset_windows
     reset_windows = True
