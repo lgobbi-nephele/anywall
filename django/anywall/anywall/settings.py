@@ -167,7 +167,7 @@ WSGI_APPLICATION = 'anywall.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'mysql.connector.django',
         'NAME': 'myDatabase',  # Name of your MySQL database
         'USER': 'root',  # Your MySQL username
         'HOST': 'localhost',  # Hostname where your MySQL server is located
