@@ -527,6 +527,12 @@ class OpenGLHandler:
             self.current_texture_width = None
             self.current_texture_height = None
 
+            # Restart stream with new dimensions
+            if isinstance(self.cap, RTSPStreamCapture):
+                self.cap.stop()
+                self.cap = None
+                self.updateCap = True
+
             if self.width < self.glutWidth:
                 self.custom_resize(new_window_data['width'], new_window_data['height'])
 
