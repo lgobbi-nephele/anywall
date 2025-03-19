@@ -135,4 +135,4 @@ mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = 'bash -c "cd /home/runner/workspace && bash -c \"/home/runner/workspace/dev && python3 monitor.py\""'
+args = "bash -c \"cd /home/runner/workspace/dev && python3 monitor.py\""
