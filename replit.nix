@@ -1,5 +1,22 @@
-{pkgs}: {
+{ pkgs }: {
   deps = [
+    pkgs.zlib
+    pkgs.libjpeg
+    pkgs.libtiff
+    pkgs.freetype
+    pkgs.lcms2
+    pkgs.libwebp
+    pkgs.tcl
+    pkgs.tk
+    pkgs.libopenjpeg
+    pkgs.harfbuzz
+    pkgs.fribidi
+    pkgs.xorg.libX11
+    pkgs.xorg.libXext
+    pkgs.xorg.libXrender
+    pkgs.libxcb
+    pkgs.xorg.libXft
+    pkgs.qt5.qtbase
     pkgs.python39Full
     pkgs.libmysqlclient
     pkgs.python311Packages.mysql-connector
