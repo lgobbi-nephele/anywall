@@ -580,5 +580,13 @@ app = Flask(__name__)
 def restart_windows_endpoint():
     return restart_windows_api()
 
+@app.route('/api/force-restart-windows', methods=['POST'])
+def force_restart_windows():
+    try:
+        restartWindows(force_restart=True)
+        return jsonify({"status": "success", "message": "All window processes restarted"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
