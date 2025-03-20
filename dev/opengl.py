@@ -111,7 +111,7 @@ class RTSPStreamCapture:
                 timestamp = datetime.now()
                 self.frame_queue.append((frame, timestamp))
                 while len(self.frame_queue) > self.config.max_buffer_size:
-                    self.logger.info("Buffer exceeded max size, popping first frame.")
+                    #self.logger.info("Buffer exceeded max size, popping first frame.")
                     self.frame_queue.pop(0)
 
                 self.ready = True

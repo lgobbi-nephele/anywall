@@ -81,7 +81,7 @@ class BrowserHandler(QMainWindow):
     def inject_login_script(self):
         login_script = """
         document.getElementById('username').value = 'admin';
-        document.getElementById('password').value = 'admin';
+        document.getElementById('password').value = 'ViabilitaAnywall2';
         document.querySelector('form').submit();
         """
         self.browser.page().runJavaScript(login_script)

@@ -23,7 +23,7 @@ texture_id = None
 
 def load_texture():
     global texture_id
-    frame = cv2.imread("C:\\Users\\Utente\\Desktop\\git\\Anywall2Windows\\conf\\placeholder.png", cv2.IMREAD_COLOR)
+    frame = cv2.imread("C:\\Anywall\\resources\\placeholder.png", cv2.IMREAD_COLOR)
     if frame is None:
         print("Failed to load image.")
         sys.exit(1)
