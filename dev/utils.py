@@ -50,3 +50,13 @@ def gotResetApiCall(api_call):
         return True
     else:
         return False
+def callRestartWindows():
+    response = requests.post('http://daattnnn:8000/api/restart-windows/', 
+                           headers={'Content-Type': 'application/json'},
+                           verify=False)
+    if response.status_code == 200:
+        logger.debug("Windows restart command sent successfully")
+        return response.json()
+    else:
+        logger.warning(f"Failed to send restart windows command. Status code: {response.status_code}")
+        return None

@@ -59,7 +59,7 @@ def start_server():
     try:
         # execute_from_command_line(["manage.py", "makemigrations", "anywall_app"])
         # execute_from_command_line(["manage.py", "runserver", "0.0.0.0:8000", "--noreload"])
-        
+
         from daphne.server import Server
         from daphne.endpoints import build_endpoint_description_strings
         from anywall.asgi import application
@@ -74,7 +74,7 @@ def start_server():
             # Running as a script
             daphne = 'daphne'
             asgi_dir = os.path.join(BASE_DIR, 'django', 'anywall')
-        
+
         sys.path.append(asgi_dir)
         os.chdir(asgi_dir)
 
@@ -201,13 +201,13 @@ def check_pid_running_linux(p):
 
 #     if not check_pid_running(pid):
 #         return False
-    
+
 #     try:
 #         if isinstance(p, int):
 #             pid = p
 #             # Get process info
 #             p = psutil.Process(pid)
-        
+
 #         # Check if the process executable path contains "python"
 #         exe_name = p.exe().lower()
 #         if "python" in exe_name or "anywall" in exe_name:
@@ -241,7 +241,7 @@ def restartPM(pm, force_restart=False):
             processes['PM_process'] = pm.p
             return True
 
-        
+
 
 def restartServer():
     if (processes['server_process'] is None
@@ -287,10 +287,10 @@ def restartWindows(force_restart=False):
             p.join()
 
         pm.shared_dict.clear()
-        
+
         for i in range(16):
             processes[f"window_p_{i}"] = None
-        
+
         reset_windows = True
         # starto manager con init finestre e starto finestre
         if processes['manager_process'] is not None:
@@ -304,7 +304,7 @@ def kill_manager_and_windows():
         processes['manager_process'].terminate()
         processes['manager_process'].join()
         processes['manager_process'] = None
-    
+
 def total_restart(pm):
     restartPM(pm=pm, force_restart=True)
     kill_manager_and_windows()
@@ -313,26 +313,26 @@ def total_restart(pm):
     restartManager()
 
 def restart_processes():
-    
+
     logger.debug("in restart processes")
-    
+
     if restartPM(pm):
         kill_manager_and_windows()
         restartWindows(force_restart=True)
         restartServer()
         return
-    
+
     restartServer()
-            
+
     if restartWindows():
         return
 
     restartManager()
 
-    
 
-    
-    
+
+
+
     pm.shared_dict.clear()
 
 def add_single_window(pm, el, data):
@@ -340,18 +340,18 @@ def add_single_window(pm, el, data):
     p = Process(target=create_window, args=(pm.shared_dict, ), kwargs=data)
     p.start()
     processes[el] = p
-    
+
 
 def start_windows():
     global processes
     global reset_windows
-    
+
     try:
         # while not ready:
         #   PM e manager down?
         #       restart
         #   
-        
+
         if check_pid_running(processes['PM_process'], pm):
             logger.debug(f"Finestre ready?: {'ready' in pm.shared_dict}")
             while "ready" not in pm.shared_dict:
@@ -362,7 +362,7 @@ def start_windows():
                     reset_windows = False
                     return
                 time.sleep(0.5)
-            
+
             pm.shared_dict.pop("ready")
 
             for el in pm.shared_dict.keys():
@@ -418,7 +418,7 @@ def execute():
     start_time = time.time()
 
     try:
-        
+
         while True:
             gotReset = False
 
@@ -429,7 +429,7 @@ def execute():
             count_read_api = 0
 
             while count_read_api < 5:
-                
+
                 api_calls = []
                 try:
                     api_calls = getReceivedApiCalls(last_api_call_dt_creation)
@@ -442,33 +442,35 @@ def execute():
                 # except Exception as e:
                 #     # riavvio server
                 #     restart_processes()
-                    
-                    
+
+
                 while api_calls:
                     current_api_call = api_calls.pop(0)
-                    if gotResetApiCall(current_api_call):
+                    result = gotResetApiCall(current_api_call)
+                    if result == 'restart_windows':
+                        logger.info("Restarting windows only...")
+                        restartWindows(force_restart=True)
+                        last_api_call_dt_creation = timezone.localtime(current_api_call.created)
+                        gotReset = True
+                        break
+                    elif result == 'reset':
                         logger.info("ricevuta chiamata reset")
-                        
                         total_restart(pm)
-
                         reset_windows = True
                         last_api_call_dt_creation = timezone.localtime(current_api_call.created)
                         gotReset = True
-                        logger.debug("got reset True, breaking 1...")
                         break
                     last_api_call_dt_creation = timezone.localtime(current_api_call.created)
                 if gotReset:
-                    logger.debug("got reset, breaking 2...")
                     break
-                
+
                 count_read_api += 1
                 time.sleep(1)
             if gotReset:
-                logger.debug("got reset, continuing...")
                 continue
-            
+
             toRestart = False
-            
+
             # in caso di reset, updatare qui last_api_call_dt_creation
 
             # caso 1: PM o main caduti
@@ -487,7 +489,7 @@ def execute():
             except RuntimeError as e:
                 logger.error(e)
                 continue
-            
+
             if toRestart:
                 restart_processes()
                 continue
@@ -499,8 +501,8 @@ def execute():
             # if 'reset' in PM.shared_dict and PM.shared_dict['reset'] == True:
             #     restart_processes()
 
-            
-            
+
+
             # elapsed_time = time.time() - start_time
             # print(elapsed_time)
             # if elapsed_time >= 15:
@@ -564,3 +566,9 @@ if __name__ == '__main__':
 # ricevuta chiamata safetyconf da utente:
     # riavvio tutto meno che server django
     # faccio clear di PM.shared_dict
+
+def gotResetApiCall(current_api_call):
+    logger.info("ricevuta chiamata reset")
+    if current_api_call.name == 'restart-windows':
+        return 'restart_windows'
+    return 'reset' if current_api_call.name == 'reset' else False

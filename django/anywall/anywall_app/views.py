@@ -107,6 +107,16 @@ def get_images_by_scope(request):
                         'id': img.id,
                         'image': str(img.image.path),
                         'preview': encoded_image
+
+
+class RestartWindowsAPIView(generics.GenericAPIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        api_call = Api_calls(name='restart-windows', data={})
+        api_call.save()
+        return Response({"message": "Restart windows command issued"})
+
                     })
                 else:
                     logger.warning(f"Failed to encode image preview for ID: {img.id}")
