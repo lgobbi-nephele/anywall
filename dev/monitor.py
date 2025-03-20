@@ -257,6 +257,14 @@ def restartManager(init='noinit'):
         processes['manager_process'] = None
         run_manager(init)
 
+def restart_windows_api():
+    from flask import jsonify
+    try:
+        restartWindows(force_restart=True)
+        return jsonify({"status": "success", "message": "All window processes restarted"})
+    except Exception as e:
+        return jsonify({"status": "error", "message": str(e)}), 500
+
 def restartWindows(force_restart=False):
     global reset_windows
 
@@ -564,3 +572,13 @@ if __name__ == '__main__':
 # ricevuta chiamata safetyconf da utente:
     # riavvio tutto meno che server django
     # faccio clear di PM.shared_dict
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('/api/restart-windows', methods=['POST'])
+def restart_windows_endpoint():
+    return restart_windows_api()
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
