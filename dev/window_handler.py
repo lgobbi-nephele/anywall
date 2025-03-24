@@ -52,7 +52,7 @@ class WindowHandler:
         self.viewer = BrowserHandler(self, process_manager=self.process_manager, url=self.urlBrowser)
     
     def load_desktop_window(self):
-        self.viewer = BrowserHandler(self, process_manager=self.process_manager, url='http://daattnnn:8000/receiver')
+        self.viewer = BrowserHandler(self, process_manager=self.process_manager, url='http://10.140.16.109:8000/receiver')
 
         # self.viewer = BrowserHandler(self, process_manager=self.process_manager, url='https://192.168.1.13:8080')
 

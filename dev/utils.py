@@ -50,8 +50,9 @@ def gotResetApiCall(api_call):
         return True
     else:
         return False
+    
 def callRestartWindows():
-    response = requests.post('http://daattnnn:8000/api/restart-windows/', 
+    response = requests.post('http://10.140.16.109:8000/api/restart-windows/', 
                            headers={'Content-Type': 'application/json'},
                            verify=False)
     if response.status_code == 200:

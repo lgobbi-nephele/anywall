@@ -484,7 +484,7 @@
 
             openOverlay('<p>Resetting monitor...</p>');
 
-            fetch('/api/reset/', {
+            fetch('/api/restart-windows/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -700,7 +700,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken
                 },
-                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'http://100.43.37.109:8000/clock-view' })
+                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'http://10.140.16.109:8000/clock-view' })
                 // body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'https://192.168.1.13:8000/clock-view' })
             })
             .then(response => {

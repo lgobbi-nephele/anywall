@@ -341,7 +341,7 @@ def callAlarmExpired():
     }
     
     # Make the POST request
-    response = requests.post('http://daattnnn:8000/api/alarm/expired/', data=json_payload, headers=headers, verify=False)
+    response = requests.post('http://10.140.16.109:8000/api/alarm/expired/', data=json_payload, headers=headers, verify=False)
     
     # response = requests.post('https://192.168.1.13:8000/api/alarm/expired/', data=json_payload, headers=headers)
     # Check if the request was successful
@@ -371,7 +371,7 @@ def callAlarmClear():
     }
     
     # Make the POST request
-    response = requests.post('http://daattnnn:8000/api/alarm/clear/', data=json_payload, headers=headers, verify=False)
+    response = requests.post('http://10.140.16.109:8000/api/alarm/clear/', data=json_payload, headers=headers, verify=False)
     
     # response = requests.post('https://192.168.1.13:8000/api/alarm/clear/', data=json_payload, headers=headers)
     # Check if the request was successful
