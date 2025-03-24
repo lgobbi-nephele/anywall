@@ -219,6 +219,8 @@
     <div class="container">
         <div class="form-container">
             <div class="form-box">
+                <h2>Restart Monitor</h2>
+                <button id="restartButton"><i class="fas fa-sync-alt"></i> Restart Monitor</button>
                 <h2>Reset Monitor</h2>
                 <button id="resetButton"><i class="fas fa-sync-alt"></i> Reset Monitor</button>
                 <h2>Clock View</h2>
@@ -478,13 +480,41 @@
             document.getElementById('overlay').style.display = 'none';
         }
 
+        // Restart API call
+        document.getElementById('restartButton').addEventListener('click', function() {
+            const csrfToken = getCSRFToken();
+
+            openOverlay('<p>Restarting monitor...</p>');
+
+            fetch('/api/restart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ isReset: true })
+            })
+            .then(response => {
+                if(response.status == 403) {
+                    window.location.href = '/login'
+                } else if (response.ok) {
+                    openOverlay('<p>Restart successful!</p>');
+                } else {
+                    throw new Error('Failed to restart.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
+
         // Reset API call
         document.getElementById('resetButton').addEventListener('click', function() {
             const csrfToken = getCSRFToken();
 
             openOverlay('<p>Resetting monitor...</p>');
 
-            fetch('/api/restart-windows/', {
+            fetch('/api/reset/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

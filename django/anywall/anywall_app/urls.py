@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/change-stream/', ChangeStreamAPIView.as_view(), name='change-stream'),
     path('api/api/switch-mode/', SwitchAPIView.as_view(), name='switch-mode'),
     path('api/zoom/', ZoomAPIView.as_view(), name='zoom'),
+    path('api/restart/', RestartAPIView.as_view(), name='restart'),
     path('api/reset/', ResetAPIView.as_view(), name='reset'),
     path('api/change-layout/', ChangeLayoutAPIView.as_view(), name='change-layout'),
     path('api/browser/', BrowserAPIView.as_view(), name='browser'),

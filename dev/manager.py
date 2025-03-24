@@ -50,15 +50,10 @@ from django.core.management import call_command
 
 import screen_helper
 
-# import monitor
 screen = None
 
 def make_migrations():
     try:
-        # Print the current sys.path
-        # print("paths in main.py")
-        # for path in sys.path:
-        #     print(path)
         call_command("migrate", "anywall_app")
     except Exception as e:
         logger.error(e)
@@ -70,13 +65,6 @@ def handleViewModeChange(req_window):
     screen_helper.makeProcessWindow(process_manager, req_window, req_window.width, req_window.height, req_window.coord_x, req_window.coord_y)
     process_manager.shared_dict["switchView"] = req_window.window_id
 
-    # print(f"screen_helper.processes: {screen_helper.processes}")
-    # screen_helper.processes[req_window.window_id]['process'].terminate()
-    # screen_helper.processes[req_window.window_id]['process'].join()
-
-    
-    
-    # screen_helper.processes[req_window.window_id]['process'].start()
 
 def collectWindowChanges(same_window_list, ):
     new_info = {}
@@ -134,14 +122,11 @@ def collectWindowChanges(same_window_list, ):
         if el.windows_column_name == "width" or el.windows_column_name == "height":
             # cambio misure finestra. Causa chiamata a glutWindowReshape()
             new_info.update({"width": req_window.width, "height": req_window.height})
-        
-
 
         if el.windows_column_name == "isActive":
             # hide o show
             logger.debug(f"Win {el.window_id}: rilevato isActive")
             new_info.update({"isActive": req_window.isActive})
-
 
         if el.windows_column_name == "isBrowser":
             # switch a browser in finestra o torno a telecamera
@@ -154,18 +139,15 @@ def collectWindowChanges(same_window_list, ):
         if el.windows_column_name == "visualizzazione":
             # cambio browser su pagina nuova
             new_info.update({"visualizzazione": req_window.visualizzazione})
-            
-
 
         if el.windows_column_name == "isAlarm":
             # allarme: implementazione precedente, con anche campo timeout
             logger.debug(f"arrivato allarme {req_window.isAlarm} per finestra {req_window.window_id}")
             new_info.update({"isAlarm": req_window.isAlarm})
-            
+
         if el.windows_column_name == "timeout":
             # allarme: implementazione precedente, con anche campo timeout
             new_info.update({"timeout": timezone.localtime(req_window.timeout)})
-
 
         if el.windows_column_name == "isRolling":
             # rolling con timerRolling
@@ -173,7 +155,7 @@ def collectWindowChanges(same_window_list, ):
         if el.windows_column_name == "timerRolling":
             # rolling con timerRolling
             new_info.update({"timerRolling": req_window.timerRolling})
-        
+
     connection.close()
     return req_window, new_info
 
@@ -182,7 +164,6 @@ def readDeltaMain(current_api_call):
         delta_list = django_delta.objects.filter(call_id=current_api_call.id).order_by('window_id')
     except OperationalError as e:
         logger.error(f"readDeltaMain(): DB connection error: {e}")
-        # kill Anywall?
 
     if not delta_list:
         current_api_call_dict = current_api_call.__dict__.copy()
@@ -190,30 +171,21 @@ def readDeltaMain(current_api_call):
 
         logger.debug(f"Len delta_list: {len(delta_list)}")
 
-    # print("Delta list:")
-    # for el in delta_list:
-    #     print(el.__dict__.copy())
     unique_window_ids = set(obj.window_id for obj in delta_list)
 
     logger.debug("Delta list splittata:")
     split_list = [[obj for obj in delta_list if obj.window_id == window_id] for window_id in unique_window_ids]
-    # for li in split_list:
-        
-    #     print(li)
-    #     for el in li:
-    #         print(el.__dict__.copy())
 
     connection.close()
     return delta_list, split_list
-    
+
 def readStateChangesMain(delta_list):
     state_instance = None
     try:
         state_instance = django_state.objects.latest('created')
     except OperationalError as e:
         logger.error(f"readStateChangesMain(): DB connection error: {e}")
-        # kill Anywall?
-    
+
     # modalità: {ALLARME, TELECAMERE, BROWSER, DESKTOP (chiudi processi)}
     if state_instance.mode == MODE['ALLARME']:
         # nascondo finestre precedenti, chiudo browser e aggiungi processi?
@@ -225,19 +197,19 @@ def readStateChangesMain(delta_list):
         logger.info("letta modalità BROWSER")
         doAlarmChecks = False
         cont = True
-    
+
     elif state_instance.mode == MODE['DESKTOP']:
         # nascondo tutte le finestre telecamere precedenti e/o chiudo browser
         logger.info("letta modalità BROWSER")
         doAlarmChecks = False
         cont = True
-    
+
     elif state_instance.mode == MODE['TELECAMERE']:
         # Nessuna azione, vai a rendering
         logger.info("letta modalità TELECAMERE") 
         doAlarmChecks = False
         cont = False
-    
+
     connection.close()
     return state_instance, doAlarmChecks, cont
 
@@ -262,7 +234,7 @@ def init_windows_list():
         windows_list = utils.read_windows()
         screen = screen_helper.Screen(process_manager, state_instance, windows_list)  # Initialize the screen object
 
-        delta_instance = django_delta.objects.latest('created')
+        django_delta.objects.latest('created')
 
     except OperationalError as e:
         logger.error(f"init_windows_list(): DB connection error: {e}")
@@ -321,11 +293,11 @@ def checkAlarmTimers(state_instance):
     for alarm in alarm_windows:
         if(isAlarmExpired(alarm.timeout)):
             expired_alarms.append(alarm)
-    
+
     logger.debug(f"expired_alarms: {expired_alarms}")
     for win in expired_alarms:
         logger.debug(win.__dict__)
-    
+
     if len(expired_alarms) == 0:
         return False
 
@@ -334,26 +306,19 @@ def checkAlarmTimers(state_instance):
 def callAlarmExpired():
     # Convert the payload to JSON format
     json_payload = json.dumps({"check": True})
-    
     # Define the headers
     headers = {
         'Content-Type': 'application/json',
     }
-    
+
     # Make the POST request
     response = requests.post('http://10.140.16.109:8000/api/alarm/expired/', data=json_payload, headers=headers, verify=False)
-    
-    # response = requests.post('https://192.168.1.13:8000/api/alarm/expired/', data=json_payload, headers=headers)
-    # Check if the request was successful
+
     if response.status_code == 200:
-        # Parse the JSON response
         data = response.json()
 
         logger.debug("Success")
-        
-        # Process the data as needed
-        # For example, print the data or save it to a database
-        
+
         return data
     else:
         # Handle errors
@@ -364,31 +329,23 @@ def callAlarmExpired():
 def callAlarmClear():
     # Convert the payload to JSON format
     json_payload = json.dumps({"clear": True})
-    
+
     # Define the headers
     headers = {
         'Content-Type': 'application/json',
     }
-    
+
     # Make the POST request
     response = requests.post('http://10.140.16.109:8000/api/alarm/clear/', data=json_payload, headers=headers, verify=False)
-    
-    # response = requests.post('https://192.168.1.13:8000/api/alarm/clear/', data=json_payload, headers=headers)
-    # Check if the request was successful
-    if response.status_code == 200:
-        # Parse the JSON response
-        data = response.json()
 
+    if response.status_code == 200:
+
+        data = response.json()
         logger.debug("Success")
-        
-        # Process the data as needed
-        # For example, print the data or save it to a database
-        
+
         return data
     else:
-        # Handle errors
         logger.warning(f"Failed to send POST request. Status code: {response.status_code}")
-        # callReset()
         return None
 
 
@@ -431,14 +388,10 @@ def execute(init, shared_dict):
         state_instance = django_state.objects.latest('created')
     except OperationalError as e:
         logger.error(f"django_state 392: DB connection error: {e}")
-        # kill Anywall?
     last_api_call_dt_creation=timezone.localtime(timezone.now())
 
     while True:
         try:
-    
-            doAlarmChecks = False
-
             state_instance = None
             try:
                 state_instance = django_state.objects.latest('created')
@@ -447,27 +400,15 @@ def execute(init, shared_dict):
                 # kill Anywall?
             if state_instance.alarm_windows > 0:
                 state_instance.mode = MODE['ALLARME']
-                doAlarmChecks = True
                 callAlarmExpired()
             elif state_instance.mode == MODE['ALLARME'] and state_instance.alarm_windows == 0:
-                doAlarmChecks = False
                 callAlarmClear()
 
-            # if doAlarmChecks:    
-            #     if state_instance.alarm_windows == 0:
-            #         logger.debug("state_instance.alarm_windows == 0")
-            #         callAlarmClear()
-
-            #         doAlarmChecks = False
-            #         continue
-
-            #     checkAlarmTimers(state_instance)
-            
             try:
                 api_calls = utils.getReceivedApiCalls(last_api_call_dt_creation)
             except OperationalError as e:
                 logger.error(f"manager.py: utils.getReceivedApiCalls 423: DB connection error: {e}")
-                # kill Anywall?
+
             # ciclo per ogni elemento in lista di api_calls
             while api_calls:
                 current_api_call = api_calls.pop(0)
@@ -476,8 +417,7 @@ def execute(init, shared_dict):
                     delta_list, split_list = readDeltaMain(current_api_call)
                 except OperationalError as e:
                     logger.error(f"readDeltaMain 429: DB connection error: {e}")
-                    # kill Anywall?
-                
+
                 # aggiorna placeholder/watermark per tutte le finestre
                 if current_api_call.name == "select-image/" and current_api_call.data["window_id"] is None:
                     updateGeneralPictures(current_api_call.data["image_scope"])
@@ -488,37 +428,31 @@ def execute(init, shared_dict):
                     logger.debug("no_delta_list")
                     last_api_call_dt_creation = timezone.localtime(current_api_call.created)
                     continue
-                
+
                 if delta_list[0].readState:
                     try:
                         state_instance, doAlarmChecks, cont = readStateChangesMain(delta_list)
                     except OperationalError as e:
                         logger.error(f"readStateChangesMain 440: DB connection error: {e}")
-                        # kill Anywall?
                     if cont:
                         continue
-                
+
                 for same_window_list in split_list:
                     req_window, new_info = collectWindowChanges(same_window_list, )
-                    
+
                     if req_window is not None:
                         updateRenderData(req_window.window_id, new_info)
-                    
+
                     if "visualizzazione" in new_info:
                         handleViewModeChange(req_window)
 
                 utils.applyDeltaChangesInWindows() # salvo in Windows
 
-                
                 last_api_call_dt_creation = timezone.localtime(current_api_call.created)
                 logger.debug(f"last_api_call_dt_creation: {last_api_call_dt_creation}")
-            
-            state_prev_instance = state_instance
-            
-            # for p in screen_helper.processes:
-            #     print(p)
-            time.sleep(1)
 
+
+            time.sleep(1)
 
         except (django_state.DoesNotExist, django_window.DoesNotExist, django_delta.DoesNotExist, django_api_calls.DoesNotExist, KeyboardInterrupt) as e:
             if (isinstance(e, django_state.DoesNotExist)
@@ -539,26 +473,6 @@ def execute(init, shared_dict):
 
         connection.close()
 
-
-
-# def run_monitor():
-#     global monitor_process
-#     def start_monitor():
-#         import monitor
-#         try:
-#             monitor.execute()
-#         except Exception as e:
-#             print(e)
-#             sys.exit(0)
-
-
-            
-#     monitor_process = Process(target=start_monitor)
-#     monitor_process.start()
-#     print("server process started")
-
-
-# monitor_process = None
 server_process = None
 screen = None
 
@@ -568,12 +482,10 @@ def main(init, shared_dict):
     global screen
 
     try:
-        # run_monitor()
         execute(init, shared_dict)
 
     except OperationalError as e:
         logger.error(f"main(): DB connection error: {e}")
-        # kill Anywall?
     except (ProgrammingError) as e:
         logger.warning("Mancano tabelle, django, main")
         make_migrations()

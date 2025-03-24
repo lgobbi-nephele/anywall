@@ -20,11 +20,6 @@ else:
 
 
 
-# sys.path.append(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'django', 'anywall'))
-
-
-
-
 from anywall_app.logger import setup_logger
 logger = setup_logger(__name__)
 
@@ -50,29 +45,16 @@ from django.db.utils import ProgrammingError
 from django.db import OperationalError
 
 
-from django.core.management import execute_from_command_line
-
-# os.environ["OPENCV_FFMPEG_CAPTURE_OPTIONS"] = "rtsp_transport;http|listen_timeout;5000|timeout;5000"
-
-
 def start_server():
     try:
-        # execute_from_command_line(["manage.py", "makemigrations", "anywall_app"])
-        # execute_from_command_line(["manage.py", "runserver", "0.0.0.0:8000", "--noreload"])
-
         from daphne.server import Server
         from daphne.endpoints import build_endpoint_description_strings
         from anywall.asgi import application
 
         if getattr(sys, 'frozen', False):
-            # Running as a bundled executable
             asgi_dir = BASE_DIR
-            # daphne = os.path.join(BASE_DIR, 'daphne', 'daphne.EXE')
-            # logger.info(f"daphne: {daphne}")
-            # logger.info(f"asgi_dir: {asgi_dir}")
         else:
             # Running as a script
-            daphne = 'daphne'
             asgi_dir = os.path.join(BASE_DIR, 'django', 'anywall')
 
         sys.path.append(asgi_dir)
@@ -83,12 +65,6 @@ def start_server():
         server = Server(application=application, endpoints=endpoints)
         server.run()
 
-        # subprocess.run([
-        #     daphne,
-        #     #"-b" , "127.0.0.1",
-        #     "-p", "8000",
-        #     "anywall.asgi:application"
-        # ], check=True)
     except Exception as e:
         logger.error(e)
         # logger.error("Traceback: %s", traceback.format_exc())
@@ -149,7 +125,7 @@ def check_pid_running(p, pm):
             if window_id in pm.shared_dict:
                 pm.shared_dict.pop(window_id)
 
-            new_process_window = add_single_window(pm, f"window_p_{window_id}", data)
+            add_single_window(pm, f"window_p_{window_id}", data)
             return True
 
         p.terminate()
@@ -162,8 +138,6 @@ def check_pid_running(p, pm):
 
 
 def check_pid_running_linux(p):
-    #return True
-    # Check if a PID exists
     try:
         # Try to send signal 0 to the PID (does not kill the process)
         os.kill(p.pid, 0)
@@ -187,40 +161,13 @@ def check_pid_running_linux(p):
             if window_id in ProcessManager.shared_dict:
                 ProcessManager.shared_dict.pop(window_id)
 
-            new_process_window = add_single_window(pm, f"window_p_{window_id}", data)
+            add_single_window(pm, f"window_p_{window_id}", data)
             return True
         p.terminate()
         p.join()
         return False
     else:
         return True
-
-# def check_pid_is_python(p):
-#     """Check if a PID corresponds to a Python process."""
-#     # Check if PID exists
-
-#     if not check_pid_running(pid):
-#         return False
-
-#     try:
-#         if isinstance(p, int):
-#             pid = p
-#             # Get process info
-#             p = psutil.Process(pid)
-
-#         # Check if the process executable path contains "python"
-#         exe_name = p.exe().lower()
-#         if "python" in exe_name or "anywall" in exe_name:
-#             return p
-#         else:
-#             return None
-#     except (psutil.NoSuchProcess, psutil.ZombieProcess) as e:
-#         if isinstance(e, psutil.NoSuchProcess):
-#             p.terminate()
-#             p.wait(timeout=5)
-#             return None
-#         else:
-#             return p
 
 # approccio corrente, solo PM.shared_dict.
 # Se cade shared dict?
@@ -232,10 +179,6 @@ def restartPM(pm, force_restart=False):
             logger.info("PM down")
             logger.info("Restarting PM...")
             processes['PM_process'] = None
-            # ProcessManager._instance = None
-            # ProcessManager.pid = None
-            # PM = PM.updateInstance()
-            # PM = None
             pm.deleteInstance()
             pm = ProcessManager.getInstance()
             processes['PM_process'] = pm.p
@@ -262,21 +205,8 @@ def restartWindows(force_restart=False):
 
     # killa finestre se processi esistono
     window_processes = {key: value for key, value in processes.items() if key.startswith('window_p_') and value is not None}
-    # browser_processes = {key: value for key, value in processes.items() if key.startswith('browser_p_') and value is not None}
-    # browser_processes = {key: value for key, value in PM.shared_dict.items() if key.startswith('browser_p_') and value is not None}
 
     if force_restart or len(window_processes) < MAX_WINDOWS:
-
-        # for key, p in browser_processes.items():
-        #     # p.terminate()
-        #     # p.join()
-        #     proc = psutil.Process(p)
-        #     proc.terminate()
-        #     try:
-        #         proc.wait(timeout=5)
-        #     except psutil.TimeoutExpired:
-        #         proc.kill()
-
 
         # prima di killare le finestre, le disabilito se possibile, per evitare errori
         for i in range(len(window_processes)):
@@ -296,7 +226,6 @@ def restartWindows(force_restart=False):
         if processes['manager_process'] is not None:
             os.kill(processes['manager_process'].pid, 15)
         restartManager('init_windows')
-        # start_windows()
         return True
 
 def kill_manager_and_windows():
@@ -328,11 +257,6 @@ def restart_processes():
         return
 
     restartManager()
-
-
-
-
-
     pm.shared_dict.clear()
 
 def add_single_window(pm, el, data):
@@ -347,10 +271,6 @@ def start_windows():
     global reset_windows
 
     try:
-        # while not ready:
-        #   PM e manager down?
-        #       restart
-        #   
 
         if check_pid_running(processes['PM_process'], pm):
             logger.debug(f"Finestre ready?: {'ready' in pm.shared_dict}")
@@ -370,11 +290,6 @@ def start_windows():
                     if el.startswith("window_p_"):
                         data = pm.shared_dict.pop(el)
                         add_single_window(pm, el, data)
-                    # if el.startswith("browser_p_"):
-                    #     print("browser process")
-                    #     data = PM.shared_dict.pop(el)
-                    #     p = psutil.Process(data)
-                    #     processes[el] = p
             reset_windows = False
             logger.debug(f"processes: {processes}")
             return
@@ -407,15 +322,13 @@ def execute():
     global reset_windows
     reset_windows = True
     logger.debug(f"Parent Process PID: {os.getpid()}")
-    # try:
+
     run_django_server()
     run_manager('init_windows')
 
-    from utils import getReceivedApiCalls, gotResetApiCall
+    from utils import getReceivedApiCalls
 
     last_api_call_dt_creation=timezone.localtime(timezone.now())
-
-    start_time = time.time()
 
     try:
 
@@ -435,28 +348,16 @@ def execute():
                     api_calls = getReceivedApiCalls(last_api_call_dt_creation)
                 except OperationalError as e:
                     logger.error(f"monitor.py: getReceivedApiCalls 293: DB connection error: {e}")
-                    # kill Anywall?
                 except django_api_calls.DoesNotExist as e:
                     logger.error(e)
                     time.sleep(5)
-                # except Exception as e:
-                #     # riavvio server
-                #     restart_processes()
 
 
                 while api_calls:
                     current_api_call = api_calls.pop(0)
-                    result = gotResetApiCall(current_api_call)
-                    if result == 'restart_windows':
+                    if current_api_call.name == 'reset':
                         logger.info("Restarting windows only...")
                         restartWindows(force_restart=True)
-                        last_api_call_dt_creation = timezone.localtime(current_api_call.created)
-                        gotReset = True
-                        break
-                    elif result == 'reset':
-                        logger.info("ricevuta chiamata reset")
-                        total_restart(pm)
-                        reset_windows = True
                         last_api_call_dt_creation = timezone.localtime(current_api_call.created)
                         gotReset = True
                         break
@@ -521,9 +422,6 @@ def execute():
         logger.error(f"An unexpected error occurred: {e}")
 
 
-    # except Exception as e:
-    #     print(e)
-
 if __name__ == '__main__':
     from multiprocessing import Manager
     from process_manager import ProcessManager
@@ -566,9 +464,3 @@ if __name__ == '__main__':
 # ricevuta chiamata safetyconf da utente:
     # riavvio tutto meno che server django
     # faccio clear di PM.shared_dict
-
-def gotResetApiCall(current_api_call):
-    logger.info("ricevuta chiamata reset")
-    if current_api_call.name == 'restart-windows':
-        return 'restart_windows'
-    return 'reset' if current_api_call.name == 'reset' else False

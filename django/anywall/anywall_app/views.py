@@ -119,13 +119,6 @@ def get_images_by_scope(request):
     logger.info(f"Processed {len(image_list)} images out of {len(images)}")
     return JsonResponse(image_list, safe=False)
 
-class RestartWindowsAPIView(generics.GenericAPIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, *args, **kwargs):
-        api_call = Api_calls(name='restart-windows', data={})
-        api_call.save()
-        return Response({"message": "Restart windows command issued"})
 # def get_images_by_scope(request):
     
 #     scope = request.GET.get('scope')
@@ -355,15 +348,12 @@ class ChangeStreamAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name='changeStream', data=serializer.validated_data)
-            #try:
             response = changeStreamAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
+
         return Response(serializer.errors, status=400)
-        
+
 class SwitchAPIView(generics.GenericAPIView):
     serializer_class = SwitchSerializer
     permission_classes = [IsAuthenticated]
@@ -372,68 +362,68 @@ class SwitchAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name='switch', data=serializer.validated_data)
-            # try:
             response = switchAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
+
         return Response(serializer.errors, status=400)
 
 
 class ZoomAPIView(generics.GenericAPIView):
     serializer_class = ZoomSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name='zoom', data=serializer.validated_data)
-            # try:
             response = zoomAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
+
         return Response(serializer.errors, status=400)
 
-class ResetAPIView(generics.GenericAPIView):
+class RestartAPIView(generics.GenericAPIView):
     serializer_class = ResetSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name='reset', data=serializer.validated_data)
             # try:
+            response = restartAPIService(serializer.validated_data)
+            api_call.save()
+            return response
+
+        return Response(serializer.errors, status=400)
+
+class ResetAPIView(generics.GenericAPIView):
+    serializer_class = ResetSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            api_call = Api_calls(name='reset', data=serializer.validated_data)
             response = resetAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
 
-            
         return Response(serializer.errors, status=400)
 
 
 class BrowserAPIView(generics.GenericAPIView):
     serializer_class = BrowserSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            # try:
             api_call = Api_calls.objects.create(name='browser', data=serializer.validated_data)
             connection.close()
             response = browserAPIService(serializer.validated_data, api_call)
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
              
         return Response(serializer.errors, status=400)
 
@@ -445,14 +435,10 @@ class ChangeLayoutAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name='change-layout', data=serializer.validated_data)
-            # try:
             response = changeLayoutAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
-
+           
         return Response(serializer.errors, status=400)
             
 
