@@ -714,7 +714,8 @@
             const alarmBorderThickness = document.getElementById('alarmBorderThickness').value;
             const csrfToken = getCSRFToken();
 
-            openOverlay('<p>Setting alarm...</p>');
+            openOverlay('<p>Alarm not available now.</p>');
+            /*openOverlay('<p>Setting alarm...</p>');
 
             fetch('/api/alarm/', {
                 method: 'POST',
@@ -746,7 +747,7 @@
             })
             .catch(error => {
                 openOverlay('<p>Error: ' + error.message + '</p>');
-            });
+            });*/
         });
 
         // Change Layout API call
