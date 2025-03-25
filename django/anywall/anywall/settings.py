@@ -69,7 +69,7 @@ SECRET_KEY = 'django-insecure-=mff#jb50a%mh=sg(np!0qo1*g6n-%0_5zgd!v00msq-+z9d5@
 DEBUG = True
 
 LOGIN_URL = '/login'
-LOGIN_REDIRECT_URL = '/setting'
+LOGIN_REDIRECT_URL = '/anywall'
 LOGOUT_REDIRECT_URL = '/login'
 
 ASGI_APPLICATION = 'anywall.asgi.application'
