@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import subprocess
+from config import API_SERVER_URL
 
 from anywall_app.logger import setup_logger
 logger = setup_logger(__name__)

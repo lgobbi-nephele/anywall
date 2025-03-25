@@ -1,20 +1,20 @@
-from anywall_app.models import *
-from rest_framework.response import Response
-import traceback
 
-from math import sqrt, ceil
 import datetime
 import numpy as np
+import traceback
+
+from anywall_app.models import *
+from rest_framework.response import Response
+from math import sqrt, ceil
 from django.utils import timezone
-
 from django.db import connection
-
 from .logger import setup_logger
+
+from config import MAX_WINDOWS
+from config import DEFAULT_DISPLAY_SIZE as SCREEN_SIZE
+
 logger = setup_logger(__name__)
 
-
-MAX_WINDOWS = 16
-SCREEN_SIZE = (1920, 1080)
 
 def resetWinIds(windows_state_list):
     #reset window_ids with indexes
