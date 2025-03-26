@@ -32,8 +32,6 @@ def cloneDjangoDict(instance, **kwargs):
     kwargs: Override fields for the new instance.
     """
     # Copy all fields from the current instance
-    logger.debug("kwargs:")
-
     cloned_fields = {}
 
     cloned_fields.update(**(instance.__dict__))
@@ -44,9 +42,6 @@ def cloneDjangoDict(instance, **kwargs):
     cloned_fields.pop('id', None)
 
     # Update with kwargs if any field needs to be overridden
-    logger.debug("cloned_fileds:")
-    logger.debug(cloned_fields)
-
     return cloned_fields
 
 def makeDeltaRows(state, req_window, api_call):
@@ -278,8 +273,6 @@ def createMockedApiCallObject():
 
 def read_state():
     state = State.objects.latest('created')
-    logger.debug("last state: ")
-    logger.debug(state.__dict__)
     connection.close()
     return state
 
@@ -416,9 +409,6 @@ def calculateExpansion(window, windows_number, zoom):
     for j in range(win_per_line):
         if not any(el.isZoom == False  for el in t_prev_windows_matrix[j]):  # Check each column (now rows in transposed_matrix)
             busy_columns.append(j)
-
-    logger.debug(f"busy_rows: {busy_rows}")
-    logger.debug(f"busy_columns: {busy_columns}")
 
 
     if (len(busy_rows) > win_per_line - 1 or len(busy_columns) > win_per_line - 1) and zoom < (win_per_line/2 + 1):

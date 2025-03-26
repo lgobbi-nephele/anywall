@@ -207,6 +207,7 @@
             max-width: 120px;
             opacity: 0.7;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .bottom-right-logo:hover {
@@ -878,6 +879,9 @@
                     scrollTop: $($(this).attr('href')).offset().top
                 }, 500, 'linear');
             });
+        });
+        document.querySelector('.bottom-right-logo').addEventListener('click', function() {
+            window.open('https://www.crismasecurity.it/', '_blank');
         });
     </script>
 </body>

@@ -763,18 +763,26 @@ class OpenGLHandler:
         try:
             state_instance = django_state.objects.latest('created')
             connection.close()
-        except Exception:
-            logger.error(f"Could not get django state in OpenGL window {self.window.window_id}")
-            state_instance = None
-
-        if state_instance is not None:
-            self.alarm_border_color = ImageUtility.hex_to_bgr(str(state_instance.alarm_border_color))
-            self.alarm_border_thickness = state_instance.alarm_border_thickness
-        else:
-            self.alarm_border_color = (0, 0, 255)
+            
+            if state_instance is not None:
+                self.alarm_border_color = ImageUtility.hex_to_bgr(str(state_instance.alarm_border_color))
+                self.alarm_border_thickness = state_instance.alarm_border_thickness
+            else:
+                self.alarm_border_color = (0, 0, 255)  # Default to red in BGR
+                self.alarm_border_thickness = 5
+                
+            # Reset blink state when alarm state changes
+            if self.isAlarm:
+                self.blink_state = True
+                self.start_time = time.time()
+            
+            self.newRenderInfo = True
+            logger.info(f"Alarm state updated for window {self.window.window_id}, isAlarm={self.isAlarm}")
+            
+        except Exception as e:
+            logger.error(f"Could not update alarm state in OpenGL window {self.window.window_id}: {e}")
+            self.alarm_border_color = (0, 0, 255)  # Default to red in BGR 
             self.alarm_border_thickness = 5
-
-        self.newRenderInfo = True
 
     def log_process_manager_state(self):
         """Log the current state of the process manager"""
@@ -887,12 +895,16 @@ class OpenGLHandler:
 
     def disable_alarm(self):
         """Mark alarm as expired in database"""
-        django_requested_window.objects.update_or_create(
-            window_id=self.window.window_id,
-            defaults={"timeout": datetime.now()}
-        )
-        callAlarmExpired()
-        connection.close()
+        try:
+            django_requested_window.objects.update_or_create(
+                window_id=self.window.window_id,
+                defaults={"timeout": datetime.now(), "isAlarm": False}
+            )
+            callAlarmExpired()
+            connection.close()
+            logger.info(f"Alarm for window {self.window.window_id} disabled successfully")
+        except Exception as e:
+            logger.error(f"Error disabling alarm for window {self.window.window_id}: {e}")
 
     def custom_resize(self, new_width, new_height):
         """Resize the OpenGL viewport and window"""
@@ -1079,13 +1091,20 @@ class OpenGLHandler:
             self.clear_window()
             self.stream = ""
             self.updateCap = True
+            
+            # Handle alarm state properly
             if self.isAlarm:
+                logger.info(f"No frame available for alarm window {self.window.window_id}, disabling alarm")
                 self.disable_alarm()
+                self.isAlarm = False
+                
             glutPostRedisplay()
             return
 
         # Use last good frame if current frame is not available
         if frame is None:
+            if attempts >= max_attempts and self.isAlarm:
+                logger.warning(f"Max attempts reached for alarm window {self.window.window_id}, may need to disable alarm")
             frame = self.last_good_frame
 
         # Resize frame to fit window
