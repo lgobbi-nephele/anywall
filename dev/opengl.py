@@ -15,6 +15,7 @@ from dotenv import load_dotenv
 from math import floor
 from threading import Thread, Event
 from datetime import datetime
+from config import CONFIG_FILE
 
 from manager import callAlarmExpired
 from django.db import connection
@@ -90,7 +91,7 @@ class RTSPStreamCapture:
         self.frame_size = self.width * self.height * 3  # bgr24
 
         self.reconnect_attempts = 0
-        self.max_reconnect_attempts = 30
+        self.max_reconnect_attempts = 3000000
         self.reconnect_interval = 5  # seconds
         self.is_reconnecting = False  # Flag per indicare la riconnessione in corso
 
@@ -136,13 +137,15 @@ class RTSPStreamCapture:
         """Main capture loop that reads frames from FFmpeg output"""
         while not self.stop_event.is_set():
             try:
+                timestamp = datetime.now()
                 raw_frame = self.process.stdout.read(self.frame_size)
                 if not raw_frame or len(raw_frame) < self.frame_size:
                     self.logger.warning("No more frames or incomplete frame received from ffmpeg.")
+                    self.frame_queue.append((self.no_connection_frame, timestamp))
+                    self.ready = True
                     raise ConnectionError("Stream interrupted")
 
                 frame = np.frombuffer(raw_frame, np.uint8).reshape((self.height, self.width, 3))
-                timestamp = datetime.now()
                 self.frame_queue.append((frame, timestamp))
                 while len(self.frame_queue) > self.config.max_buffer_size:
                     self.frame_queue.pop(0)
@@ -482,7 +485,7 @@ class OpenGLHandler:
             self.last_good_frame = None
 
             # Load environment configuration
-            load_dotenv('.\\..\\con\\conf.env')
+            load_dotenv(CONFIG_FILE, override=True)
 
             # Configure monitor settings
             self.configure_monitors()

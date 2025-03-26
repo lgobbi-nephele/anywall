@@ -11,25 +11,16 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from config import API_SERVER_URL
+from config import SERVER_IP
+from config import DB_NAME
+from config import DB_PASSWORD
+from config import RESOURCES_DIR
 
 from anywall_app.logger import setup_logger
 logger = setup_logger(__name__)
 
 import os
 import sys
-from dotenv import load_dotenv
-
-
-
-# print(f"os.getcwd()]: {os.getcwd()}")
-# print(f"Path(__file__):{Path(__file__)}")
-# # Load environment variables from .env file
-load_dotenv('C:\\Anywall\\conf\\config.env', override=True)
-
-a = os.getenv('DB_PASSWORD')
-
-logger.debug(a)
 
 
 try:
@@ -39,33 +30,19 @@ except Exception:
     python_exe_path = sys.executable
 
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 logger.debug(f"settings BASE_DIR + 1: {Path(__file__).resolve().parent}")
 logger.debug(f"Path(__file__): {Path(__file__)}")
 
-# Assuming '/Users/username/migrations/' is the external directory
-external_migrations_dir = 'C:\\Anywall\\resources'
+external_migrations_dir = RESOURCES_DIR
 
 
-# Add the external directory to sys.path
 sys.path.append(external_migrations_dir)
 
-
-# Print the current sys.path
-# print("paths in setting.py")
-# for path in sys.path:
-#     print(path)
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-=mff#jb50a%mh=sg(np!0qo1*g6n-%0_5zgd!v00msq-+z9d5@'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 LOGIN_URL = '/login'
@@ -76,10 +53,9 @@ ASGI_APPLICATION = 'anywall.asgi.application'
 
 
 
-ALLOWED_HOSTS = ['10.140.16.109', 'localhost', '127.0.0.1', '172.20.112.13', '172.16.0.74', '100.43.37.109']
+ALLOWED_HOSTS = [SERVER_IP, 'localhost', '127.0.0.1']
 
 #SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
 #SECURE_SSL_REDIRECT = False
 #SECURE_HSTS_SECONDS = 31536000  # 1 year
 #SECURE_HSTS_INCLUDE_SUBDOMAINS = True
@@ -92,14 +68,14 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            "hosts": [("172.20.112.13", 6379)],
+            "hosts": [(SERVER_IP, 6379)],
         },
     },
 }
 
 WS_PORT = 8000
 
-CSRF_TRUSTED_ORIGINS = ['http://10.140.16.109:8000', 'http://172.20.112.13:8000', 'http://100.43.37.109:8000']
+CSRF_TRUSTED_ORIGINS = ['http://'+ SERVER_IP + ':8000', 'http://127.0.0.1:8000', 'http://localhost:8000']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -124,13 +100,13 @@ SWAGGER_SETTINGS = {
     }
 }
 
-MEDIA_ROOT = 'C:\\Anywall\\resources\\'
+MEDIA_ROOT = RESOURCES_DIR + '\\'
 
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Add WhiteNoise middleware
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -140,8 +116,6 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'anywall.urls'
-
-# thisdir = os.path.dirname(os.path.abspath(__file__))
 
 TEMPLATES = [
     {
@@ -162,22 +136,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'anywall.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'myDatabase',  # Name of your MySQL database
-        'USER': 'root',  # Your MySQL username
-        'HOST': 'localhost',  # Hostname where your MySQL server is located
-        'PORT': '3306',  # Default port for MySQL
+        'NAME': DB_NAME,
+        'USER': 'root',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
-DATABASES['default']['PASSWORD'] = os.getenv('DB_PASSWORD')
-
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
+DATABASES['default']['PASSWORD'] = DB_PASSWORD
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -198,9 +166,6 @@ MIGRATION_MODULES = {
     'anywall_app': 'migrations',
 }
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Europe/Rome'
@@ -209,20 +174,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
-
 STATIC_URL = '/static/'
-#STATICFILES_DIRS = [
-#    os.path.join(BASE_DIR, 'static')
-#]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')  # Add this line
 
-# WhiteNoise settings
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

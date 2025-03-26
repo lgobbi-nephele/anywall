@@ -22,6 +22,7 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 import json
 from rest_framework.permissions import IsAuthenticated
+from django.conf import settings
 
 @csrf_exempt
 @login_required
@@ -245,7 +246,9 @@ def receiver(request):
 @login_required
 def setting(request):
     
-    return render(request, 'setting.html')
+    return render(request, 'setting.html', {
+        'SERVER_IP': settings.SERVER_IP
+    })
 
 @login_required
 def clock_view(request):

@@ -101,6 +101,10 @@
             grid-column: span 2;
         }
 
+        .innerDiv{
+            padding-top: 10%;
+        }
+
         #alarmDiv {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -147,7 +151,7 @@
             padding: 0.8rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: var(--border-radius);
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: rgba(0, 0, 0, 0.886);
             color: var(--text-color);
             font-family: inherit;
             transition: var(--transition);
@@ -276,6 +280,40 @@
     <div class="container">
         <div class="form-container">
             <div class="form-box">
+                <h2>Change Stream</h2>
+                <form id="changeStreamForm">
+                    <label for="streamWindowId">Window ID:</label>
+                    <select id="streamWindowId" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <label for="stream">Stream URL:</label>
+                    <input type="text" id="stream" name="stream" placeholder="Enter Stream URL" required>
+                    <label for="labelText">Label Text:</label>
+                    <input type="text" id="labelText" name="labelText" placeholder="Enter Label Text">
+                    <label for="enableLogo">Enable Logo:</label>
+                    <input type="checkbox" id="enableLogo" name="enableLogo">
+                    <label for="enableWatermark">Enable Watermark:</label>
+                    <input type="checkbox" id="enableWatermark" name="enableWatermark">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-video"></i> Change Stream</button>
+                </form>
+            </div>
+            <div class="form-box">
                 <h2>Change Layout</h2>
                 <form id="changeLayoutForm">
                     <label for="windowsNumber">Number of Windows:</label>
@@ -339,36 +377,36 @@
             <div class="form-box">
                 <h2>Restart Monitor</h2>
                 <button id="restartButton"><i class="fas fa-sync-alt"></i> Restart Monitor</button>
-            </div>
-            <div class="form-box">
-                <h2>Reset Monitor</h2>
-                <button id="resetButton"><i class="fas fa-sync-alt"></i> Reset Monitor</button>
-            </div>
-            <div class="form-box">
-                <h2>Clock View</h2>
-                <form id="clockViewForm">
-                    <label for="clockWindowId">Window ID:</label>
-                    <select id="clockWindowId" name="window_id" required>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                    </select>
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    <button type="submit"><i class="fas fa-clock"></i> Open Clock View</button>
-                </form>
+                <div class="innerDiv">
+                    <h2>Reset Monitor</h2>
+                    <button id="resetButton"><i class="fas fa-sync-alt"></i> Reset Monitor</button>
+                </div>
+                <div class="innerDiv">
+                    <h2>Clock View</h2>
+                    <form id="clockViewForm">
+                        <label for="clockWindowId">Window ID:</label>
+                        <select id="clockWindowId" name="window_id" required>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        <button type="submit"><i class="fas fa-clock"></i> Open Clock View</button>
+                    </form>
+                </div>
             </div>
             <div class="form-box">
                 <h2>Screen Share View</h2>
@@ -478,40 +516,6 @@
                     <input type="text" id="urlBrowser" name="urlBrowser" placeholder="Enter URL" required>
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     <button type="submit"><i class="fas fa-external-link-alt"></i> Open Browser</button>
-                </form>
-            </div>
-            <div class="form-box">
-                <h2>Change Stream</h2>
-                <form id="changeStreamForm">
-                    <label for="streamWindowId">Window ID:</label>
-                    <select id="streamWindowId" name="window_id" required>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                    </select>
-                    <label for="stream">Stream URL:</label>
-                    <input type="text" id="stream" name="stream" placeholder="Enter Stream URL" required>
-                    <label for="labelText">Label Text:</label>
-                    <input type="text" id="labelText" name="labelText" placeholder="Enter Label Text">
-                    <label for="enableLogo">Enable Logo:</label>
-                    <input type="checkbox" id="enableLogo" name="enableLogo">
-                    <label for="enableWatermark">Enable Watermark:</label>
-                    <input type="checkbox" id="enableWatermark" name="enableWatermark">
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    <button type="submit"><i class="fas fa-video"></i> Change Stream</button>
                 </form>
             </div>
         </div>
@@ -714,8 +718,8 @@
             const alarmBorderThickness = document.getElementById('alarmBorderThickness').value;
             const csrfToken = getCSRFToken();
 
-            openOverlay('<p>Alarm not available now.</p>');
-            /*openOverlay('<p>Setting alarm...</p>');
+            //openOverlay('<p>Alarm not available now.</p>');
+            openOverlay('<p>Setting alarm...</p>');
 
             fetch('/api/alarm/', {
                 method: 'POST',
@@ -747,7 +751,7 @@
             })
             .catch(error => {
                 openOverlay('<p>Error: ' + error.message + '</p>');
-            });*/
+            });
         });
 
         // Change Layout API call
@@ -796,7 +800,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken
                 },
-                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'http://10.140.16.109:8000/clock-view' })
+                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'http://{{ SERVER_IP }}:8000/clock-view' })
             })
             .then(response => {
                 if(response.status == 403) {

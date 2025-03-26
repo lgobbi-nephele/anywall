@@ -2,9 +2,7 @@ from django.urls import path
 from.views import *
 from django.contrib.auth.views import LogoutView
 from django.contrib import admin
-# import logging
-
-# logger = logging.getLogger(__name__)
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,6 +31,10 @@ urlpatterns = [
     path('get_candidates/', get_candidates, name='get_candidates'),
     path('login', CustomLoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
+
+    path('setting', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
+    path('settings', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
+    path('', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
 ]
 
 #    logger.info("Registered ChangeWindowAPIView"),

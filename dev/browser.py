@@ -1,12 +1,11 @@
 
 import os
-import time
 import ctypes
-import json
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtCore import Qt, QUrl, QTimer
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineProfile
 from dotenv import load_dotenv
+from config import CONFIG_FILE
 
 from anywall_app.models import VISUALIZZAZIONE
 from anywall_app.logger import setup_logger
@@ -19,17 +18,17 @@ class BrowserHandler(QMainWindow):
     Handles browser window creation and management for web content display.
     Uses PyQt5 WebEngine to render web content.
     """
-    
+
     def __init__(self, window, process_manager, url):
         """Initialize the browser window."""
         super().__init__()
-        
+
         # Load environment variables
         try:
-            load_dotenv('.\\..\\con\\conf.env')
+            load_dotenv(CONFIG_FILE, override=True)
         except Exception as e:
             logger.warning(f"Failed to load env file: {e}")
-            
+
         # Store references and window properties
         self.process_manager = process_manager
         self.urlBrowser = url
