@@ -76,13 +76,18 @@ a = Analysis(
 )
 pyz = PYZ(a.pure)
 
+# Ensure the output directory exists
+output_dir = os.path.join(BASE_DIR, 'out/anywall/lib')
+icon_path = os.path.join(BASE_DIR, 'out/anywall/resources/anywall.ico')
+os.makedirs(output_dir, exist_ok=True)
+
 exe = EXE(
     pyz,
     a.scripts,
     a.binaries,
     a.datas,
     [],
-    name='Anywall',
+    name='anywall',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
@@ -95,4 +100,6 @@ exe = EXE(
     target_arch=None,
     codesign_identity=None,
     entitlements_file=None,
+    distpath=output_dir,
+    icon=icon_path
 )

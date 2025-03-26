@@ -7,3 +7,4 @@ tutorial
 .vscode
 django/anywall/staticfiles/
 django/anywall/static/
+out

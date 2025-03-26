@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 
 # Load environment variables
-ROOT_ANYWALL_DIR = "C:\\Anywall\\"
+ROOT_ANYWALL_DIR = "C:\\anywall\\"
 CONFIG_FILE = ROOT_ANYWALL_DIR + "conf\\config.env"
 RESOURCES_DIR = ROOT_ANYWALL_DIR + "resources"
 LOG_DIR = ROOT_ANYWALL_DIR + "logs"
