@@ -18,6 +18,7 @@ urlpatterns = [
     path('api/alarm/', AlarmAPIView.as_view(), name='alarm'),
     path('api/alarm/clear/', AlarmClearAPIView.as_view(), name='alarm/clear'),
     path('api/alarm/expired/', AlarmExpiredAPIView.as_view(), name='alarm/expired'),
+    path('api/latest-screenshot/', ScreenshotAPIView.as_view(), name='latest-screenshot'), #Added line
     path('upload/', upload_image, name='upload'),
     path('success/', success, name='success'),
     path('select-image/', select_image, name='select-image'),
@@ -31,7 +32,6 @@ urlpatterns = [
     path('get_candidates/', get_candidates, name='get_candidates'),
     path('login', CustomLoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
-
     path('setting', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
     path('settings', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
     path('', RedirectView.as_view(url='/anywall'), name='setting-redirect'),

@@ -84,6 +84,16 @@ class ProcessMonitor:
         logger.debug("Django server process started")
 
     @staticmethod
+    def run_screenshot_service():
+        """Start Screenshot service in a separate process."""
+        import screenshot_service
+        global processes
+        p = Process(target=screenshot_service.run_screenshot_service)
+        p.start()
+        processes['screenshot_process'] = p
+        logger.debug("Screenshot process started")
+
+    @staticmethod
     def start_manager(init, shared_dict):
         """Start the manager process."""
         import manager
@@ -179,6 +189,7 @@ class ProcessMonitor:
             logger.info("Restarting Django server...")
             processes['server_process'] = None
             ProcessMonitor.run_django_server()
+            ProcessMonitor.run_screenshot_service()
 
     @staticmethod
     def restart_manager(init='noinit'):
@@ -225,6 +236,10 @@ class ProcessMonitor:
             ProcessMonitor.restart_manager('init_windows')
             return True
         return False
+    
+    #write a function to run run_screenshot_service in a separate process
+    
+
 
     @staticmethod
     def kill_manager_and_windows():
@@ -351,6 +366,7 @@ def execute():
     # Start initial processes
     ProcessMonitor.run_django_server()
     ProcessMonitor.run_manager('init_windows')
+    ProcessMonitor.run_screenshot_service()
 
     from utils import getReceivedApiCalls
     last_api_call_dt_creation = timezone.localtime(timezone.now())

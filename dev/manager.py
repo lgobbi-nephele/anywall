@@ -1,4 +1,3 @@
-
 import os
 import sys
 import json
@@ -69,7 +68,7 @@ class WindowManager:
         self.screen = None
         self.last_api_call_dt_creation = timezone.localtime(timezone.now())
         self.state_instance = None
-        
+
     def initialize_windows(self):
         """Initialize window list from database"""
         try:
@@ -84,7 +83,7 @@ class WindowManager:
                 self._create_initial_database()
                 return self.initialize_windows()
             return False
-            
+
     def _create_initial_database(self):
         """Create initial database structure and mock data"""
         logger.info("Creating initial database structure and mock data")
@@ -95,7 +94,7 @@ class WindowManager:
         except Exception as e:
             logger.error(f"Failed to create initial database: {e}")
             return False
-    
+
     def _make_migrations(self):
         """Apply database migrations"""
         try:
@@ -103,7 +102,7 @@ class WindowManager:
         except Exception as e:
             logger.error(f"Migration failed: {e}")
             raise
-    
+
     def _create_mock_data(self):
         """Create mock data for initial setup"""
         # Create and upload 16 mocked window instances
@@ -118,19 +117,19 @@ class WindowManager:
         utils.createMockedDeltaObject()
         for i in range(MAX_WINDOWS):
             utils.createMockedBackupWindowObject(i)
-            
+
     def fetch_state(self):
         """Fetch the current application state"""
         try:
             self.state_instance = django_state.objects.latest('created')
-            
+
             # Update mode if there are alarm windows
             if self.state_instance.alarm_windows > 0:
                 self.state_instance.mode = MODE['ALLARME']
                 callAlarmExpired()
             elif self.state_instance.mode == MODE['ALLARME'] and self.state_instance.alarm_windows == 0:
                 callAlarmClear()
-                
+
             connection.close()
             return self.state_instance
         except OperationalError as e:
@@ -139,7 +138,7 @@ class WindowManager:
         except django_state.DoesNotExist:
             logger.warning("No state found in database")
             return None
-    
+
     def process_api_calls(self):
         """Process incoming API calls and apply changes"""
         try:
@@ -147,86 +146,86 @@ class WindowManager:
             api_calls = utils.getReceivedApiCalls(self.last_api_call_dt_creation)
             if not api_calls:
                 return False
-                
+
             # Process each API call
             for current_api_call in api_calls:
                 self._process_single_api_call(current_api_call)
                 self.last_api_call_dt_creation = timezone.localtime(current_api_call.created)
-                
+
             return True
         except OperationalError as e:
             logger.error(f"Database error when processing API calls: {e}")
             connection.close()
             raise DatabaseError("Failed to process API calls") from e
-    
+
     def _process_single_api_call(self, current_api_call):
         """Process a single API call and apply relevant changes"""
         try:
             # Read delta changes
             delta_list, split_list = self._read_delta_main(current_api_call)
-            
+
             # Handle image selection for all windows
             if current_api_call.name == "select-image/" and current_api_call.data.get("window_id") is None:
                 self._update_general_pictures(current_api_call.data.get("image_scope"))
                 return
-                
+
             # Skip if no delta changes
             if not delta_list:
                 logger.debug("No delta changes to apply")
                 return
-                
+
             # Read state changes if needed
             if delta_list[0].readState:
                 state_instance, do_alarm_checks, cont = self._read_state_changes(delta_list)
                 if cont:
                     return
-                    
+
             # Apply window-specific changes
             for same_window_list in split_list:
                 req_window, new_info = self._collect_window_changes(same_window_list)
-                
+
                 if req_window is not None:
                     self._update_render_data(req_window.window_id, new_info)
-                    
+
                     # Handle visualization mode changes
                     if "visualizzazione" in new_info:
                         self._handle_view_mode_change(req_window)
-                        
+
             # Apply delta changes to windows table
             utils.applyDeltaChangesInWindows()
-            
+
         except Exception as e:
             logger.error(f"Error processing API call: {e}")
             raise
-    
+
     def _read_delta_main(self, current_api_call):
         """Read delta changes for an API call"""
         try:
             delta_list = django_delta.objects.filter(call_id=current_api_call.id).order_by('window_id')
-            
+
             if not delta_list:
                 logger.debug(f"Empty delta list for API call {current_api_call.id}")
-                
+
             # Group delta objects by window ID
             unique_window_ids = set(obj.window_id for obj in delta_list)
             split_list = [[obj for obj in delta_list if obj.window_id == window_id] for window_id in unique_window_ids]
-            
+
             connection.close()
             return delta_list, split_list
         except OperationalError as e:
             logger.error(f"Database error in read_delta_main: {e}")
             connection.close()
             raise DatabaseError("Failed to read delta changes") from e
-    
+
     def _read_state_changes(self, delta_list):
         """Read state changes from delta list"""
         try:
             state_instance = django_state.objects.latest('created')
-            
+
             # Handle different modes
             do_alarm_checks = False
             continue_flag = False
-            
+
             if state_instance.mode == MODE['ALLARME']:
                 logger.info("Read mode: ALLARME")
                 do_alarm_checks = True
@@ -238,38 +237,38 @@ class WindowManager:
                 continue_flag = True
             elif state_instance.mode == MODE['TELECAMERE']:
                 logger.info("Read mode: TELECAMERE")
-                
+
             connection.close()
             return state_instance, do_alarm_checks, continue_flag
         except OperationalError as e:
             logger.error(f"Database error in read_state_changes: {e}")
             connection.close()
             raise DatabaseError("Failed to read state changes") from e
-    
+
     def _collect_window_changes(self, same_window_list):
         """Collect changes for a specific window from delta list"""
         new_info = {}
         req_window = None
-        
+
         try:
             for el in same_window_list:
                 if el.window_id == -1:
                     continue
-                    
+
                 # Query the window only once for the entire same_window_list
                 if req_window is None:
                     req_window = django_requested_window.objects.get(window_id=el.window_id)
-                
+
                 # Stream and text changes
                 if el.windows_column_name in ["stream", "labelText"]:
                     new_info.update({"stream": req_window.stream, "labelText": req_window.labelText})
-                
+
                 # Zoom settings
                 if el.windows_column_name == "zoom":
                     new_info.update({"zoom": req_window.zoom})
                 if el.windows_column_name == "isZoom":
                     new_info.update({"isZoom": req_window.isZoom})
-                
+
                 # UI element visibility
                 if el.windows_column_name == "enableLogo":
                     new_info.update({"enableLogo": req_window.enableLogo})
@@ -277,13 +276,13 @@ class WindowManager:
                     new_info.update({"enableAlarmIcon": req_window.enableAlarmIcon})
                 if el.windows_column_name == "enableWatermark":
                     new_info.update({"enableWatermark": req_window.enableWatermark})
-                
+
                 # Image paths
                 if el.windows_column_name == "logoPath":
                     new_info.update({"logoPath": req_window.logoPath})
                 if el.windows_column_name == "alarmIconPath":
                     new_info.update({"alarmIconPath": req_window.alarmIconPath})
-                
+
                 # Position and size
                 if el.windows_column_name == "coord_x":
                     new_info.update({"coord_x": req_window.coord_x})
@@ -291,12 +290,12 @@ class WindowManager:
                     new_info.update({"coord_y": req_window.coord_y})
                 if el.windows_column_name in ["width", "height"]:
                     new_info.update({"width": req_window.width, "height": req_window.height})
-                
+
                 # Window state
                 if el.windows_column_name == "isActive":
                     logger.debug(f"Win {el.window_id}: detected isActive")
                     new_info.update({"isActive": req_window.isActive})
-                
+
                 # Browser settings
                 if el.windows_column_name == "isBrowser":
                     new_info.update({"isBrowser": req_window.isBrowser})
@@ -304,32 +303,32 @@ class WindowManager:
                     new_info.update({"urlBrowser": req_window.urlBrowser})
                 if el.windows_column_name == "visualizzazione":
                     new_info.update({"visualizzazione": req_window.visualizzazione})
-                
+
                 # Alarm settings
                 if el.windows_column_name == "isAlarm":
                     logger.debug(f"Received alarm {req_window.isAlarm} for window {req_window.window_id}")
                     new_info.update({"isAlarm": req_window.isAlarm})
                 if el.windows_column_name == "timeout":
                     new_info.update({"timeout": timezone.localtime(req_window.timeout)})
-                
+
                 # Rolling settings
                 if el.windows_column_name == "isRolling":
                     new_info.update({"isRolling": req_window.isRolling})
                 if el.windows_column_name == "timerRolling":
                     new_info.update({"timerRolling": req_window.timerRolling})
-            
+
             connection.close()
             return req_window, new_info
         except OperationalError as e:
             logger.error(f"Database error in collect_window_changes: {e}")
             connection.close()
             raise DatabaseError("Failed to collect window changes") from e
-    
+
     def _update_render_data(self, window_id, new_info):
         """Update rendering data for a window"""
         logger.debug(f"Updating window {window_id} with: {new_info}")
         self.process_manager.shared_dict[window_id] = new_info
-    
+
     def _update_general_pictures(self, image_scope):
         """Update pictures for all windows"""
         if image_scope == IMAGE_SCOPE['PLACEHOLDER']:
@@ -338,11 +337,11 @@ class WindowManager:
             update_key = "WATERMARK"
         else:
             return
-            
+
         logger.debug(f"Updating {update_key} for all windows")
         for i in range(16):
             self.process_manager.shared_dict[i] = {update_key: True}
-    
+
     def _handle_view_mode_change(self, req_window):
         """Handle visualization mode changes"""
         screen_helper.makeProcessWindow(
@@ -354,31 +353,31 @@ class WindowManager:
             req_window.coord_y
         )
         self.process_manager.shared_dict["switchView"] = req_window.window_id
-    
+
     def check_alarm_timers(self):
         """Check for expired alarms"""
         if not self.state_instance or self.state_instance.mode != MODE['ALLARME']:
             logger.warning("Must be in ALARM mode to check expired alarms")
             return False
-            
+
         try:
             requested_windows = utils.read_requested_windows()
             alarm_windows = list(filter(lambda window: window.timeout, requested_windows))
-            
+
             expired_alarms = []
             for alarm in alarm_windows:
                 if self._is_alarm_expired(alarm.timeout):
                     expired_alarms.append(alarm)
-            
+
             if expired_alarms:
                 callAlarmExpired()
                 return True
-                
+
             return False
         except Exception as e:
             logger.error(f"Error checking alarm timers: {e}")
             return False
-    
+
     def _is_alarm_expired(self, timeout):
         """Check if an alarm has expired"""
         now = timezone.localtime(timezone.now())
@@ -454,28 +453,28 @@ def kill_all_win_processes():
     """Kill all window processes"""
     global screen
     global server_process
-    
+
     logger.info("Killing all window processes")
-    
+
     # Kill window processes
     for key, p in screen_helper.processes.items():
         try:
             p['process'].terminate()
         except Exception as e:
             logger.error(f"Error terminating process {key}: {e}")
-            
+
     # Wait for processes to end
     for key, p in screen_helper.processes.items():
         try:
             p['process'].join(timeout=2)
         except Exception as e:
             logger.error(f"Error joining process {key}: {e}")
-            
+
     screen_helper.processes.clear()
-    
+
     if screen:
         del screen
-        
+
     # Kill server process if it exists
     if server_process:
         try:
@@ -498,18 +497,18 @@ def execute(init, shared_dict):
     """Main execution function"""
     from process_manager import ProcessManager
     global shutdown_flag
-    
+
     # Set up signal handlers
     signal.signal(signal.SIGINT, signal_handler)
     signal.signal(signal.SIGTERM, signal_handler)
-    
+
     # Initialize process manager
     process_manager = ProcessManager(shared_dict, os.getpid(), current_process())
-    
+
     try:
         # Initialize window manager
         window_manager = WindowManager(process_manager)
-        
+
         # Initialize windows if requested
         if init == 'init_windows':
             if window_manager.initialize_windows():
@@ -518,51 +517,51 @@ def execute(init, shared_dict):
                 except BrokenPipeError:
                     process_manager.deleteInstance()
                     process_manager.getInstance()
-        
+
         # Main processing loop
         while not shutdown_flag:
             try:
                 # Fetch current state
                 state_instance = window_manager.fetch_state()
-                
+
                 # Process API calls
                 window_manager.process_api_calls()
-                
+
                 # Check alarm timers if in alarm mode
                 if state_instance and state_instance.mode == MODE['ALLARME']:
                     window_manager.check_alarm_timers()
-                
+
                 # Sleep to prevent CPU overuse
                 time.sleep(1)
-                
+
             except (django_state.DoesNotExist, django_window.DoesNotExist, 
                    django_delta.DoesNotExist, django_api_calls.DoesNotExist) as e:
                 logger.warning(f"Entity not found: {e}")
-                
+
                 # Re-initialize windows if needed
                 if (isinstance(e, django_state.DoesNotExist) or 
                     isinstance(e, django_window.DoesNotExist) or 
                     isinstance(e, django_delta.DoesNotExist)):
                     window_manager.initialize_windows()
-                    
+
                 # Create mock API call if needed
                 elif isinstance(e, django_api_calls.DoesNotExist):
                     logger.warning("No API calls found, creating mock API call")
                     utils.createMockedApiCallObject()
                     window_manager.last_api_call_dt_creation = timezone.localtime(timezone.now())
-                    
+
             except DatabaseError as e:
                 logger.error(f"Database error: {e}")
                 time.sleep(5)  # Wait before retry
-                
+
             except Exception as e:
                 logger.error(f"Unexpected error: {e}")
                 time.sleep(2)  # Wait before retry
-                
+
             finally:
                 # Always close the connection to prevent connection leaks
                 connection.close()
-                
+
     except Exception as e:
         logger.error(f"Fatal error in execute: {e}")
         kill_all_win_processes()
@@ -573,7 +572,7 @@ def main(init, shared_dict):
     """Entry point function"""
     cur_dir = os.path.dirname(__file__) 
     logger.debug(f"Current directory: {cur_dir}")
-    
+
     try:
         execute(init, shared_dict)
     except OperationalError as e:

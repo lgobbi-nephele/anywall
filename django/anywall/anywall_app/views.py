@@ -258,6 +258,15 @@ def clock_view(request):
 class CustomLoginView(LoginView):
     template_name='login.html'
 
+
+class ScreenshotAPIView(generics.GenericAPIView):
+    """Return the filename of the latest screenshot"""
+    permission_classes = [IsAuthenticated]
+    def get(self, request, *args, **kwargs):
+        from dev.screen_capture import get_latest_screenshot
+        filename = get_latest_screenshot()
+        return Response({"filename": filename})
+
 class BrowserWindowAPIView(generics.GenericAPIView):
     serializer_class = BrowserWindowSerializer
     permission_classes = [IsAuthenticated]

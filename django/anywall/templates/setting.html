@@ -100,6 +100,9 @@
         .form-box#alarmFormBox {
             grid-column: span 2;
         }
+        .form-box#screenshotFormBox {
+            grid-column: span 2;
+        }
 
         .innerDiv{
             padding-top: 10%;
@@ -271,6 +274,28 @@
                 grid-template-columns: 1fr;
             }
         }
+        .screenshot-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .screenshot {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .timestamp {
+            display: block;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
     </style>
 </head>
 <body>
@@ -338,7 +363,19 @@
                     </a>
                 </form>
             </div>
-
+            <div class="form-box" id="screenshotFormBox">
+                <h2>Monitor Screenshot</h2>
+                <div class="container">
+                    <div class="controls">
+                        <button id="pauseBtn">Pause Refresh</button>
+                        <button id="resumeBtn" disabled>Resume Refresh</button>
+                    </div>
+                    <div class="screenshot-container">
+                        <img id="screenshotImg" class="screenshot" src="{% static 'anywall_app/screenshots/loading.png' %}" alt="Monitor Screenshot" >
+                        <span id="timestamp" class="timestamp">Loading...</span>
+                    </div>
+                </div>
+            </div>
             <div class="form-box" id="alarmFormBox">
                 <h2>Alarm Settings</h2>
                 <div id="alarmDiv">
@@ -521,9 +558,7 @@
             </div>
         </div>
     </div>
-
     <img src="{% static 'anywall_app/Risorsa-8@4x.png' %}" alt="Logo" class="bottom-right-logo">
-
     <div class="overlay" id="overlay">
         <div class="overlay-content" id="overlayContent">
             <p>Loading...</p>
@@ -532,6 +567,57 @@
     </div>
 
     <script>
+        let paused = false;
+        let refreshInterval = null;
+        
+        // Function to fetch and display the latest screenshot
+        function refreshScreenshot() {
+            if (paused) return;
+            const csrfToken = getCSRFToken();
+            fetch('/api/latest-screenshot/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.filename) {
+                        const img = document.getElementById('screenshotImg');
+                        const timestamp = document.getElementById('timestamp');
+                        
+                        // Add cache-busting query parameter
+                        const cacheBuster = new Date().getTime();
+                        img.src = `{% static 'anywall_app/screenshots/${data.filename}' %}`;
+                        timestamp.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+                    }
+                })
+                .catch(error => console.error('Error fetching screenshot:', error));
+        }
+        
+        // Start the refresh interval when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create initial placeholder image in static folder
+            refreshScreenshot();
+            
+            // Set up automatic refresh every 5 seconds
+            refreshInterval = setInterval(refreshScreenshot, 5000);
+            
+            // Set up pause/resume buttons
+            document.getElementById('pauseBtn').addEventListener('click', () => {
+                paused = true;
+                document.getElementById('pauseBtn').disabled = true;
+                document.getElementById('resumeBtn').disabled = false;
+            });
+            
+            document.getElementById('resumeBtn').addEventListener('click', () => {
+                paused = false;
+                document.getElementById('pauseBtn').disabled = false;
+                document.getElementById('resumeBtn').disabled = true;
+                refreshScreenshot(); // Refresh immediately
+            });
+        });
         // CSRF token setup for AJAX
         function getCSRFToken() {
             return document.querySelector('[name=csrfmiddlewaretoken]').value;
