@@ -26,11 +26,12 @@ python_version = re.sub(r'\.\d+$', '', python_version)
 
 a = Analysis(
     ['./dev/monitor.py'],
-    pathex=[os.path.join(BASE_DIR, 'django/anywall')],
+    pathex=[os.path.join(BASE_DIR, 'django/anywall'), os.path.join(BASE_DIR, 'dev')],
     binaries=[],
     datas=[
         # (os.path.join(BASE_DIR, 'django/anywall/anywall'), './anywall'),
         # (os.path.join(BASE_DIR, 'django/anywall/anywall_app'), './anywall_app'),
+        (os.path.join(BASE_DIR, 'dev'), './dev'),
         (os.path.join(BASE_DIR, 'django/anywall/templates'), './templates'),
         (os.path.join(BASE_DIR, 'django/anywall/static'), './static'), # da generare con python .\django\anywall\manage.py collectstatic
         # (os.path.join(BASE_DIR, 'django/anywall/static'), './static'),
@@ -44,6 +45,7 @@ a = Analysis(
     'anywall_app.urls', 
     'anywall_app.middleware',
     'dotenv', 
+    'dev',
     'rest_framework', 
     'rest_framework.authentication', 
     'rest_framework.permissions', 

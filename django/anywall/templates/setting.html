@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anywall Settings</title>
-    <link rel="icon" src="{% static 'anywall_app/cropped-favicon-192x192.png' %}" sizes="192x192">
+    <link rel="icon" href="{% static 'anywall_app/favicon.ico' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -277,6 +277,7 @@
         .screenshot-container {
             margin-top: 20px;
             text-align: center;
+            position: relative;
         }
         .screenshot {
             max-width: 100%;
@@ -295,6 +296,22 @@
             display: flex;
             justify-content: center;
             gap: 10px;
+        }
+        .pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 10;
+            border-radius: var(--border-radius);
         }
     </style>
 </head>
@@ -371,7 +388,10 @@
                         <button id="resumeBtn" disabled>Resume Refresh</button>
                     </div>
                     <div class="screenshot-container">
-                        <img id="screenshotImg" class="screenshot" src="{% static 'anywall_app/screenshots/loading.png' %}" alt="Monitor Screenshot" >
+                        <div id="pauseOverlay" class="pause-overlay" style="display: none;">
+                            <p>Paused</p>
+                        </div>
+                        <img id="screenshotImg" class="screenshot" src="{% static 'anywall_app/screenshots/loading.gif' %}" alt="Monitor Screenshot" >
                         <span id="timestamp" class="timestamp">Loading...</span>
                     </div>
                 </div>
@@ -569,7 +589,7 @@
     <script>
         let paused = false;
         let refreshInterval = null;
-        
+
         // Function to fetch and display the latest screenshot
         function refreshScreenshot() {
             if (paused) return;
@@ -583,38 +603,38 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    if (data.filename) {
+                    if (data.base64image) {
                         const img = document.getElementById('screenshotImg');
                         const timestamp = document.getElementById('timestamp');
-                        
-                        // Add cache-busting query parameter
-                        const cacheBuster = new Date().getTime();
-                        img.src = `{% static 'anywall_app/screenshots/${data.filename}' %}`;
+
+                        img.src = "data:image/png;base64," + data.base64image;
                         timestamp.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
                     }
                 })
                 .catch(error => console.error('Error fetching screenshot:', error));
         }
-        
+
         // Start the refresh interval when the page loads
         document.addEventListener('DOMContentLoaded', () => {
             // Create initial placeholder image in static folder
             refreshScreenshot();
-            
+
             // Set up automatic refresh every 5 seconds
             refreshInterval = setInterval(refreshScreenshot, 5000);
-            
+
             // Set up pause/resume buttons
             document.getElementById('pauseBtn').addEventListener('click', () => {
                 paused = true;
                 document.getElementById('pauseBtn').disabled = true;
                 document.getElementById('resumeBtn').disabled = false;
+                document.getElementById('pauseOverlay').style.display = 'flex'; // Show overlay
             });
-            
+
             document.getElementById('resumeBtn').addEventListener('click', () => {
                 paused = false;
                 document.getElementById('pauseBtn').disabled = false;
                 document.getElementById('resumeBtn').disabled = true;
+                document.getElementById('pauseOverlay').style.display = 'none'; // Hide overlay
                 refreshScreenshot(); // Refresh immediately
             });
         });
@@ -644,7 +664,6 @@
             fetch('/api/restart/', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken
                 },

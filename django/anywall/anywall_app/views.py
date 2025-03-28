@@ -245,14 +245,14 @@ def receiver(request):
 
 @login_required
 def setting(request):
-    
+
     return render(request, 'setting.html', {
         'SERVER_IP': settings.SERVER_IP
-    })
+        })
 
 @login_required
 def clock_view(request):
-    
+
     return render(request, 'clock_view.html')
 
 class CustomLoginView(LoginView):
@@ -264,8 +264,8 @@ class ScreenshotAPIView(generics.GenericAPIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, *args, **kwargs):
         from dev.screen_capture import get_latest_screenshot
-        filename = get_latest_screenshot()
-        return Response({"filename": filename})
+        base64image = get_latest_screenshot()
+        return Response({"base64image": base64image})
 
 class BrowserWindowAPIView(generics.GenericAPIView):
     serializer_class = BrowserWindowSerializer
