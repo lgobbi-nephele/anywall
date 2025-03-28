@@ -64,12 +64,18 @@ ALLOWED_HOSTS = [SERVER_IP, 'localhost', '127.0.0.1']
 CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_SECURE = False
 
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [(SERVER_IP, 6379)],
+#         },
+#     },
+# }
+from channels.layers import InMemoryChannelLayer
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [(SERVER_IP, 6379)],
-        },
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
     },
 }
 

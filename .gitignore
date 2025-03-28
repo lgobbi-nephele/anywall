@@ -6,5 +6,9 @@ migrations
 tutorial
 .vscode
 django/anywall/staticfiles/
-django/anywall/static/
+django/anywall/static/colorfield/
+django/anywall/static/rest_framework/
+django/anywall/static/drf-yasg/
+django/anywall/static/admin/
+django/anywall/static/staticfiles.json
 out

@@ -25,7 +25,6 @@ urlpatterns = [
     path('get-images-by-scope/', get_images_by_scope, name='get_images_by_scope'),
     path('anywall', setting, name='setting'),
     path('clock-view', clock_view, name='clock-view'),
-    path('sender', sender, name='sender'),
     path('receiver', receiver, name='receiver'),
     path('signaling/', signaling, name='signaling'),
     path('get_offer/', get_offer, name='get_offer'),

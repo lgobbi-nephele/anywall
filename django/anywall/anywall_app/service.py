@@ -75,7 +75,7 @@ def createMockedWindowObject(window_id):
     try:
         win, created = Window.objects.update_or_create(
             window_id=window_id,
-            defaults={"coord_x": 480 * (window_id % 4), 
+            defaults={"coord_x": 480 * (window_id % 4),
                       "coord_y": 270 * (window_id // 4),
                       }
             )
