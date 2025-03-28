@@ -909,7 +909,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken
                 },
-                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'http://{{ SERVER_IP }}:8000/clock-view' })
+                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'https://{{ SERVER_IP }}/clock-view' })
             })
             .then(response => {
                 if(response.status == 403) {

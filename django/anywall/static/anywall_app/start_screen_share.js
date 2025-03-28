@@ -31,7 +31,7 @@ startButton.addEventListener("click", async () => {
 
     // Update the WebSocket URL to use the local IP address
     signalingSocket = new WebSocket(
-      `ws://${SERVER_IP}:8000/ws/signaling/${roomName}/`
+      `wss://${SERVER_IP}/ws/signaling/${roomName}/`
     );
     signalingSocket.onopen = async () => {
       console.log("WebSocket connection opened");

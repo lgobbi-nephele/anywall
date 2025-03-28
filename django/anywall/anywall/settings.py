@@ -55,23 +55,31 @@ ASGI_APPLICATION = 'anywall.asgi.application'
 
 ALLOWED_HOSTS = [SERVER_IP, 'localhost', '127.0.0.1']
 
-#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-#SECURE_SSL_REDIRECT = False
-#SECURE_HSTS_SECONDS = 31536000  # 1 year
-#SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-#SECURE_HSTS_PRELOAD = True
 
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# Redirect all HTTP traffic to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Use the `X-Forwarded-Proto` header to determine if the request is secure (useful for reverse proxies)
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Enable HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
 
 # CHANNEL_LAYERS = {
 #     'default': {
 #         'BACKEND': 'channels_redis.core.RedisChannelLayer',
 #         'CONFIG': {
 #             "hosts": [(SERVER_IP, 6379)],
-#         },
+#         },# Enable secure cookies
+
 #     },
 # }
+
 from channels.layers import InMemoryChannelLayer
 CHANNEL_LAYERS = {
     "default": {
@@ -81,7 +89,7 @@ CHANNEL_LAYERS = {
 
 WS_PORT = 8000
 
-CSRF_TRUSTED_ORIGINS = ['http://'+ SERVER_IP + ':8000', 'http://127.0.0.1:8000', 'http://localhost:8000']
+CSRF_TRUSTED_ORIGINS = ['https://'+ SERVER_IP + ':8000', 'https://127.0.0.1:8000', 'https://localhost:8000']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
