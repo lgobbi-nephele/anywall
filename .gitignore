@@ -11,3 +11,7 @@ django/anywall/static/rest_framework/
 django/anywall/static/drf-yasg/
 django/anywall/static/admin/
 django/anywall/static/staticfiles.json
+out/anywall/lib/mysql-8.4.3-winx64.msi
+out/anywall/lib/freeglut-MSVC-3.0.0.zip
+out/anywall/lib/ffmpeg.zip
+out/anywall/lib/anywall.exe
