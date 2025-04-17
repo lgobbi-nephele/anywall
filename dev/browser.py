@@ -6,6 +6,7 @@ from PyQt5.QtCore import Qt, QUrl, QTimer
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineProfile
 from dotenv import load_dotenv
 from config import CONFIG_FILE
+from config import SERVER_IP
 
 from anywall_app.models import VISUALIZZAZIONE
 from anywall_app.logger import setup_logger
@@ -97,19 +98,19 @@ class BrowserHandler(QMainWindow):
                 self.width, 
                 self.height
             )
-            
+
             # Add browser to window
             self.setCentralWidget(self.browser)
-            
+
             # Load URL
             self.browser.setUrl(QUrl(self.urlBrowser))
-            
+
             # Connect signals
             if self.vis_attuale == VISUALIZZAZIONE['DESKTOP']:
                 self.browser.loadFinished.connect(self.on_load_finished)
-                
+
             self.browser.loadFinished.connect(self.inject_login_script)
-            
+
             logger.info(f"Browser window {self.window_id} set up with URL: {self.urlBrowser}")
         except Exception as e:
             logger.error(f"Failed to set up browser window {self.window_id}: {e}")
@@ -117,6 +118,10 @@ class BrowserHandler(QMainWindow):
     def inject_login_script(self):
         """Inject login script to auto-fill credentials if needed."""
         try:
+            current_url = self.browser.url().toString()
+            if SERVER_IP + '/clock-view' not in current_url or SERVER_IP + '/receiver' not in current_url:
+                return
+
             login_script = """
             if (document.getElementById('username') && document.getElementById('password')) {
                 document.getElementById('username').value = 'admin';

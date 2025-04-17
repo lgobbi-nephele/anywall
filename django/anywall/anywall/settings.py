@@ -89,7 +89,7 @@ CHANNEL_LAYERS = {
 
 WS_PORT = 8000
 
-CSRF_TRUSTED_ORIGINS = ['https://'+ SERVER_IP + ':8000', 'https://127.0.0.1:8000', 'https://localhost:8000']
+CSRF_TRUSTED_ORIGINS = ['https://'+ SERVER_IP, 'https://127.0.0.1:8000', 'https://localhost:8000']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
