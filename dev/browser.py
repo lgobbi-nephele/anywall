@@ -118,8 +118,7 @@ class BrowserHandler(QMainWindow):
     def inject_login_script(self):
         """Inject login script to auto-fill credentials if needed."""
         try:
-            current_url = self.browser.urlBrowser
-            if '/clock-view' not in current_url and '/receiver' not in current_url:
+            if '/clock-view' not in self.urlBrowser and '/receiver' not in self.urlBrowser:
                 return
 
             login_script = """
