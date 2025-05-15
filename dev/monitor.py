@@ -56,6 +56,7 @@ class ProcessMonitor:
             from daphne.server import Server
             from daphne.endpoints import build_endpoint_description_strings
             from anywall.asgi import application
+            from config import SERVER_IP, SERVER_PORT
 
             if getattr(sys, 'frozen', False):
                 asgi_dir = BASE_DIR
@@ -67,7 +68,7 @@ class ProcessMonitor:
             os.chdir(asgi_dir)
 
             # Start the Daphne server programmatically
-            endpoints = build_endpoint_description_strings(host="0.0.0.0", port="8000")
+            endpoints = build_endpoint_description_strings(host=SERVER_IP, port=SERVER_PORT)
             server = Server(application=application, endpoints=endpoints)
             server.run()
         except Exception as e:

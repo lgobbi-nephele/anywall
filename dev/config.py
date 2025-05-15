@@ -22,8 +22,8 @@ DEFAULT_MONITOR_INDEX = int(os.getenv("MONITOR_INDEX", 0))
 SERVER_HOST = "0.0.0.0"
 SERVER_IP = str(os.getenv("SERVER_IP", "127.0.0.1"))
 SERVER_PORT = "8000"
-HTTP = "https://"
-API_SERVER_URL = f"{HTTP}{SERVER_IP}"
+HTTP = "http://"
+API_SERVER_URL = f"{HTTP}{SERVER_IP}:{SERVER_PORT}"
 
 #DB settings
 DB_NAME = os.getenv("DB_NAME", "myDatabase")

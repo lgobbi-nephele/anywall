@@ -108,12 +108,15 @@ class RTSPStreamCapture:
         self.capture_thread.daemon = True  # Make thread exit when main thread exits
         self.capture_thread.start()
         self.logger.info(f"Started capturing from {self.rtsp_url} at resolution {self.width}x{self.height}")
+        if not self.rtsp_url.startswith("rtsp://"):
+            self.reconnect_attempts = self.max_reconnect_attempts
 
     def _start_stream(self):
         """Start FFmpeg subprocess for stream decoding"""
         # Configure ffmpeg command for RTSP stream processing
         ffmpeg_cmd = [
             'ffmpeg',
+            '-re',
             '-i', self.rtsp_url,
             '-f', 'rawvideo',
             '-pix_fmt', 'bgr24',
@@ -140,6 +143,10 @@ class RTSPStreamCapture:
                 timestamp = datetime.now()
                 raw_frame = self.process.stdout.read(self.frame_size)
                 if not raw_frame or len(raw_frame) < self.frame_size:
+                    if not self.rtsp_url.startswith("rtsp://"):
+                        self._cleanup_process()
+                        self._start_stream()
+                        continue
                     self.logger.warning("No more frames or incomplete frame received from ffmpeg.")
                     self.frame_queue.append((self.no_connection_frame, timestamp))
                     self.ready = True
