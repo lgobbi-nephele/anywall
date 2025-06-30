@@ -1,82 +1,146 @@
 import gi
-gi.require_version('Gst', '1.0')
-gi.require_version('Gtk', '3.0')
+
+gi.require_version("Gst", "1.0")
+gi.require_version("Gtk", "3.0")
 from gi.repository import Gst, GObject, Gtk, Gdk
 
+from anywall_app.logger import setup_logger
+
+logger = setup_logger(__name__)
+
+
 class GStreamerHandler:
+    """
+    Handles video streams using GStreamer.
+    """
+
     def __init__(self, window, url):
-        Gst.init(None)
-        self.window = window
-        self.pipeline = None
-        self.pipeline_str = self.pipeline_builder(url)
-        
-        self.bus = self.pipeline.get_bus()
-        self.bus.add_signal_watch()
-        self.bus.connect('message::eos', self.on_eos)
-        self.bus.connect('message::error', self.on_error)
+        """Initialize the GStreamer pipeline for video streaming."""
+        try:
+            Gst.init(None)
+            self.window = window
+            self.url = url
+
+            # Build and setup pipeline
+            self.pipeline_str = self.build_pipeline(url)
+            self.pipeline = Gst.parse_launch(self.pipeline_str)
+
+            if not self.pipeline:
+                logger.error(f"Failed to create pipeline for window {window.window_id}")
+                return
+
+            # Set up bus for pipeline messages
+            self.bus = self.pipeline.get_bus()
+            self.bus.add_signal_watch()
+            self.bus.connect("message::eos", self.on_eos)
+            self.bus.connect("message::error", self.on_error)
+
+            logger.info(
+                f"GStreamer initialized for window {window.window_id} with URL: {url}"
+            )
+        except Exception as e:
+            logger.error(
+                f"Failed to initialize GStreamer for window {window.window_id}: {e}"
+            )
 
     def play(self):
-        self.pipeline.set_state(Gst.State.PLAYING)
+        """Start playing the video stream."""
+        try:
+            if self.pipeline:
+                state_change = self.pipeline.set_state(Gst.State.PLAYING)
+                if state_change == Gst.StateChangeReturn.FAILURE:
+                    logger.error(
+                        f"Failed to start pipeline for window {self.window.window_id}"
+                    )
+                else:
+                    logger.info(f"Started pipeline for window {self.window.window_id}")
+        except Exception as e:
+            logger.error(f"Error starting pipeline: {e}")
 
     def on_eos(self, bus, message):
-        print("End of Stream")
-        self.pipeline.set_state(Gst.State.NULL)
+        """Handle end-of-stream message."""
+        logger.info(f"End of stream for window {self.window.window_id}")
+        try:
+            self.pipeline.set_state(Gst.State.NULL)
+            # Attempt to restart the pipeline after a brief delay
+            GObject.timeout_add(1000, self.restart_pipeline)
+        except Exception as e:
+            logger.error(f"Error handling EOS: {e}")
 
     def on_error(self, bus, message):
+        """Handle error message."""
         err, debug = message.parse_error()
-        print("Error: %s" % err, debug)
+        logger.error(
+            f"GStreamer error for window {self.window.window_id}: {err} ({debug})"
+        )
+        try:
+            self.pipeline.set_state(Gst.State.NULL)
+            # Attempt to restart the pipeline after a brief delay
+            GObject.timeout_add(3000, self.restart_pipeline)
+        except Exception as e:
+            logger.error(f"Error handling pipeline error: {e}")
+
+    def restart_pipeline(self):
+        """Attempt to restart the pipeline."""
+        try:
+            logger.info(
+                f"Attempting to restart pipeline for window {self.window.window_id}"
+            )
+            self.pipeline.set_state(Gst.State.NULL)
+            self.pipeline.set_state(Gst.State.PLAYING)
+            return False  # Don't repeat the timeout
+        except Exception as e:
+            logger.error(f"Failed to restart pipeline: {e}")
+            return False
+
+    def update_url(self, url):
+        """Update the stream URL."""
+        if url == self.url:
+            return  # No change needed
+
+        try:
+            logger.info(f"Updating URL for window {self.window.window_id} to: {url}")
+            self.url = url
+            # Stop current pipeline
+            self.pipeline.set_state(Gst.State.NULL)
+
+            # Create new pipeline with updated URL
+            self.pipeline_str = self.build_pipeline(url)
+            self.pipeline = Gst.parse_launch(self.pipeline_str)
+
+            # Set up bus for new pipeline
+            self.bus = self.pipeline.get_bus()
+            self.bus.add_signal_watch()
+            self.bus.connect("message::eos", self.on_eos)
+            self.bus.connect("message::error", self.on_error)
+
+            # Start new pipeline
+            self.play()
+        except Exception as e:
+            logger.error(f"Failed to update URL: {e}")
 
     def quit(self):
-        self.pipeline.set_state(Gst.State.NULL)
-    
-    def pipeline_builder(self, url):
+        """Clean up and stop the pipeline."""
+        try:
+            if self.pipeline:
+                self.pipeline.set_state(Gst.State.NULL)
+                logger.info(f"Pipeline stopped for window {self.window.window_id}")
+        except Exception as e:
+            logger.error(f"Error stopping pipeline: {e}")
 
+    def build_pipeline(self, url):
+        """Build the GStreamer pipeline string."""
+        try:
+            win = self.window
+            pipeline_str = (
+                f"rtspsrc location={url} ! "
+                f"decodebin ! videoconvert ! videoscale ! "
+                f"video/x-raw,width={win.width},height={win.height} ! "
+                f"glimagesink"
+            )
 
-        # # Initialize GTK+
-        # Gtk.init(None)
-
-        # # Create a new GTK+ window
-        # window = Gtk.Window(title="GStreamer GLImagesink Example")
-        # window.connect("destroy", Gtk.main_quit)
-
-        # # Show the window
-        # window.show_all()
-
-        # # Start the GTK+ main loop
-        # Gtk.main()
-
-        # At this point, the GTK+ main loop is running, and the window is displayed.
-        # You would typically set up your GStreamer pipeline here and start it.
-        # However, since we're focusing on creating the window and getting its handle,
-        # let's assume you've already set up your GStreamer pipeline elsewhere.
-
-        # Get the window handle
-        #window_handle = window.get_window().get_xid()
-
-        #print(f"Window handle: {window_handle}")
-
-        # Now, you can use `window_handle` in your GStreamer pipeline setup
-        # For example, setting it as the window handle for glimagesink:
-        # glimagesink.set_property("window-handle", window_handle)
-
-        # implementare logica per test stream, identificazione problemi, utilizzo condizionale ffmpeg (?)
-        win = self.window
-        win_coordinates = (win.coordinates[0], win.coordinates[1], win.coordinates[0] + win.width, win.coordinates[1] + win.height)
-        pipeline_str = f'rtspsrc location={url} ! decodebin ! videoconvert ! videoscale ! video/x-raw,width={win.width},height={win.height} ! glimagesink' 
-        
-        self.pipeline = Gst.parse_launch(pipeline_str)
-        
-        # glimagesink = self.pipeline.get_by_name("glimagesink")
-
-        # # Set the window handle
-        # # Replace 'window_handle' with the actual handle of your window
-        # glimagesink.set_property("window-handle", window_handle)
-
-        # glimagesink.set_property("render-x", win_coordinates[0])
-        # glimagesink.set_property("render-y", win_coordinates[1])
-        # glimagesink.set_property("render-width", win_coordinates[2])
-        # glimagesink.set_property("render-height", win_coordinates[3])
-        
-        print(pipeline_str)
-        return pipeline_str
-    
+            logger.debug(f"Pipeline for window {win.window_id}: {pipeline_str}")
+            return pipeline_str
+        except Exception as e:
+            logger.error(f"Failed to build pipeline: {e}")
+            return "videotestsrc ! videoconvert ! glimagesink"  # Fallback pipeline

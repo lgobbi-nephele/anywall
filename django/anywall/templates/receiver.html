@@ -43,9 +43,7 @@
 
         waitForWindowId().then(() => {
             const roomName = 'room_window_' + window_id;  // Use the same unique room name as the sender
-            const signalingSocket = new WebSocket(`wss://172.20.112.13/ws/signaling/${roomName}/`);
-            // const signalingSocket = new WebSocket(`ws://192.168.1.13:8000/ws/signaling/${roomName}/`);
-            // const signalingSocket = new WebSocket(`wss://192.168.1.13:8000/ws/signaling/${roomName}/`);
+            const signalingSocket = new WebSocket(`wss://{{ SERVER_IP }}/ws/signaling/${roomName}/`);
             let iceCandidatesQueue = [];
 
             signalingSocket.onmessage = async (event) => {

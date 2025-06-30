@@ -1,5 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+
 
 from anywall_app.models import *
 from anywall_app.serializers import *
@@ -22,127 +24,139 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.decorators import login_required
 import json
 from rest_framework.permissions import IsAuthenticated
+from django.conf import settings
 
+
+@extend_schema(
+    summary="Create a WebRTC Signaling Message",
+    description="This endpoint is used for WebRTC signaling. It accepts a POST request with a JSON body containing the signaling message (e.g., offer, answer, candidate) and stores it in the database.",
+    request={"type": "object", "properties": {"type": {"type": "string"}, "content": {"type": "object"}}},
+    responses={200: {"description": "Signaling message successfully created."}},
+)
 @csrf_exempt
 @login_required
 def signaling(request):
-    
-    if request.method == 'POST':
+
+    if request.method == "POST":
         message = json.loads(request.body)
-        message_type = message.get('type')
+        message_type = message.get("type")
         content = json.dumps(message)
 
-        # Salva il messaggio di segnalazione nel database
         signaling_message = SignalingMessage.objects.create(
-            message_type=message_type,
-            content=content
+            message_type=message_type, content=content
         )
 
-        return JsonResponse({'status': 'success', 'message_id': signaling_message.id})
-    return JsonResponse({'status': 'failed'})
+        return JsonResponse({"status": "success", "message_id": signaling_message.id})
+    return JsonResponse({"status": "failed"})
 
+
+@extend_schema(
+    summary="Get Latest WebRTC Offer",
+    description="Retrieves the most recent WebRTC offer message from the database. This is used by a peer to start the WebRTC connection.",
+    responses={200: {"description": "The latest WebRTC offer."}, 404: {"description": "No offer found."}},
+)
 @login_required
 def get_offer(request):
-    
-    try:
-        offer_message = SignalingMessage.objects.filter(message_type='offer').latest('timestamp')
-        offer = json.loads(offer_message.content)
-        return JsonResponse({'offer': offer['offer']})
-    except SignalingMessage.DoesNotExist:
-        return JsonResponse({'error': 'No offer found'}, status=404)
 
+    try:
+        offer_message = SignalingMessage.objects.filter(message_type="offer").latest(
+            "timestamp"
+        )
+        offer = json.loads(offer_message.content)
+        return JsonResponse({"offer": offer["offer"]})
+    except SignalingMessage.DoesNotExist:
+        return JsonResponse({"error": "No offer found"}, status=404)
+
+
+@extend_schema(
+    summary="Get All WebRTC Candidates",
+    description="Retrieves all ICE candidates that have been sent. These are needed for the WebRTC connection to be established between peers.",
+    responses={200: {"description": "A list of all WebRTC ICE candidates."}},
+)
 @login_required
 def get_candidates(request):
-    
-    candidates = SignalingMessage.objects.filter(message_type='candidate').order_by('timestamp')
-    candidate_list = [json.loads(candidate.content)['candidate'] for candidate in candidates]
-    return JsonResponse({'candidates': candidate_list})
 
-# @csrf_exempt
-# def signaling(request):
-    
-#     if request.method == 'POST':
-#         message = json.loads(request.body)
-#         # Gestisci il messaggio di segnalazione qui
-#         # Puoi memorizzare l'offerta e i candidati ICE in un database o in memoria
-#         return JsonResponse({'status': 'success'})
-#     return JsonResponse({'status': 'failed'})
+    candidates = SignalingMessage.objects.filter(message_type="candidate").order_by(
+        "timestamp"
+    )
+    candidate_list = [
+        json.loads(candidate.content)["candidate"] for candidate in candidates
+    ]
+    return JsonResponse({"candidates": candidate_list})
 
-# tutto da disaccoppiare in service. Aggiormento di tutte le altre tabelle.
-# view solo collezione campi e salvataggio in api_call
 
+@extend_schema(
+    summary="Get Images by Scope",
+    description="Retrieves a list of images based on a 'scope' query parameter. Each image in the response includes its ID, path, and a base64 encoded preview.",
+    parameters=[
+        OpenApiParameter(name='scope', description='The scope of the images to retrieve.', required=True, type=OpenApiTypes.STR),
+    ],
+    responses={200: {"description": "A list of images matching the specified scope."}},
+)
 @login_required
 def get_images_by_scope(request):
-    
-    scope = request.GET.get('scope')
+
+    scope = request.GET.get("scope")
     images = list(ImageModel.objects.filter(scope=scope))
     connection.close()
-    
+
     def image_to_base64(image_data):
         try:
-            encoded_string = base64.b64encode(image_data).decode('utf-8')
-            
+            encoded_string = base64.b64encode(image_data).decode("utf-8")
+
             # Determine MIME type
             mime_type = mimetypes.guess_type("example.jpg")[0]  # Use a dummy filename
-            
+
             if not mime_type:
                 logger.warning("Unable to determine MIME type for image")
                 return None
-            
+
             return f"data:{mime_type};base64,{encoded_string}"
-        
+
         except Exception as e:
             logger.error(f"Error encoding image to base64: {str(e)}")
             return None
-    
+
     image_list = []
     for img in images:
-        
+
         try:
             with open(img.image.path, "rb") as image_file:
                 encoded_image = image_to_base64(image_file.read())
-                
+
                 if encoded_image:
-                    image_list.append({
-                        'id': img.id,
-                        'image': str(img.image.path),
-                        'preview': encoded_image
-                    })
+                    image_list.append(
+                        {
+                            "id": img.id,
+                            "image": str(img.image.path),
+                            "preview": encoded_image,
+                        }
+                    )
                 else:
                     logger.warning(f"Failed to encode image preview for ID: {img.id}")
-        
+
         except FileNotFoundError:
             logger.error(f"Image file not found at path: {img.image.path}")
         except Exception as e:
             logger.error(f"Unexpected error processing image {img.id}: {str(e)}")
-    
+
     logger.info(f"Processed {len(image_list)} images out of {len(images)}")
     return JsonResponse(image_list, safe=False)
 
-# def get_images_by_scope(request):
-    
-#     scope = request.GET.get('scope')
-#     images = ImageModel.objects.filter(scope=scope)
-    
-#     previews = []
-#     for image in images:
-#         preview_url = f"file:///usr/local/etc/Anywall/resources/media/{image.image}"
-#         previews.append({
-#             'id': image.id,
-#             'image': str(image.image.path),
-#             'preview': preview_url
-#         })
-    
-#     return JsonResponse(previews, safe=False)
 
+@extend_schema(
+    summary="Select an Image",
+    description="This endpoint allows for the selection of an image for a given scope or window. It updates the database to reflect the current selection.",
+    request={"type": "object", "properties": {"image_scope": {"type": "integer"}, "images": {"type": "string"}, "window_id": {"type": "integer"}}},
+    responses={302: {"description": "Redirects to the success page after processing."}},
+)
 @login_required
 def select_image(request):
-    
-    
-    if request.method == 'POST':
+
+    if request.method == "POST":
         image_scope = int(request.POST.get("image_scope"))
-        selected_image = request.POST.get('images')
-        window_id = request.POST.get('window_id')
+        selected_image = request.POST.get("images")
+        window_id = request.POST.get("window_id")
 
         if window_id is not None:
             window_id = int(window_id)
@@ -150,15 +164,18 @@ def select_image(request):
         try:
             if selected_image:
                 # Unpack the selected image value
-                image_id, image_filename = selected_image.split(',')
-                
+                image_id, image_filename = selected_image.split(",")
+
                 # solve image filename here
                 print(f"selected_image: {selected_image}")
-                
+
                 # Convert image_id to int (assuming it's numeric)
                 image_id = int(image_id)
-            
-            api_call = Api_calls(name='select-image/', data={"image_scope":image_scope, "window_id":window_id})
+
+            api_call = Api_calls(
+                name="select-image/",
+                data={"image_scope": image_scope, "window_id": window_id},
+            )
 
             if window_id is not None:
                 # modifica finestra
@@ -166,112 +183,181 @@ def select_image(request):
                     raise Exception
                 if image_scope == 2:
                     if selected_image:
-                        requested_window_instance, created = RequestedWindow.objects.update_or_create(
-                                                                                window_id=window_id,
-                                                                                defaults={"logoPath":image_filename}
-                                                                                )
+                        requested_window_instance, created = (
+                            RequestedWindow.objects.update_or_create(
+                                window_id=window_id,
+                                defaults={"logoPath": image_filename},
+                            )
+                        )
                     else:
-                        requested_window_instance, created = RequestedWindow.objects.update_or_create(
-                                                                                window_id=window_id,
-                                                                                defaults={"logoPath":""}
-                                                                                )
+                        requested_window_instance, created = (
+                            RequestedWindow.objects.update_or_create(
+                                window_id=window_id, defaults={"logoPath": ""}
+                            )
+                        )
                 if image_scope == 3:
                     if selected_image:
-                        requested_window_instance, created = RequestedWindow.objects.update_or_create(
-                                                                                window_id=window_id,
-                                                                                defaults={"alarmIconPath":image_filename}
-                                                                                )
+                        requested_window_instance, created = (
+                            RequestedWindow.objects.update_or_create(
+                                window_id=window_id,
+                                defaults={"alarmIconPath": image_filename},
+                            )
+                        )
                     else:
-                        requested_window_instance, created = RequestedWindow.objects.update_or_create(
-                                                                                window_id=window_id,
-                                                                                defaults={"alarmIconPath":""}
-                                                                                )
+                        requested_window_instance, created = (
+                            RequestedWindow.objects.update_or_create(
+                                window_id=window_id, defaults={"alarmIconPath": ""}
+                            )
+                        )
                 makeDeltaRows(None, requested_window_instance, api_call)
             else:
                 if image_scope == 0:
                     raise Exception
                 if image_scope == 1 or image_scope == 4:
-                    images_by_selected_scope = ImageModel.objects.filter(scope=image_scope)
+                    images_by_selected_scope = ImageModel.objects.filter(
+                        scope=image_scope
+                    )
                     if selected_image:
                         for im in images_by_selected_scope:
-                            ImageModel.objects.update_or_create(id=im.id, defaults={"selected": (im.id == image_id)})
+                            ImageModel.objects.update_or_create(
+                                id=im.id, defaults={"selected": (im.id == image_id)}
+                            )
                     else:
                         for im in images_by_selected_scope:
-                            ImageModel.objects.update_or_create(id=im.id, defaults={"selected": False})
+                            ImageModel.objects.update_or_create(
+                                id=im.id, defaults={"selected": False}
+                            )
             api_call.save()
-            
+
             connection.close()
-            return redirect('success')  # Redirect after successful submission
+            return redirect("success")  # Redirect after successful submission
         except ValueError:
             # Handle invalid format
             print(f"Invalid image selection format: {selected_image}")
         except ImageModel.DoesNotExist:
             print(f"No image found with ID: {image_id}")
 
-    
-    # form = ImageForm()
     images_list = ImageModel.objects.all()
     connection.close()
-    context = {'images':images_list, 'IMAGE_SCOPE':IMAGE_SCOPE}
-    return render(request, 'select_image.html', context)
+    context = {"images": images_list, "IMAGE_SCOPE": IMAGE_SCOPE}
+    return render(request, "select_image.html", context)
 
+
+@extend_schema(
+    summary="Upload an Image",
+    description="Handles the uploading of a new image. It uses a form to validate and save the uploaded image.",
+    request={"type": "object", "properties": {"image": {"type": "string", "format": "binary"}}},
+    responses={302: {"description": "Redirects to the success page after a successful upload."}},
+)
 @login_required
 def upload_image(request):
-    
-    if request.method == 'POST':
+
+    if request.method == "POST":
         form = ImageForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('success')
+            return redirect("success")
     else:
         form = ImageForm()
-    return render(request, 'upload_image.html', {'form': form})
+    return render(request, "upload_image.html", {"form": form})
 
+
+@extend_schema(
+    summary="Success Page",
+    description="Renders a simple success page. This is typically used as a redirect target after a successful form submission.",
+    responses={200: {"description": "The success page."}},
+)
 @login_required
 def success(request):
-    
-    return render(request, 'success.html')
 
-@login_required
-def sender(request):
-    
-    return render(request, 'sender.html')
+    return render(request, "success.html")
 
+
+@extend_schema(
+    summary="Receiver Page",
+    description="Renders the receiver page, which likely handles incoming data streams or messages. It passes the server IP to the template.",
+    responses={200: {"description": "The receiver page."}},
+)
 @login_required
 def receiver(request):
-    
-    return render(request, 'receiver.html')
 
+    return render(request, "receiver.html", {"SERVER_IP": settings.SERVER_IP})
+
+
+@extend_schema(
+    summary="Settings Page",
+    description="Renders the settings page, which allows users to configure application settings. It passes the server IP to the template.",
+    responses={200: {"description": "The settings page."}},
+)
 @login_required
 def setting(request):
-    
-    return render(request, 'setting.html')
 
+    return render(request, "setting.html", {"SERVER_IP": settings.SERVER_IP})
+
+
+@extend_schema(
+    summary="Clock View Page",
+    description="Renders a page that displays a clock.",
+    responses={200: {"description": "The clock view page."}},
+)
 @login_required
 def clock_view(request):
-    
-    return render(request, 'clock_view.html')
 
+    return render(request, "clock_view.html")
+
+@extend_schema(
+    summary="User Login",
+    description="Handles user authentication and login.",
+    request={"type": "object", "properties": {"username": {"type": "string"}, "password": {"type": "string"}}},
+    responses={200: {"description": "User successfully logged in."}, 400: {"description": "Invalid credentials."}},
+)
 class CustomLoginView(LoginView):
-    template_name='login.html'
+    template_name = "login.html"
 
+
+@extend_schema(
+    summary="Get Latest Screenshot",
+    description="Returns the most recent screenshot taken, encoded in base64 format.",
+    responses={200: {"description": "The latest screenshot as a base64 encoded string."}},
+)
+class ScreenshotAPIView(generics.GenericAPIView):
+    """Return the filename of the latest screenshot"""
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        from dev.screen_capture import get_latest_screenshot
+
+        base64image = get_latest_screenshot()
+        return Response({"base64image": base64image})
+
+
+@extend_schema(
+    summary="Create or Update Browser Window",
+    description="This endpoint is used to create or update a browser window. It takes the window's properties as input and applies them.",
+    request=BrowserWindowSerializer,
+    responses={200: {"description": "The browser window was successfully created or updated."}, 400: {"description": "Invalid data."}},
+)
 class BrowserWindowAPIView(generics.GenericAPIView):
     serializer_class = BrowserWindowSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='browser-window', data=serializer.validated_data)
-            # try:
+            api_call = Api_calls(name="browser-window", data=serializer.validated_data)
             response = browserWindowAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
         return Response(serializer.errors, status=400)
-   
+
+
+@extend_schema(
+    summary="Manage Screen Share Window",
+    description="Manages the screen sharing window. It takes the window's properties and applies them to the screen sharing session.",
+    request=ScreenShareWindowSerializer,
+    responses={200: {"description": "The screen share window was successfully managed."}, 400: {"description": "Invalid data."}},
+)
 class ScreenShareWindowAPIView(generics.GenericAPIView):
     serializer_class = ScreenShareWindowSerializer
     permission_classes = [IsAuthenticated]
@@ -279,67 +365,79 @@ class ScreenShareWindowAPIView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='screen-share-window', data=serializer.validated_data)
-            # try:
+            api_call = Api_calls(
+                name="screen-share-window", data=serializer.validated_data
+            )
             response = screenShareWindowAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
         return Response(serializer.errors, status=400)
 
+
+@extend_schema(
+    summary="Handle Expired Alarm",
+    description="This endpoint is triggered when an alarm expires. It logs the event and performs any necessary actions.",
+    request=AlarmExpiredSerializer,
+    responses={200: {"description": "The expired alarm was successfully handled."}, 400: {"description": "Invalid data."}},
+)
 class AlarmExpiredAPIView(generics.GenericAPIView):
-    serializer_class = AlarmExpiredSerializer    
-    #permission_classes = [IsAuthenticated]
+    serializer_class = AlarmExpiredSerializer
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='alarm/expired/', data=serializer.validated_data)
-            # try:
+            api_call = Api_calls(name="alarm/expired/", data=serializer.validated_data)
             response = alarmExpiredAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
         return Response(serializer.errors, status=400)
 
+
+@extend_schema(
+    summary="Clear an Alarm",
+    description="Clears an active alarm. This is used to acknowledge and dismiss an alarm that has been triggered.",
+    request=AlarmClearSerializer,
+    responses={200: {"description": "The alarm was successfully cleared."}, 400: {"description": "Invalid data."}},
+)
 class AlarmClearAPIView(generics.GenericAPIView):
     serializer_class = AlarmClearSerializer
-    #permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='alarm/clear', data=serializer.validated_data)
-            # try:
+            api_call = Api_calls(name="alarm/clear", data=serializer.validated_data)
             response = alarmClearAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
         return Response(serializer.errors, status=400)
 
+
+@extend_schema(
+    summary="Trigger an Alarm",
+    description="Triggers a new alarm in the system. It takes the alarm details as input and creates a new alarm event.",
+    request=AlarmSerializer,
+    responses={200: {"description": "The alarm was successfully triggered."}, 400: {"description": "Invalid data."}},
+)
 class AlarmAPIView(generics.GenericAPIView):
     serializer_class = AlarmSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='alarm', data=serializer.validated_data)
-            # try:
+            api_call = Api_calls(name="alarm", data=serializer.validated_data)
             response = alarmAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
         return Response(serializer.errors, status=400)
 
+
+@extend_schema(
+    summary="Change Stream",
+    description="Changes the currently active stream. This can be used to switch between different video or data streams.",
+    request=ChangeStreamSerializer,
+    responses={200: {"description": "The stream was successfully changed."}, 400: {"description": "Invalid data."}},
+)
 class ChangeStreamAPIView(generics.GenericAPIView):
     serializer_class = ChangeStreamSerializer
     permission_classes = [IsAuthenticated]
@@ -347,16 +445,20 @@ class ChangeStreamAPIView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='changeStream', data=serializer.validated_data)
-            #try:
+            api_call = Api_calls(name="changeStream", data=serializer.validated_data)
             response = changeStreamAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
+
         return Response(serializer.errors, status=400)
-        
+
+
+@extend_schema(
+    summary="Perform a Switch Action",
+    description="Performs a generic switch action. The exact behavior of this endpoint is determined by the service layer.",
+    request=SwitchSerializer,
+    responses={200: {"description": "The switch action was successfully performed."}, 400: {"description": "Invalid data."}},
+)
 class SwitchAPIView(generics.GenericAPIView):
     serializer_class = SwitchSerializer
     permission_classes = [IsAuthenticated]
@@ -364,111 +466,153 @@ class SwitchAPIView(generics.GenericAPIView):
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='switch', data=serializer.validated_data)
-            # try:
+            api_call = Api_calls(name="switch", data=serializer.validated_data)
             response = switchAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
+
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Perform a Zoom Action",
+    description="Performs a zoom action, either zooming in or out. The details of the zoom are specified in the request.",
+    request=ZoomSerializer,
+    responses={200: {"description": "The zoom action was successfully performed."}, 400: {"description": "Invalid data."}},
+)
 class ZoomAPIView(generics.GenericAPIView):
     serializer_class = ZoomSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='zoom', data=serializer.validated_data)
-            # try:
+            api_call = Api_calls(name="zoom", data=serializer.validated_data)
             response = zoomAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
+
         return Response(serializer.errors, status=400)
 
+
+@extend_schema(
+    summary="Restart a Service",
+    description="Restarts a service or the entire application. The exact scope of the restart is determined by the service layer.",
+    request=ResetSerializer,
+    responses={200: {"description": "The restart command was successfully issued."}, 400: {"description": "Invalid data."}},
+)
+class RestartAPIView(generics.GenericAPIView):
+    serializer_class = ResetSerializer
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            api_call = Api_calls(name="reset", data=serializer.validated_data)
+            response = restartAPIService(serializer.validated_data)
+            api_call.save()
+            return response
+
+        return Response(serializer.errors, status=400)
+
+
+@extend_schema(
+    summary="Reset a Setting or a Service",
+    description="Resets a specific setting or service to its default state.",
+    request=ResetSerializer,
+    responses={200: {"description": "The reset command was successfully issued."}, 400: {"description": "Invalid data."}},
+)
 class ResetAPIView(generics.GenericAPIView):
     serializer_class = ResetSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='reset', data=serializer.validated_data)
-            # try:
+            api_call = Api_calls(name="reset", data=serializer.validated_data)
             response = resetAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
 
-            
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Control a Browser",
+    description="This endpoint is used to control a browser instance, such as opening a new tab or navigating to a URL.",
+    request=BrowserSerializer,
+    responses={200: {"description": "The browser command was successfully executed."}, 400: {"description": "Invalid data."}},
+)
 class BrowserAPIView(generics.GenericAPIView):
     serializer_class = BrowserSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            # try:
-            api_call = Api_calls.objects.create(name='browser', data=serializer.validated_data)
+            api_call = Api_calls.objects.create(
+                name="browser", data=serializer.validated_data
+            )
             connection.close()
             response = browserAPIService(serializer.validated_data, api_call)
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
-             
+
         return Response(serializer.errors, status=400)
 
+
+@extend_schema(
+    summary="Change Layout",
+    description="Changes the layout of the user interface. The new layout is specified in the request.",
+    request=ChangeLayoutSerializer,
+    responses={200: {"description": "The layout was successfully changed."}, 400: {"description": "Invalid data."}},
+)
 class ChangeLayoutAPIView(generics.GenericAPIView):
     serializer_class = ChangeLayoutSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            api_call = Api_calls(name='change-layout', data=serializer.validated_data)
-            # try:
+            api_call = Api_calls(name="change-layout", data=serializer.validated_data)
             response = changeLayoutAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
 
         return Response(serializer.errors, status=400)
-            
 
 
-class UpdateState():
+@extend_schema(
+    summary="Update Application State",
+    description="Updates the overall state of the application. This includes information about the number of windows, active windows, and any ongoing alarms.",
+    request=StateSerializer,
+    responses={200: {"description": "The application state was successfully updated."}, 400: {"description": "Invalid data."}},
+)
+class UpdateState(generics.GenericAPIView):
     serializer_class = StateSerializer
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
-            windows_number = serializer.validated_data['windows_number']
-            active_windows = serializer.validated_data['active_windows']
-            alarm_windows = serializer.validated_data['alarm_windows']
-            state = serializer.validated_data['state']
+            windows_number = serializer.validated_data["windows_number"]
+            active_windows = serializer.validated_data["active_windows"]
+            alarm_windows = serializer.validated_data["alarm_windows"]
+            state = serializer.validated_data["state"]
 
             # temporaneo: se stato è vuoto utilizzo stato precedente
-            last_state_str = ''
-            if state == '':
-                last_state_entry = State.objects.latest('created')
+            last_state_str = ""
+            if state == "":
+                last_state_entry = State.objects.latest("created")
                 last_state_str = last_state_entry.state
 
-            State.objects.create(windows_number=windows_number, active_windows=active_windows, alarm_windows=alarm_windows, state=state if state != '' else last_state_str)
+            State.objects.create(
+                windows_number=windows_number,
+                active_windows=active_windows,
+                alarm_windows=alarm_windows,
+                state=state if state != "" else last_state_str,
+            )
             connection.close()
-            return Response({'status': 'success', 'message': 'State updated successfully.'})
+            return Response(
+                {"status": "success", "message": "State updated successfully."}
+            )
         return Response(serializer.errors, status=400)

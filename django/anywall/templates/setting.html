@@ -5,361 +5,323 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anywall Settings</title>
-    <link rel="icon" src="{% static 'anywall_app/cropped-favicon-192x192.png' %}" sizes="192x192">
+    <link rel="icon" href="{% static 'anywall_app/favicon.ico' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #4A90E2;
+            --secondary-color: #ADD8E6;
+            --dark-bg: #1a1a1a;
+            --card-bg: #2d2d2d;
+            --card-hover: #3d3d3d;
+            --text-color: #f0f0f0;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #0d0d0d, #3e3e3e);
-            color: #f0f0f0;
+            color: var(--text-color);
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             align-items: stretch;
             height: 100vh;
+            line-height: 1.6;
         }
+
         header {
             text-align: center;
-            font-size: 2em;
-            font-weight: bold;
-            color: #ADD8E6;
-            text-transform: uppercase;
-            flex: 0 0 auto;
+            padding: 1.5rem 0;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
+
+        header h1 {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: var(--secondary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
         .container {
             flex: 1 1 auto;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 1rem 1rem;
             overflow: hidden;
         }
+
         .form-container {
             width: 100%;
             max-width: 1500px;
             height: 85%;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            overflow-y: hidden;
+            gap: 1.5rem;
+            overflow-y: auto;
+            padding-right: 10px;
         }
+
         .form-box {
-            background: #2d2d2d;
-            padding: 20px;
-            /*box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);*/
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
             text-align: center;
-            /*border-radius: 3%;*/
             height: 100%;
-            /*border: 2px solid #1f1f1f;*/
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
+
+        .form-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            background: var(--card-hover);
+        }
+
         /* Alarm Settings spans 2 columns */
         .form-box#alarmFormBox {
             grid-column: span 2;
         }
+        .form-box#screenshotFormBox {
+            grid-column: span 2;
+        }
+
+        .innerDiv{
+            padding-top: 10%;
+        }
 
         #alarmDiv {
-            grid-column: span 2;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Two columns for content */
-            gap: 20px; /* Spacing between grid items */
-            align-items: center;
-            justify-items: stretch;
-            padding: 10px;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            align-items: start;
         }
-
 
         h2 {
-            color: #ADD8E6;
-            margin-bottom: 20px;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
         }
-        button, input[type="submit"] {
-            width: 80%;
-            background-color: #ADD8E6;
-            color: #1f1f1f;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
+
+        h2::after {
+            content: '';
+            position: absolute;
+            left: 25%;
+            bottom: 0;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
         }
-        button:hover, input[type="submit"]:hover {
-            background-color: #668893;
-            transform: scale(1.05);
-        }
-        input[type="text"], input[type="number"] {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #444;
-            width: calc(80% - 22px);
-            background: #444;
-            color: #f0f0f0;
-        }
+
         form {
             display: flex;
             flex-direction: column;
-            align-items: stretch;
+            gap: 1rem;
         }
-        #screenShareDiv {
-            display: flex;
-            flex-direction: column;
-            align-items: stretch;
-        }
+
         label {
-            margin-top: 10px;
-            font-weight: bold;
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+            display: block;
             text-align: left;
-            width: 80%;
+            color: #ccc;
         }
-        .button-group {
-            margin-top: 40px;
-            width: 80%;
-            display: flex;
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--border-radius);
+            background-color: rgba(0, 0, 0, 0.886);
+            color: var(--text-color);
+            font-family: inherit;
+            transition: var(--transition);
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+        }
+
+        input[type="checkbox"] {
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+            accent-color: var(--primary-color);
+        }
+
+        button, .button {
+            background: linear-gradient(to right, var(--primary-color), #5A6ACF);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
+            text-decoration: none;
+            margin-top: 0.5rem;
+            transition: var(--transition);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
+
+        button:hover, .button:hover {
+            background: linear-gradient(to right, #3A80D2, #4A5ABF);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        button i, .button i {
+            margin-right: 0.5rem;
+        }
+
+        .bottom-right-logo {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            max-width: 120px;
+            opacity: 0.7;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .bottom-right-logo:hover {
+            opacity: 1;
+        }
+
+        .center-logo {
+            max-width: 240px;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .center-logo:hover {
+            opacity: 1;
+        }
+
+
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background-color: rgba(0, 0, 0, 0.8);
             display: none;
             justify-content: center;
             align-items: center;
             z-index: 1000;
         }
-        .overlay-content {
-            background: #2d2d2d;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-            color: #f0f0f0;
-            text-align: center;
-            width: 90%;
-            max-width: 500px;
-        }
-        .close-overlay {
-            background-color: #ADD8E6;
-            color: #1f1f1f;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        .close-overlay:hover {
-            background-color: #668893;
-        }
-        .bottom-right-logo {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            width: 150px; /* Adjust the size as needed */
-            height: auto;
-            opacity: 0.8; /* Slight transparency */
-            transition: opacity 0.3s;
-        }
-        .bottom-right-logo:hover {
-            opacity: 1; /* Full opacity on hover */
-        }
-        .center-logo {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px; /* Adjust the size as needed */
-            height: auto;
-            opacity: 0.8; /* Slight transparency */
-            transition: opacity 0.3s;
-        }
-        .center-logo:hover {
-            opacity: 1; /* Full opacity on hover */
-        }
-        .button {
-            width: 80%;
-            padding: 10px 20px;
-            background-color: #ADD8E6; /* Bootstrap primary color */
-            color: #1f1f1f;
-            text-decoration: none;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .button i {
-            margin-right: 5px; /* Space between icon and text */
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
         }
 
-        .button:hover {
-            background-color: #668893;
-            transform: scale(1.05); /* Darken on hover */
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
         }
-        select {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #444;
-            width: calc(80% - 22px);
-            background: #444;
-            color: #f0f0f0;
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
         }
-        /*
-        Schermo 0] rtsp://SS0601DG04/cd06011003.sdp
-        Schermo 1] rtsp://SS0601DG05/cd060121311.sdp
-        Schermo 2] rtsp://SS0601DG05/cd06012263.sdp
-        Schermo 3] rtsp://SS0601DG03/ti060106720.sdp
-        */
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .form-container {
+                grid-template-columns: 1fr;
+            }
+
+            .form-box#alarmFormBox {
+                grid-column: span 1;
+            }
+
+            #alarmDiv {
+                grid-template-columns: 1fr;
+            }
+        }
+        .screenshot-container {
+            margin-top: 20px;
+            text-align: center;
+            position: relative;
+        }
+        .screenshot {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .timestamp {
+            display: block;
+            margin-top: 10px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+        .pause-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            z-index: 10;
+            border-radius: var(--border-radius);
+        }
     </style>
 </head>
 <body>
-    <header><img src="{% static 'anywall_app/logo-anywall.png' %}" alt="Logo" class="center-logo"></header>
+    <header>
+        <img src="{% static 'anywall_app/logo-anywall.png' %}" alt="Logo" class="center-logo">
+    </header>
+
     <div class="container">
         <div class="form-container">
-            <div class="form-box">
-                <h2>Reset Monitor</h2>
-                <button id="resetButton"><i class="fas fa-sync-alt"></i> Reset Monitor</button>
-                <h2>Clock View</h2>
-                <form id="clockViewForm">
-                    <label for="clockWindowId">Window ID:</label>
-                    <select id="clockWindowId" name="window_id" required>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                    </select>
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    <button type="submit"><i class="fas fa-clock"></i> Open Clock View</button>
-                </form>
-            </div>
-
-            <div class="form-box">
-                <h2>Screen Share View</h2>
-                <form id="screenShareForm">
-                    <label for="screenShareWindowId">Window ID:</label>
-                    <select id="screenShareWindowId" name="window_id" required>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                    </select>
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    <button type="submit"><i class="fas fa-share-square"></i> Open Screen Share View</button>
-                </form>
-                <div id="screenShareDiv">
-                    <label for="screenShareWindowIdOpen">Window ID:</label>
-                    <select id="screenShareWindowIdOpen" name="window_id" required>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                    </select>
-                    <button id="startScreenShare"> <i class="fas fa-play"></i> Start Screen Share</button>
-                    <script src="{% static 'anywall_app/start_screen_share.js' %}"></script>
-                </div>
-            </div>
-
-            <div class="form-box">
-                <h2>Zoom Window</h2>
-                <form id="zoomForm">
-                    <label for="windowId">Window ID:</label>
-                    <select id="windowId" name="window_id" required>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                    </select>
-                    <label for="zoomLevel">Zoom Level:</label>
-                    <select id="zoomLevel" name="zoom" required>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    <button type="submit"><i class="fas fa-search-plus"></i> Zoom</button>
-                </form>
-            </div>
-
-            <div class="form-box">
-                <h2>Open Browser Window</h2>
-                <form id="browserWindowForm">
-                    <label for="browserWindowId">Window ID:</label>
-                    <select id="browserWindowId" name="window_id" required>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                        <option value="14">14</option>
-                        <option value="15">15</option>
-                    </select>
-                    <label for="urlBrowser">URL:</label>
-                    <input type="text" id="urlBrowser" name="urlBrowser" placeholder="Enter URL" required>
-                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                    <button type="submit"><i class="fas fa-external-link-alt"></i> Open Browser</button>
-                </form>
-            </div>
-
             <div class="form-box">
                 <h2>Change Stream</h2>
                 <form id="changeStreamForm">
@@ -406,19 +368,56 @@
                     </select>
                     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                     <button type="submit"><i class="fas fa-th-large"></i> Change Layout</button>
-                    <label for="windowsNumber">Select Image:</label>
+
+                    <label for="selectImage">Select Image:</label>
                     <a href="{% url 'select-image' %}" class="button">
                         <i class="fas fa-image"></i> Select Image
                     </a>
-                    <label for="windowsNumber">Upload Image:</label>
+
+                    <label for="uploadImage">Upload Image:</label>
                     <a href="{% url 'upload' %}" class="button">
                         <i class="fas fa-upload"></i> Upload Image
                     </a>
                 </form>
             </div>
+            <div class="form-box" id="screenshotFormBox">
+                <h2>Monitor Screenshot</h2>
+                <div class="container">
+                    <div class="controls">
+                        <button id="pauseBtn">Pause Refresh</button>
+                        <button id="resumeBtn" disabled>Resume Refresh</button>
+                    </div>
+                    <div class="screenshot-container">
+                        <div id="pauseOverlay" class="pause-overlay" style="display: none;">
+                            <p>Paused</p>
+                        </div>
+                        <img id="screenshotImg" class="screenshot" src="{% static 'anywall_app/screenshots/loading.gif' %}" alt="Monitor Screenshot" >
+                        <span id="timestamp" class="timestamp">Loading...</span>
+                    </div>
+                </div>
+            </div>
             <div class="form-box" id="alarmFormBox">
                 <h2>Alarm Settings</h2>
                 <div id="alarmDiv">
+                    <div>
+                        <form id="alarmFormDx">
+                            <div class="checkbox-wrapper">
+                                <label for="enableAlarmIcon" class="checkbox-label">
+                                    <input type="checkbox" id="enableAlarmIcon" name="enableAlarmIcon">
+                                    Enable Alarm Icon
+                                </label>
+                            </div>
+
+                            <label for="alarmBorderColor">Alarm Border Color:</label>
+                            <input type="text" id="alarmBorderColor" name="alarm_border_color" value="#FF0000" required>
+
+                            <label for="alarmBorderThickness">Alarm Border Thickness:</label>
+                            <input type="number" id="alarmBorderThickness" name="alarm_border_thickness" value="5" required>
+
+                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                            <button type="submit"><i class="fas fa-bell"></i> Set Alarm</button>
+                        </form>
+                    </div>
                     <div>
                         <form id="alarmFormSx">
                             <label for="stream-alarm">Stream URL:</label>
@@ -431,28 +430,158 @@
                             <input type="number" id="timer" name="timer" value="30" required>
                         </form>
                     </div>
-                    <div>
-                        <form id="alarmFormDx">
-                            <label for="enableAlarmIcon">Enable Alarm Icon:</label>
-                            <input type="checkbox" id="enableAlarmIcon" name="enableAlarmIcon">
-
-                            <label for="alarmBorderColor">Alarm Border Color:</label>
-                            <input type="text" id="alarmBorderColor" name="alarm_border_color" value="#FF0000" required>
-
-                            <label for="alarmBorderThickness">Alarm Border Thickness:</label>
-                            <input type="number" id="alarmBorderThickness" name="alarm_border_thickness" value="5" required>
-
-                            <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-                            <button type="submit"><i class="fas fa-bell"></i> Set Alarm</button>
-                        </form>
-                    </div>
                 </div>
+            </div>
+            <div class="form-box">
+                <h2>Restart Monitor</h2>
+                <button id="restartButton"><i class="fas fa-sync-alt"></i> Restart Monitor</button>
+                <div class="innerDiv">
+                    <h2>Reset Monitor</h2>
+                    <button id="resetButton"><i class="fas fa-sync-alt"></i> Reset Monitor</button>
+                </div>
+                <div class="innerDiv">
+                    <h2>Clock View</h2>
+                    <form id="clockViewForm">
+                        <label for="clockWindowId">Window ID:</label>
+                        <select id="clockWindowId" name="window_id" required>
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                        <button type="submit"><i class="fas fa-clock"></i> Open Clock View</button>
+                    </form>
+                </div>
+            </div>
+            <div class="form-box">
+                <h2>Screen Share View</h2>
+                <form id="screenShareForm">
+                    <label for="screenShareWindowId">Window ID:</label>
+                    <select id="screenShareWindowId" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-share-square"></i> Open Screen Share View</button>
+                </form>
+                <div id="screenShareDiv">
+                    <label for="screenShareWindowIdOpen">Window ID:</label>
+                    <select id="screenShareWindowIdOpen" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <button id="startScreenShare"> <i class="fas fa-play"></i> Start Screen Share</button>
+                    <script>
+                        const SERVER_IP = "{{ SERVER_IP }}";
+                    </script>
+                    <script src="{% static 'anywall_app/start_screen_share.js' %}"></script>
+                </div>
+            </div>
+            <div class="form-box">
+                <h2>Zoom Window</h2>
+                <form id="zoomForm">
+                    <label for="windowId">Window ID:</label>
+                    <select id="windowId" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <label for="zoomLevel">Zoom Level:</label>
+                    <select id="zoomLevel" name="zoom" required>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-search-plus"></i> Zoom</button>
+                </form>
+            </div>
+            <div class="form-box">
+                <h2>Open Browser Window</h2>
+                <form id="browserWindowForm">
+                    <label for="browserWindowId">Window ID:</label>
+                    <select id="browserWindowId" name="window_id" required>
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <label for="urlBrowser">URL:</label>
+                    <input type="text" id="urlBrowser" name="urlBrowser" placeholder="Enter URL" required>
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <button type="submit"><i class="fas fa-external-link-alt"></i> Open Browser</button>
+                </form>
             </div>
         </div>
     </div>
-    </form>
     <img src="{% static 'anywall_app/Risorsa-8@4x.png' %}" alt="Logo" class="bottom-right-logo">
-
     <div class="overlay" id="overlay">
         <div class="overlay-content" id="overlayContent">
             <p>Loading...</p>
@@ -461,6 +590,57 @@
     </div>
 
     <script>
+        let paused = false;
+        let refreshInterval = null;
+
+        // Function to fetch and display the latest screenshot
+        function refreshScreenshot() {
+            if (paused) return;
+            const csrfToken = getCSRFToken();
+            fetch('/api/latest-screenshot/', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.base64image) {
+                        const img = document.getElementById('screenshotImg');
+                        const timestamp = document.getElementById('timestamp');
+
+                        img.src = "data:image/png;base64," + data.base64image;
+                        timestamp.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+                    }
+                })
+                .catch(error => console.error('Error fetching screenshot:', error));
+        }
+
+        // Start the refresh interval when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            // Create initial placeholder image in static folder
+            refreshScreenshot();
+
+            // Set up automatic refresh every 5 seconds
+            refreshInterval = setInterval(refreshScreenshot, 5000);
+
+            // Set up pause/resume buttons
+            document.getElementById('pauseBtn').addEventListener('click', () => {
+                paused = true;
+                document.getElementById('pauseBtn').disabled = true;
+                document.getElementById('resumeBtn').disabled = false;
+                document.getElementById('pauseOverlay').style.display = 'flex'; // Show overlay
+            });
+
+            document.getElementById('resumeBtn').addEventListener('click', () => {
+                paused = false;
+                document.getElementById('pauseBtn').disabled = false;
+                document.getElementById('resumeBtn').disabled = true;
+                document.getElementById('pauseOverlay').style.display = 'none'; // Hide overlay
+                refreshScreenshot(); // Refresh immediately
+            });
+        });
         // CSRF token setup for AJAX
         function getCSRFToken() {
             return document.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -477,6 +657,34 @@
         function closeOverlay() {
             document.getElementById('overlay').style.display = 'none';
         }
+
+        // Restart API call
+        document.getElementById('restartButton').addEventListener('click', function() {
+            const csrfToken = getCSRFToken();
+
+            openOverlay('<p>Restarting monitor...</p>');
+
+            fetch('/api/restart/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrfToken
+                },
+                body: JSON.stringify({ isReset: true })
+            })
+            .then(response => {
+                if(response.status == 403) {
+                    window.location.href = '/login'
+                } else if (response.ok) {
+                    openOverlay('<p>Restart successful!</p>');
+                } else {
+                    throw new Error('Failed to restart.');
+                }
+            })
+            .catch(error => {
+                openOverlay('<p>Error: ' + error.message + '</p>');
+            });
+        });
 
         // Reset API call
         document.getElementById('resetButton').addEventListener('click', function() {
@@ -619,6 +827,7 @@
             const alarmBorderThickness = document.getElementById('alarmBorderThickness').value;
             const csrfToken = getCSRFToken();
 
+            //openOverlay('<p>Alarm not available now.</p>');
             openOverlay('<p>Setting alarm...</p>');
 
             fetch('/api/alarm/', {
@@ -700,8 +909,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken
                 },
-                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'http://100.43.37.109:8000/clock-view' })
-                // body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'https://192.168.1.13:8000/clock-view' })
+                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'https://{{ SERVER_IP }}/clock-view' })
             })
             .then(response => {
                 if(response.status == 403) {
@@ -731,7 +939,6 @@
                     'X-CSRFToken': csrfToken
                 },
                 body: JSON.stringify({ window_id: parseInt(windowId) })
-                // body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'https://192.168.1.13:8000/receiver' })
             })
             .then(response => {
                 if(response.status == 403) {
@@ -770,6 +977,19 @@
                     }
                 });
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('a[href*="#"]').on('click', function(e) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $($(this).attr('href')).offset().top
+                }, 500, 'linear');
+            });
+        });
+        document.querySelector('.bottom-right-logo').addEventListener('click', function() {
+            window.open('https://www.crismasecurity.it/', '_blank');
         });
     </script>
 </body>

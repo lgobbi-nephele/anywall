@@ -1,20 +1,20 @@
-from anywall_app.models import *
-from rest_framework.response import Response
-import traceback
 
-from math import sqrt, ceil
 import datetime
 import numpy as np
+import traceback
+
+from anywall_app.models import *
+from rest_framework.response import Response
+from math import sqrt, ceil
 from django.utils import timezone
-
 from django.db import connection
-
 from .logger import setup_logger
+
+from config import MAX_WINDOWS
+from config import DEFAULT_DISPLAY_SIZE as SCREEN_SIZE
+
 logger = setup_logger(__name__)
 
-
-MAX_WINDOWS = 16
-SCREEN_SIZE = (1920, 1080)
 
 def resetWinIds(windows_state_list):
     #reset window_ids with indexes
@@ -28,12 +28,10 @@ def closest_square(n):
 def cloneDjangoDict(instance, **kwargs):
     """
     Clone the current Window instance.
-    
+
     kwargs: Override fields for the new instance.
     """
     # Copy all fields from the current instance
-    logger.debug("kwargs:")
-    
     cloned_fields = {}
 
     cloned_fields.update(**(instance.__dict__))
@@ -42,20 +40,15 @@ def cloneDjangoDict(instance, **kwargs):
     logger.debug("removing _state and id")
     cloned_fields.pop('_state', None)
     cloned_fields.pop('id', None)
-    
-    # Update with kwargs if any field needs to be overridden
-    
 
-    logger.debug("cloned_fileds:")
-    logger.debug(cloned_fields)
-    
+    # Update with kwargs if any field needs to be overridden
     return cloned_fields
 
 def makeDeltaRows(state, req_window, api_call):
     delta = Delta()
     del delta._state
     delta.call_id = api_call.id
-    
+
     if req_window is not None:
         delta.readState = False
         delta.window_id = req_window.window_id
@@ -70,21 +63,19 @@ def makeDeltaRows(state, req_window, api_call):
                 Delta.objects.create(**(delta.__dict__))
 
     if state is not None:
-        # logica state
-        
         delta.window_id = -1
         delta.readState = True
         delta.call_id = api_call.id
         delta = cloneDjangoDict(delta, readState=True, call_id=api_call.id)
         Delta.objects.create(**delta)
-    
+
     connection.close()
 
 def createMockedWindowObject(window_id):
     try:
         win, created = Window.objects.update_or_create(
             window_id=window_id,
-            defaults={"coord_x": 480 * (window_id % 4), 
+            defaults={"coord_x": 480 * (window_id % 4),
                       "coord_y": 270 * (window_id // 4),
                       }
             )
@@ -99,11 +90,10 @@ def createMockedReqWindowObject(window_id, **kwargs):
     try:
         win, created = RequestedWindow.objects.update_or_create(
             window_id=window_id,
-            defaults={"coord_x": 480 * (window_id % 4), 
+            defaults={"coord_x": 480 * (window_id % 4),
                       "coord_y": 270 * (window_id // 4),
                       **kwargs
                       }
-            
             )
         connection.close()
         return win
@@ -116,7 +106,7 @@ def createMockedBackupWindowObject(window_id):
     try:
         win, created = BackupWindow.objects.update_or_create(
             window_id=window_id,
-            defaults={"coord_x": 480 * (window_id % 4), 
+            defaults={"coord_x": 480 * (window_id % 4),
                       "coord_y": 270 * (window_id // 4),
                       }
             )
@@ -130,7 +120,7 @@ def createMockedBackupWindowObject(window_id):
 
 def resetMockedReqWindowObject(window_id, **kwargs):
     try:
-        win, created= RequestedWindow.objects.filter(pk=window_id).update_or_create(                
+        win, created= RequestedWindow.objects.filter(pk=window_id).update_or_create(
             window_id=window_id,
             defaults={"stream":'',
                 "labelText":'',
@@ -138,7 +128,7 @@ def resetMockedReqWindowObject(window_id, **kwargs):
                 "isZoom":False,
                 "width":480,
                 "height":270,
-                "coord_x":480 * (window_id % 4), 
+                "coord_x":480 * (window_id % 4),
                 "coord_y":270 * (window_id // 4),
                 "isBrowser":False,
                 "urlBrowser":'',
@@ -161,7 +151,7 @@ def resetMockedReqWindowObject(window_id, **kwargs):
 
 def resetMockedWindowObject(window_id, **kwargs):
     try:
-        win, created= Window.objects.filter(pk=window_id).update_or_create(                
+        win, created= Window.objects.filter(pk=window_id).update_or_create(
             window_id=window_id,
             defaults={"stream":'',
                 "labelText":'',
@@ -169,7 +159,7 @@ def resetMockedWindowObject(window_id, **kwargs):
                 "isZoom":False,
                 "width":480,
                 "height":270,
-                "coord_x":480 * (window_id % 4), 
+                "coord_x":480 * (window_id % 4),
                 "coord_y":270 * (window_id // 4),
                 "isBrowser":False,
                 "urlBrowser":'',
@@ -191,7 +181,7 @@ def resetMockedWindowObject(window_id, **kwargs):
 
 def resetMockedBackupWindowObject(window_id, **kwargs):
     try:
-        win, created= BackupWindow.objects.filter(pk=window_id).update_or_create(                
+        win, created= BackupWindow.objects.filter(pk=window_id).update_or_create(
             window_id=window_id,
             defaults={"stream":'',
                 "labelText":'',
@@ -221,18 +211,15 @@ def resetMockedBackupWindowObject(window_id, **kwargs):
 
 def resetMockedStateObject(window_id):
     try:
-        ##win, created= State.objects.delete(window_id)
-        
-        win, created= State.objects.create(               
+        win, created= State.objects.create(
            defaults={"created":'',
                "window_number":16,
                "active_windows":16,
                "alarm_windows":16,
                "mode":0,
-               "browserUrl":'',                
+               "browserUrl":'',
                "isActive":True,
-               "id":''                
-          #      **kwargs
+               "id":''
                 }
             )
         connection.close()
@@ -253,11 +240,11 @@ def createMockedStateObject(mode=MODE['TELECAMERE']):
         logger.warning(f"Error creating State object: {e}")
         # Log the full traceback for debugging purposes
         traceback.print_exc()
-        
+
 def createMockedDeltaObject():
     try:
         last_api_call = Api_calls.objects.latest('created')
-        
+
         delta = Delta.objects.create(
             call_id = last_api_call.id,
             window_id = 0,
@@ -286,8 +273,6 @@ def createMockedApiCallObject():
 
 def read_state():
     state = State.objects.latest('created')
-    logger.debug("last state: ")
-    logger.debug(state.__dict__)
     connection.close()
     return state
 
@@ -330,7 +315,7 @@ def uploadRequestedWindows(windows_list):
         req_win, created = RequestedWindow.objects.update_or_create(window_id=el.window_id, defaults={**req_window_data})
         connection.close()
         requested_windows.append(req_win)
-    
+
     return requested_windows
 
 def uploadBackupWindows(windows_list):
@@ -346,16 +331,12 @@ def getTime(timer=0):
     # Add the timedelta to the current UTC datetime
     timeout = current_time + datetime.timedelta(seconds=timer)
 
-    # timeout = datetime.strftime(timeout, "%Y-%m-%dT%H:%M:%S.%f")
-
     timeout = timezone.make_aware(timeout, timezone.get_current_timezone())
-
     # Format the datetime to show year, month, day, hour, minute, and second
     # formatted_timeout = timeout.strftime("%Y-%m-%d %H:%M:%S")
 
     return timeout
-# def sortWindowsBy():
-#     pass
+
 
 def createLayout(windows_list, win_number):
     coord_x = 0
@@ -368,7 +349,7 @@ def createLayout(windows_list, win_number):
     offset_multiplier = 0
     logger.debug(f"Service: win_number: {win_number}")
     for i in range(win_number):
-        
+
         windows_list[i].width = size_x
         windows_list[i].height = size_y
         windows_list[i].coord_x = coord_x
@@ -379,170 +360,19 @@ def createLayout(windows_list, win_number):
 
         coord_x += size_x
 
-        
+
         if coord_x >= SCREEN_SIZE[0]:
             lines_in_offset -= 1
             if lines_in_offset <= 0:
                 offset_multiplier = 0
             coord_x = size_x * offset_multiplier 
             coord_y += size_y 
-    
+
     return windows_list
 
-# def calculateExpansion(window, windows_number, zoom, exp=True):
-    
-#     prev_windows = read_windows()
-
-#     win_per_line = int(sqrt(windows_number))
-#     # non più di uno zoom prima di 4x4
-#     if windows_number < 16 and any(window.isZoom == True for window in prev_windows):
-#         return Response({"message": f"Cannot zoom more than one window in {win_per_line}x{win_per_line} layout"}), None, None
-
-#     # non più di 4 zoom x2 o 1 zoom x3 in 4x4
-#     if zoom > 2 and any(window.zoom > 1 for window in prev_windows):
-#         return Response({"message": f"Cannot zoom more than 2x with other windows zoomed"}, status=400), None, None
-
-#     initial_index = window.window_id if window.shifted_index is None else window.shifted_index
-#     print(f"initial_index:{initial_index}")
-#     print(f"win_per_line: {win_per_line}")
-#     initial_row = initial_index // win_per_line
-#     initial_col = initial_index % win_per_line
-#     covered_indices = []
-
-#     print(f"initial_col: {initial_col}")
-#     print(f"initial_row: {initial_row}")
-#     row = initial_row
-#     col = initial_col
-
-#     dx = 1
-#     dy = 1
-
-
-    
-
-
-#     # caso base, giù e destra.
-#     if col + zoom - 1 < win_per_line: # direzione dx, no bounce sul bordo
-#         print("col no bounce")
-#         col = col + zoom - 1
-#     else:
-#         print("col bounce")
-#         col = (win_per_line - 1) - (zoom -1) # direzione sx, bounce sul bordo
-#         dx = -1
-    
-#     print(f"col: {col}")
-
-
-#     if row + zoom - 1  < win_per_line: # direzione giù, no bounce sul bordo
-#         print("row no bounce")
-#         row = row + zoom - 1
-#     else:
-#         print("row bounce")
-#         row = (win_per_line - 1) - (zoom -1) # direzione su, bounce sul bordo
-#         dy = -1
-    
-#     print(f"row: {row}")
-    
-#     if row < 0 or col < 0:
-#         return Response({"message": f"Cannot zoom window {window.window_id} at this moment"}), None, None
-
-#     in_bounds_row = row
-#     in_bounds_col = col
-
-#     new_shifted_index = in_bounds_row * win_per_line + in_bounds_col
-#     new_coord_x = in_bounds_col * SCREEN_SIZE[0] / win_per_line
-#     new_coord_y = in_bounds_row * SCREEN_SIZE[1] / win_per_line
-#     new_position = (new_coord_x, new_coord_y)
-
-#     print(f"in_bounds_row: {in_bounds_row}")
-#     print(f"initial_row: {initial_row}")
-#     print(f"in_bounds_col: {in_bounds_col}")
-#     print(f"in_bounds_col + ((zoom-1) * (dx)): {in_bounds_col + ((zoom-1) * (dx))}")
-#     print(f"zoom -1: {zoom - 1}")
-#     print(f"dx: {dx}")
-
-#     print(f"in_bounds_col: {in_bounds_col}")
-#     print(f"initial_col: {initial_col}")
-#     print(f"in_bounds_col: {in_bounds_row}")
-#     print(f"in_bounds_row + ((zoom-1) * (dy)): {in_bounds_row + ((zoom-1) * (dy))}")
-#     print(f"zoom -1: {zoom - 1}")
-#     print(f"dy: {dy}")
-
-#     for i in range(min(in_bounds_row, initial_row), max(in_bounds_row, initial_row)):
-#         for j in range(min(in_bounds_col, in_bounds_col + ((zoom - 1) * (dx))), max(in_bounds_col, in_bounds_col + ((zoom - 1) * (dx)))):
-#             covered_indices.append(i*win_per_line + j)
-
-#     for i in range(min(in_bounds_col, initial_col), max(in_bounds_col, initial_col)):
-#         for j in range(min(in_bounds_row, in_bounds_row + ((zoom - 1) * (dy))), max(in_bounds_row, in_bounds_row + ((zoom - 1) * (dy)))):
-#             covered_indices.append(j*win_per_line + i)
-    
-#     covered_indices = set(covered_indices)
-#     covered_indices = list(covered_indices)
-        
-    
-    
-#     # if exp:
-#     #     if (prev_windows[row * win_per_line + col].isZoom
-#     #         or prev_windows[row * win_per_line + (col + zoom - 1)].isZoom
-#     #         or prev_windows[(row + zoom - 1) * win_per_line + col].isZoom
-#     #         or prev_windows[(row + zoom - 1) * win_per_line + (col + zoom - 1)].isZoom): # controllo se i vertici della nuova finestra calcolata sono già isZoom
-
-#     #         for start_row in range (in_bounds_row, 0, -1):
-#     #             for col in range (in_bounds_col, 0, -1):
-
-#     #         if col > 0 or col < win_per_line:
-#     #             col += col
-#     #         else:
-#     #             col = in_bounds_col
-            
-
-
-    
-#     # new_shifted_index = row * win_per_line + col
-
-
-
-
-    
-    
-    
-    
-#     # if exp:
-#     #     if (prev_windows[row * win_per_line + col].isZoom
-#     #         or prev_windows[row * win_per_line + (col + zoom - 1)].isZoom
-#     #         or prev_windows[(row + zoom - 1) * win_per_line + col].isZoom
-#     #         or prev_windows[(row + zoom - 1) * win_per_line + (col + zoom - 1)].isZoom): # controllo se i vertici della nuova finestra calcolata sono già isZoom
-
-#     # if row < 0 or col < 0:
-#     #     return Response({"message": f"Cannot zoom window {window.window_id} at this moment"}), None, None
-    
-
-#     # new_shifted_index = row * win_per_line + col
-#     # new_coord_x = col * SCREEN_SIZE[0] / win_per_line
-#     # new_coord_y = row * SCREEN_SIZE[1] / win_per_line
-#     # new_position = (new_coord_x, new_coord_y)
-
-#     # while
-#     # if exp:
-#     #     while
-#     #     if (prev_windows[row * win_per_line + col].isZoom
-#     #         or prev_windows[row * win_per_line + (col + zoom - 1)].isZoom
-#     #         or prev_windows[(row + zoom - 1) * win_per_line + col].isZoom
-#     #         or prev_windows[(row + zoom - 1) * win_per_line + (col + zoom - 1)].isZoom): # controllo se i vertici della nuova finestra calcolata sono già isZoom
-#     # # copri posizioni trovate
-#     # for r_exp in range(zoom):
-#     #     for c_exp in range(zoom):
-#     #         covered_indices.append((row + r_exp)*win_per_line + col + c_exp)
-
-    
-
-    
-#     return covered_indices, new_position, new_shifted_index
 
 def calculateExpansion(window, windows_number, zoom):
     prev_windows = read_windows()
-
-    
 
     win_per_line = int(sqrt(windows_number))  # Assuming a square grid
     if windows_number < 9 and any(prev_window.isZoom == True for idx, prev_window in enumerate(prev_windows) if idx != window.window_id):
@@ -561,42 +391,26 @@ def calculateExpansion(window, windows_number, zoom):
               prev_windows_matrix[0, i].isZoom = True
         if not prev_windows_matrix[win_per_line - 1, i].isZoom and prev_windows_matrix[win_per_line - 2, i].isZoom:
               prev_windows_matrix[win_per_line - 1, i].isZoom = True
-    
+
     for i in range(win_per_line):
         if not prev_windows_matrix[i, 0].isZoom and prev_windows_matrix[i, 1].isZoom:
             prev_windows_matrix[i, 0].isZoom = True
         if not prev_windows_matrix[i, win_per_line - 1].isZoom and prev_windows_matrix[i, win_per_line - 2].isZoom:
             prev_windows_matrix[i, win_per_line - 1].isZoom = True
-    
-    # print(f"prev_windows_matrix")
-    # for row in prev_windows_matrix:
-    #     print(f"{row[0].isZoom} {row[1].isZoom} {row[2].isZoom} {row[3].isZoom}")
 
-    
     busy_rows = []
     for i in range(win_per_line):
-        # print(prev_windows_matrix[i][0].isZoom)
-        # print(prev_windows_matrix[i][1].isZoom)
-        # print(prev_windows_matrix[i][2].isZoom)
-        # print(prev_windows_matrix[i][3].isZoom)
         if not any(el.isZoom == False for el in prev_windows_matrix[i]):
             busy_rows.append(i)
-    
+
     t_prev_windows_matrix = prev_windows_matrix.T # Transpose the matrix
 
     busy_columns = []
     for j in range(win_per_line):
-        # print(t_prev_windows_matrix[i][0].isZoom)
-        # print(t_prev_windows_matrix[i][1].isZoom)
-        # print(t_prev_windows_matrix[i][2].isZoom)
-        # print(t_prev_windows_matrix[i][3].isZoom)
         if not any(el.isZoom == False  for el in t_prev_windows_matrix[j]):  # Check each column (now rows in transposed_matrix)
             busy_columns.append(j)
-    
-    logger.debug(f"busy_rows: {busy_rows}")
-    logger.debug(f"busy_columns: {busy_columns}")
-        
-    
+
+
     if (len(busy_rows) > win_per_line - 1 or len(busy_columns) > win_per_line - 1) and zoom < (win_per_line/2 + 1):
         return Response({"message": f"No space left for zoom"}), None, None
 
@@ -620,8 +434,6 @@ def calculateExpansion(window, windows_number, zoom):
     dx = 1
     dy = 1
 
-
-
     # caso base, giù e destra.
     if col + zoom - 1 < win_per_line: # direzione dx, no bounce sul bordo
         logger.debug("col no bounce")
@@ -629,36 +441,28 @@ def calculateExpansion(window, windows_number, zoom):
         logger.debug("col bounce")
         col = (win_per_line - 1) - (zoom -1) # direzione sx, bounce sul bordo
         dx = -1
-    
+
     rv = col + zoom - 1
 
     logger.debug(f"col: {col}")
     logger.debug(f"rv: {rv}")
 
-    # while col in busy_columns:
-    #     dx = -1
-    #     col += dx
-    
     logger.debug(f"col after busy check: {col}")
 
 
     if row + zoom - 1  < win_per_line: # direzione giù, no bounce sul bordo
         logger.debug("row no bounce")
-        
+
     else:
         logger.debug("row bounce")
         row = (win_per_line - 1) - (zoom -1) # direzione su, bounce sul bordo
         dy = -1
-    
+
     dv = row + zoom - 1
 
     logger.debug(f"row: {row}")
     logger.debug(f"dv: {dv}")
-    
-    # while row in busy_rows:
-    #     dy = -1
-    #     row += dx
-    
+
     logger.debug(f"row after busy check: {row}")
 
     logger.debug(f"dx: {dx}")
@@ -672,41 +476,9 @@ def calculateExpansion(window, windows_number, zoom):
             dv += -dy
         logger.debug(f"col e rv dopo busy exp: {col} {rv}")
         logger.debug(f"row e dv dopo busy exp: {row} {dv}")
-    
+
     if row < 0 or col < 0:
         return Response({"message": f"Cannot zoom window {window.window_id} at this moment"}), None, None
-    
-    
-
-    # vertexes = [row*win_per_line + col,
-    #             row*win_per_line + col + zoom - 1,
-    #             (row + zoom - 1)*win_per_line+col,
-    #             (row + zoom - 1)*win_per_line+col + zoom - 1]
-            
-    
-
-
-    # controllo se vertici su finestra già zoomata
-    # if (exp and windows_number >= 16
-    # and initial_col < 2
-    # and (prev_windows[row*win_per_line+col].isZoom
-    # or prev_windows[row*win_per_line+(col+zoom-1)].isZoom
-    # or prev_windows[(row + zoom - 1)*win_per_line+col].isZoom
-    # or prev_windows[(row + zoom - 1)*win_per_line+(col+zoom-1)].isZoom)):  # impossibile zoomare
-    #     print(f"dentro impossibile zoomare. col={col} row={row}")
-
-    #     while prev_windows[row*win_per_line+(col+zoom-1)].isZoom:
-    #         col -= 1
-    #     while prev_windows[(row + zoom - 1)*win_per_line+col].isZoom:
-    #         row -= 1
-
-    #     if row < 0 or col < 0:
-    #         return Response({"message": f"Cannot zoom window {window.window_id} at this moment,"}), None, None
-            
-    #     while prev_windows[(row + zoom - 1)*win_per_line+(col+zoom-1)].isZoom: # se solo angolo occupato (caso finestra 5 in 4x4), sposto a sx
-    #         col -= 1
-    #         if col < 0:
-    #             return Response({"message": f"Cannot zoom window {window.window_id} at this moment"}), None, None
 
     new_coord_x = col * SCREEN_SIZE[0] / win_per_line
     new_coord_y = row * SCREEN_SIZE[1] / win_per_line
@@ -717,7 +489,7 @@ def calculateExpansion(window, windows_number, zoom):
     for r_exp in range(row, dv+1):
         for c_exp in range(col, rv+1):
             covered_indices.append(r_exp*win_per_line + c_exp)
-    
+
     # rimuovo la mia finestra iniziale
     if initial_index in covered_indices:
         covered_indices.remove(initial_index)
@@ -725,43 +497,6 @@ def calculateExpansion(window, windows_number, zoom):
         covered_indices.remove(window.window_id)
     logger.debug(f"covered_indices: {covered_indices}")
 
-    # print(f"covered_indices: {covered_indices}")
-    # new_row = row
-    # new_col = col
-    # top_left = [new_row, new_col]
-    # print(f"new_row: {new_row}")
-    # print(f"new_col: {new_col}")
-
-    # exp_fact = zoom - window.zoom
-
-    # if new_row - initial_row < 0:
-    #     dy = -1
-    #     new_row = new_row + exp_fact
-    # else:
-    #     dy = 1 
-    
-    # if new_col - initial_col < 0: 
-    #     dx = -1 # direzione delle fienstre da riattivare rispetto all'originale
-    #     new_col = new_col + exp_fact
-    # else:
-    #     dx = 1
-    
-    # print(f"new_col: {new_col}")
-    # print(f"new_row: {new_row}")
-    # print(f"dx: {dx}")
-    # print(f"dy: {dy}")
-    # print(f"exp_fact: {exp_fact}")
-
-    # exp_lines=[]
-    # for i in range(0,exp_fact):
-    #     exp_lines.append((new_row + i*dy) * win_per_line + new_col + exp_fact*dx)
-    #     exp_lines.append((new_row +exp_fact*dy) * win_per_line + new_col+i*dx)
-    # exp_lines.append(((new_row +exp_fact*dy) * win_per_line + new_col + exp_fact*dx))
-
-    # shift = False
-    # for el in exp_lines:
-    #         if prev_windows[el].isZoom:
-    #             shift = True
     if exp and zoom < (win_per_line/2 + 1):
         for el in covered_indices:
             if prev_windows[el].isZoom:
@@ -773,19 +508,16 @@ def calculateExpansion(window, windows_number, zoom):
         for r_exp in range(row, dv+1):
             for c_exp in range(col, rv):
                 covered_indices.append(r_exp*win_per_line + c_exp)
-        
+
         # rimuovo la mia finestra iniziale
         if initial_index in covered_indices:
             covered_indices.remove(initial_index)
-        
+
         new_coord_x = col * SCREEN_SIZE[0] / win_per_line
         new_coord_y = row * SCREEN_SIZE[1] / win_per_line
         new_position = (new_coord_x, new_coord_y)
         logger.debug(f"covered_indices: {covered_indices}")
-        # for el in covered_indices:
-        #     if prev_windows[el].isZoom:
-        #         return Response({"message": f"Cannot zoom window {window.window_id}: window {prev_windows[el].window_id} is preventing it"}), None, None
-        
+
     new_shifted_index = row*win_per_line + col
 
     # comportarsi in modo diverso per rimpicciolimento
@@ -793,7 +525,7 @@ def calculateExpansion(window, windows_number, zoom):
     return covered_indices, new_position, new_shifted_index
 
 def calculateReduction(window, windows_number, zoom):
-    prev_windows = read_windows()
+    read_windows()
     win_per_line = int(sqrt(windows_number))  # Assuming a square grid
 
     previous_zoom = window.zoom
@@ -825,9 +557,9 @@ def calculateReduction(window, windows_number, zoom):
             dy = -1
             row = row + previous_zoom - 1
         else:
-            dy = 1 
+            dy = 1
 
-        if col - original_col < 0: 
+        if col - original_col < 0:
             dx = -1 # direzione delle fienstre da riattivare rispetto all'originale
             col = col + previous_zoom - 1
         else:
@@ -843,7 +575,7 @@ def calculateReduction(window, windows_number, zoom):
         uncover_windows.append(((row +(previous_zoom-1)*dy) * win_per_line + col + (previous_zoom-1)*dx))
 
         logger.debug(f"uncovered_windows: {uncover_windows}")
-        
+
         previous_zoom -=1
         if dy < 0:
             top_left[0] += 1
@@ -853,7 +585,7 @@ def calculateReduction(window, windows_number, zoom):
         logger.debug(f"shifted_index: {shifted_index}")
         # uncover_windows.append(shifted_index)
         counter +=1
-    
+
     if zoom == 1:
         col = original_col
         row = original_row
@@ -863,12 +595,12 @@ def calculateReduction(window, windows_number, zoom):
     new_coord_y = top_left[0] * SCREEN_SIZE[1] / win_per_line
     new_position = (new_coord_x, new_coord_y)
 
-    
+
 
     return uncover_windows, new_position, shifted_index
-    
 
-        
+
+
 
 def updateWindowsForLayout(windows_list, windows_number, active_windows):
     for i in range(windows_number):
@@ -879,15 +611,15 @@ def updateWindowsForLayout(windows_list, windows_number, active_windows):
         windows_list[i].zoom = 1
         windows_list[i].isZoom = False
         windows_list[i].shifted_index = None
-    
+
     for i in range(windows_number, MAX_WINDOWS):
         windows_list[i].isActive = False
         windows_list[i].zoom = 1
         windows_list[i].isZoom = False
         windows_list[i].shifted_index = None
-    
+
     windows_list = createLayout(windows_list, windows_number)
-    
+
     return windows_list
 
 def getZoomedWindowSize(zoom, windows_number):
@@ -912,19 +644,19 @@ def calculateZoom(window, last_state_entry, new_zoom):
         requested_window_data = cloneDjangoDict(window, isZoom=True, zoom=new_zoom, width=size[0], height=size[1], coord_x=new_position[0], coord_y=new_position[1], shifted_index=new_shifted_index)
         wins_to_cover.append(requested_window_data)
 
-        
+
         for el in covered_indices:
             last_window_entry = Window.objects.get(window_id=el)
             if not last_window_entry.isActive: # già nascosta e coperta da zoom, non aggiungere a calcoli
                 logger.debug(f"FINESTRA {last_window_entry.window_id} già nascosta e coperta da zoom, non aggiungere a calcoli")
-                
+
                 continue
             if last_window_entry.isZoom:
                 return Response({"message": f"Cannot zoom window {window.window_id}: window {last_window_entry.window_id} is preventing it"})
-            
+
             requested_window_data = cloneDjangoDict(last_window_entry, isActive=False, isZoom=True)
             wins_to_cover.append(requested_window_data)
-        
+
         for win in wins_to_cover:
             req_window, created = RequestedWindow.objects.update_or_create(window_id=win.get("window_id", None), defaults={**win})
             new_windows.append(req_window)
@@ -968,7 +700,7 @@ def alarmClear(api_call=None):
     last_telecamere_state_entry = cloneDjangoDict(last_telecamere_state_entry)
     last_telecamere_state_entry = State.objects.create(**last_telecamere_state_entry)
     connection.close()
-    
+
     makeDeltaRows(last_telecamere_state_entry, None, api_call)
 
     backup_windows = read_backup_windows()
@@ -990,7 +722,7 @@ def alarmClearAPIService(data, api_call):
 
     if not clear:
         return Response({'status': 'success', 'message': f"No action"})
-    
+
     try:
         last_state_entry = State.objects.latest('created')
         connection.close()
@@ -1001,7 +733,7 @@ def alarmClearAPIService(data, api_call):
     if last_state_entry.mode != MODE['ALLARME']:
         return Response({"message": "must be in ALARM mode to clear alarms"}, status=400)
 
-    last_telecamere_state_entry = alarmClear(api_call)
+    alarmClear(api_call)
 
 
     return Response({'status': 'success', 'message': f"Alarm cleared"})
@@ -1009,7 +741,7 @@ def alarmClearAPIService(data, api_call):
 def alarmAPIService(data, api_call):
     alarm_window_data = data.get("alarm_window")
     alarm_state_data = data.get("alarm_state")
-    
+
     stream = alarm_window_data['stream']
     labelText = alarm_window_data['labelText']
     timer = alarm_window_data['timer']
@@ -1021,7 +753,7 @@ def alarmAPIService(data, api_call):
     # read current windows
     prev_state = read_state()
     prev_windows = read_windows()
-    
+
 
     if prev_state.mode != MODE['ALLARME'] and not any(window.isAlarm for window in prev_windows):
         uploadBackupWindows(prev_windows)
@@ -1040,9 +772,9 @@ def alarmAPIService(data, api_call):
         first_matching_stream = next(el for el in prev_windows if el.stream == stream)
     except StopIteration:
         first_matching_stream = None  # Or any other default value you prefer
-    
+
     logger.debug(f"service.py first_matching_stream: {first_matching_stream}")
-    
+
     timeout = getTime(timer)
 
     logger.debug(f"timeout in service.py: {timeout}")
@@ -1052,19 +784,17 @@ def alarmAPIService(data, api_call):
         req_window, created = RequestedWindow.objects.update_or_create(window_id=requested_window_data.get('window_id', None), defaults={**requested_window_data})
         makeDeltaRows(None, req_window, api_call)
         return Response({"message": f"service.py: Alarm {stream} timer updated."})
-    
+
     # costruisco stato
     wins_in_alarm = len([el for el in prev_windows if el.isAlarm]) + 1
     windows_number = closest_square(wins_in_alarm)
     active_windows = wins_in_alarm
-    alarm_windows = wins_in_alarm
     mode = MODE['ALLARME']
 
     new_alarm_window = cloneDjangoDict(prev_windows[wins_in_alarm - 1], stream=stream, labelText=labelText, isAlarm=True, enableAlarmIcon=enableAlarmIcon, timeout=timeout)
-    # new_alarm_window = SimpleNamespace(**new_alarm_window)
     new_alarm_window = RequestedWindow(**new_alarm_window)
     prev_windows[wins_in_alarm -1] = new_alarm_window
-    
+
     new_state = cloneDjangoDict(
                                 prev_state,
                                 windows_number=windows_number,
@@ -1078,11 +808,11 @@ def alarmAPIService(data, api_call):
     connection.close()
 
     logger.debug(f"service.py new_state: {new_state}")
-    
+
     makeDeltaRows(new_state, None, api_call)
-    
+
     updateLayoutInDB(prev_windows, windows_number, active_windows, api_call)
-    
+
     return Response({'status': 'success', 'message': 'Alarm updated successfully.'})
 
 def isAlarmExpired(timeout):
@@ -1111,11 +841,11 @@ def alarmExpiredAPIService(data, api_call):
     for alarm in alarm_windows:
         if(isAlarmExpired(alarm.timeout)):
             expired_alarms.append(alarm)
-    
+
     logger.debug(f"expired_alarms: {expired_alarms}")
     for win in expired_alarms:
         logger.debug(win.__dict__)
-    
+
     if len(expired_alarms) == 0:
         return Response({'status': 'success', 'message': 'No expired alarms.'})
 
@@ -1129,14 +859,13 @@ def alarmExpiredAPIService(data, api_call):
                                     isActive=False,
                                     timeout=None,
                                     )
-        
+
         requested_windows[el.window_id] = expired 
-        
-        
-    
+
+
     state_instance.alarm_windows = len([win for win in requested_windows if win.isAlarm])
     logger.debug(f"new alarm_windows number: {state_instance.alarm_windows}")
-    
+
     sorted_windows = sorted(requested_windows, key=lambda window: not window.isAlarm)
     sorted_windows = resetWinIds(sorted_windows)
     windows_number = closest_square(state_instance.alarm_windows)
@@ -1145,19 +874,19 @@ def alarmExpiredAPIService(data, api_call):
     if windows_number > 0:
 
         new_state = cloneDjangoDict(state_instance, windows_number=windows_number, active_windows=state_instance.alarm_windows, alarm_windows=state_instance.alarm_windows)
-        
+
         State.objects.create(**new_state)
-        
+
         makeDeltaRows(new_state, None, api_call)
 
-    
+
         updateLayoutInDB(sorted_windows, windows_number, state_instance.alarm_windows, api_call)
     else:
         alarmClear(api_call)
-    
+
     connection.close()
     return Response({'status': 'success', 'message': 'Expired alarms updated successfully.'})
-    
+
 def browserWindowAPIService(data, api_call):
     window_id = data['window_id']
     urlBrowser = data['urlBrowser']
@@ -1165,13 +894,13 @@ def browserWindowAPIService(data, api_call):
     last_state_entry = State.objects.latest('created')
     if last_state_entry.mode != MODE['TELECAMERE']:
         return Response({"message": "must be in mode TELECAMERE to add a browser window"}, status=400)
-    
+
     try:
         last_window_entry = Window.objects.get(window_id=window_id)
-    
+
     except Window.DoesNotExist:
         last_window_entry = createMockedWindowObject()
-    
+
     except Window.MultipleObjectsReturned:
         last_window_entry = Window.objects.filter(window_id=window_id).first()
 
@@ -1190,13 +919,13 @@ def screenShareWindowAPIService(data, api_call):
     last_state_entry = State.objects.latest('created')
     if last_state_entry.mode != MODE['TELECAMERE']:
         return Response({"message": "must be in mode TELECAMERE to add a screen share window"}, status=400)
-    
+
     try:
         last_window_entry = Window.objects.get(window_id=window_id)
-    
+
     except Window.DoesNotExist:
         last_window_entry = createMockedWindowObject()
-    
+
     except Window.MultipleObjectsReturned:
         last_window_entry = Window.objects.filter(window_id=window_id).first()
 
@@ -1214,26 +943,24 @@ def changeStreamAPIService(data, api_call):
     labelText = data['labelText']
     enableLogo = data['enableLogo']
     enableWatermark = data['enableWatermark']
-    
+
     last_state_entry = State.objects.latest('created')
     if last_state_entry.mode != MODE['TELECAMERE']:
         return Response({"message": "must be in mode TELECAMERE to changeStream"}, status=400)
 
     try:
         last_window_entry = Window.objects.get(window_id=window_id)
-    
+
     except Window.DoesNotExist:
         last_window_entry = createMockedWindowObject(window_id)
-    
+
     except Window.MultipleObjectsReturned:
         last_window_entry = Window.objects.filter(window_id=window_id).first()
 
-    # if stream == '':
-    #     stream = last_window_entry.stream
-    
+
     if labelText == '':
-        labelText = last_window_entry.labelText    
-    
+        labelText = last_window_entry.labelText
+
     requested_window_data = cloneDjangoDict(last_window_entry, 
                                                 stream=stream,
                                                 labelText=labelText,
@@ -1255,7 +982,7 @@ def switchAPIService(data, api_call):
             logger.debug("in telecamere")
             last_state_entry = State.objects.filter(mode=MODE['TELECAMERE']).order_by('-created').first()
             new_state = last_state_entry.clone()
-            
+
             State.objects.create(**new_state)
             makeDeltaRows(new_state, None, api_call)
             return Response({"message": "Switched to normal mode"})
@@ -1263,7 +990,7 @@ def switchAPIService(data, api_call):
             logger.debug("in browser")
             last_state_entry = State.objects.filter(mode=MODE['BROWSER']).order_by('-created').first()
             new_state = last_state_entry.clone()
-            
+
             State.objects.create(**new_state)
             makeDeltaRows(new_state, None, api_call)
             return Response({"message": "Switched to browser mode"})
@@ -1271,11 +998,11 @@ def switchAPIService(data, api_call):
             logger.debug("in desktop")
             last_state_entry = State.objects.filter(mode=MODE['DESKTOP']).order_by('-created').first()
             new_state = last_state_entry.clone()
-            
+
             State.objects.create(**new_state)
             makeDeltaRows(new_state, None, api_call)
             return Response({"message": "Switched to browser mode"})
-        
+
         connection.close()
         return Response({"message": "Not a valid mode"}, status=400)
     except State.DoesNotExist:
@@ -1299,10 +1026,10 @@ def zoomAPIService(data, api_call):
     except Window.DoesNotExist:
         last_window_entry = createMockedWindowObject()
     connection.close()
-    
+
     if last_window_entry.zoom == zoom: # stesso zoom di prima, nessun'azione
         return Response({"message": f"Zoom level for window {window_id} is already {zoom}"}, status=400)
-    
+
     if not last_window_entry.isActive:
         return Response({"message": f"Window {window_id} is not active and cannot be zoomed"}, status=400)
 
@@ -1321,43 +1048,35 @@ def zoomAPIService(data, api_call):
     # se errore/zoom non aggiornato, calculateZoom ritorna un oggestto Response
     if isinstance(windows, Response):
         return windows
-    
+
     # aggiornare anche stato con nuovo numero finestre attive
 
     if len(windows) > 0:
         logger.debug(f"windows changed: {len(windows)}")
         for win in windows:
             makeDeltaRows(None, win, api_call)
-    
 
 
     return Response({"message": f"Zoom level for window {window_id} updated to {zoom}"})
 
+def restartAPIService(data):
+    reset = data['isReset']
+    if reset:
+
+        return Response({"message": "Restart succeded"})
+    else:
+        return Response({"message": "Restart value was False"})
+
 def resetAPIService(data, api_call):
     reset = data['isReset']
-    # 1 delta state + 16 delta finestra  
     if reset:
         new_state = createMockedStateObject()
-       
-        makeDeltaRows(new_state, None, api_call) 
-        
+
+        makeDeltaRows(new_state, None, api_call)
         clearRequestWindow(api_call)
         clearWindow(api_call)
         clearBackupWindow(api_call)
-        
-        #for i in range(16):
 
-        #    mocked_data_window = RequestedWindow(window_id=i)
-        #    mocked_data_window = mocked_data_window.__dict__.copy()
-        #    mocked_data_window.pop('window_id', None)
-        #    mocked_data_window.pop('coord_x', None)
-        #    mocked_data_window.pop('coord_y', None)
-                    
-        #    req_window = resetMockedReqWindowObject(i, **mocked_data_window)
-            
-        #   makeDeltaRows(None, req_window, api_call)
-                    
-        
         return Response({"message": "Reset succeded"})
     else:
         return Response({"message": "Reset value was False"})
@@ -1370,11 +1089,11 @@ def clearRequestWindow(api_call):
             mocked_data_window.pop('window_id', None)
             mocked_data_window.pop('coord_x', None)
             mocked_data_window.pop('coord_y', None)
-                    
+
             req_window = resetMockedReqWindowObject(i, **mocked_data_window)
-            
+
             makeDeltaRows(None, req_window, api_call)
-            
+
 def clearWindow(api_call):
     for i in range(16):
 
@@ -1383,9 +1102,9 @@ def clearWindow(api_call):
             mocked_data_window.pop('window_id', None)
             mocked_data_window.pop('coord_x', None)
             mocked_data_window.pop('coord_y', None)
-                    
+
             window = resetMockedWindowObject(i, **mocked_data_window)
-            
+
             makeDeltaRows(None, window, api_call)
 
 def clearBackupWindow(api_call):
@@ -1396,16 +1115,15 @@ def clearBackupWindow(api_call):
             mocked_data_window.pop('window_id', None)
             mocked_data_window.pop('coord_x', None)
             mocked_data_window.pop('coord_y', None)
-                    
+
             backup_window = resetMockedBackupWindowObject(i, **mocked_data_window)
-            
+
             makeDeltaRows(None, backup_window, api_call)
 
 def browserAPIService(data, api_call):
-    url = data['url']
     mode = BROWSER
     last_state_entry = State.objects.filter(mode!=ALLARME).order_by('-created').first() # if an alarm is going and browser is called, it should stop
-    
+
     new_state = last_state_entry.clone(mode = BROWSER)
     State.objects.create(**new_state)
     connection.close()
@@ -1417,21 +1135,21 @@ def changeLayoutAPIService(data, api_call):
         """Check if n is a perfect square."""
         sqrt_n = int(n**0.5)
         return sqrt_n*sqrt_n == n
-    
+
     windows_number = data['windows_number']
-    
+
     try:
         last_state_entry = State.objects.latest('created')
         if last_state_entry.mode != MODE['TELECAMERE']:
             return Response({"message": "must be in normal mode to changeStream"}, status=400)
-    
+
     except State.DoesNotExist:
         last_state_entry = mockedStateInstance('TELECAMERE')
         pass # handle chiamata senza stato
-    
+
     if windows_number > MAX_WINDOWS or not is_perfect_square(n=windows_number):
         return Response({'status': 'error', 'message': 'Invalid windows number'}, status=400)
-    
+
     if last_state_entry.windows_number == windows_number:
         return Response({'status': 'success', 'message': f"State not changed. Windows number: {windows_number}"})
 
@@ -1449,5 +1167,3 @@ def changeLayoutAPIService(data, api_call):
         makeDeltaRows(None, windows_list[i], api_call)
 
     return Response({'status': 'success', 'message': 'Window changed successfully.'})
-
-# end section

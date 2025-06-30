@@ -2,15 +2,15 @@ from django.urls import path
 from.views import *
 from django.contrib.auth.views import LogoutView
 from django.contrib import admin
-# import logging
-
-# logger = logging.getLogger(__name__)
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/change-stream/', ChangeStreamAPIView.as_view(), name='change-stream'),
     path('api/api/switch-mode/', SwitchAPIView.as_view(), name='switch-mode'),
     path('api/zoom/', ZoomAPIView.as_view(), name='zoom'),
+    path('api/restart/', RestartAPIView.as_view(), name='restart'),
     path('api/reset/', ResetAPIView.as_view(), name='reset'),
     path('api/change-layout/', ChangeLayoutAPIView.as_view(), name='change-layout'),
     path('api/browser/', BrowserAPIView.as_view(), name='browser'),
@@ -19,19 +19,26 @@ urlpatterns = [
     path('api/alarm/', AlarmAPIView.as_view(), name='alarm'),
     path('api/alarm/clear/', AlarmClearAPIView.as_view(), name='alarm/clear'),
     path('api/alarm/expired/', AlarmExpiredAPIView.as_view(), name='alarm/expired'),
+    path('api/latest-screenshot/', ScreenshotAPIView.as_view(), name='latest-screenshot'), #Added line
     path('upload/', upload_image, name='upload'),
     path('success/', success, name='success'),
     path('select-image/', select_image, name='select-image'),
     path('get-images-by-scope/', get_images_by_scope, name='get_images_by_scope'),
-    path('setting', setting, name='setting'),
+    path('anywall', setting, name='setting'),
     path('clock-view', clock_view, name='clock-view'),
-    path('sender', sender, name='sender'),
     path('receiver', receiver, name='receiver'),
     path('signaling/', signaling, name='signaling'),
     path('get_offer/', get_offer, name='get_offer'),
     path('get_candidates/', get_candidates, name='get_candidates'),
     path('login', CustomLoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
+    path('setting', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
+    path('settings', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Optional UI:
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path('', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
 ]
 
 #    logger.info("Registered ChangeWindowAPIView"),

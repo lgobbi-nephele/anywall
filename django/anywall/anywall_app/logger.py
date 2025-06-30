@@ -15,8 +15,3 @@ def setup_logger(logger_name):
 
     logger.addHandler(handler)
     return logger
-
-# logger.debug("This is a debug message")
-# logger.info("This is an info message")
-# logger.warning("This is a warning message")
-# logger.error("This is an error message")

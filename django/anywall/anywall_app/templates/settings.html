@@ -1,0 +1,28 @@
+<div class="button-container">
+        <button id="restartWindowsBtn" class="btn btn-warning">Restart Windows</button>
+    </div>
+</div>
+
+<script>
+function callRestartWindows() {
+    fetch('/api/restart-windows/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Windows restart command issued');
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error restarting windows');
+    });
+}
+
+document.getElementById('restartWindowsBtn').addEventListener('click', callRestartWindows);
+</script>
+</body>
+</html>
