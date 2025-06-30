@@ -1,5 +1,13 @@
 -- MySQL dump 10.13  Distrib 8.4.3, for Win64 (x86_64)
---
+
+
+-- COMMAND TO RUN:
+/* 
+> cmd
+> mysql -u root -p mydatabase < ".\git\anywall\out\anywall\lib\auth_dump.sql"
+*/
+
+
 -- Host: localhost    Database: mydatabase
 -- ------------------------------------------------------
 -- Server version	8.4.3
