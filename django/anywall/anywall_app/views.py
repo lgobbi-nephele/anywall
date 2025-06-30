@@ -1,5 +1,7 @@
 from rest_framework import generics
 from rest_framework.response import Response
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+
 
 from anywall_app.models import *
 from anywall_app.serializers import *
@@ -25,6 +27,12 @@ from rest_framework.permissions import IsAuthenticated
 from django.conf import settings
 
 
+@extend_schema(
+    summary="Create a WebRTC Signaling Message",
+    description="This endpoint is used for WebRTC signaling. It accepts a POST request with a JSON body containing the signaling message (e.g., offer, answer, candidate) and stores it in the database.",
+    request={"type": "object", "properties": {"type": {"type": "string"}, "content": {"type": "object"}}},
+    responses={200: {"description": "Signaling message successfully created."}},
+)
 @csrf_exempt
 @login_required
 def signaling(request):
@@ -42,6 +50,11 @@ def signaling(request):
     return JsonResponse({"status": "failed"})
 
 
+@extend_schema(
+    summary="Get Latest WebRTC Offer",
+    description="Retrieves the most recent WebRTC offer message from the database. This is used by a peer to start the WebRTC connection.",
+    responses={200: {"description": "The latest WebRTC offer."}, 404: {"description": "No offer found."}},
+)
 @login_required
 def get_offer(request):
 
@@ -55,6 +68,11 @@ def get_offer(request):
         return JsonResponse({"error": "No offer found"}, status=404)
 
 
+@extend_schema(
+    summary="Get All WebRTC Candidates",
+    description="Retrieves all ICE candidates that have been sent. These are needed for the WebRTC connection to be established between peers.",
+    responses={200: {"description": "A list of all WebRTC ICE candidates."}},
+)
 @login_required
 def get_candidates(request):
 
@@ -67,6 +85,14 @@ def get_candidates(request):
     return JsonResponse({"candidates": candidate_list})
 
 
+@extend_schema(
+    summary="Get Images by Scope",
+    description="Retrieves a list of images based on a 'scope' query parameter. Each image in the response includes its ID, path, and a base64 encoded preview.",
+    parameters=[
+        OpenApiParameter(name='scope', description='The scope of the images to retrieve.', required=True, type=OpenApiTypes.STR),
+    ],
+    responses={200: {"description": "A list of images matching the specified scope."}},
+)
 @login_required
 def get_images_by_scope(request):
 
@@ -118,6 +144,12 @@ def get_images_by_scope(request):
     return JsonResponse(image_list, safe=False)
 
 
+@extend_schema(
+    summary="Select an Image",
+    description="This endpoint allows for the selection of an image for a given scope or window. It updates the database to reflect the current selection.",
+    request={"type": "object", "properties": {"image_scope": {"type": "integer"}, "images": {"type": "string"}, "window_id": {"type": "integer"}}},
+    responses={302: {"description": "Redirects to the success page after processing."}},
+)
 @login_required
 def select_image(request):
 
@@ -211,6 +243,12 @@ def select_image(request):
     return render(request, "select_image.html", context)
 
 
+@extend_schema(
+    summary="Upload an Image",
+    description="Handles the uploading of a new image. It uses a form to validate and save the uploaded image.",
+    request={"type": "object", "properties": {"image": {"type": "string", "format": "binary"}}},
+    responses={302: {"description": "Redirects to the success page after a successful upload."}},
+)
 @login_required
 def upload_image(request):
 
@@ -224,33 +262,64 @@ def upload_image(request):
     return render(request, "upload_image.html", {"form": form})
 
 
+@extend_schema(
+    summary="Success Page",
+    description="Renders a simple success page. This is typically used as a redirect target after a successful form submission.",
+    responses={200: {"description": "The success page."}},
+)
 @login_required
 def success(request):
 
     return render(request, "success.html")
 
+
+@extend_schema(
+    summary="Receiver Page",
+    description="Renders the receiver page, which likely handles incoming data streams or messages. It passes the server IP to the template.",
+    responses={200: {"description": "The receiver page."}},
+)
 @login_required
 def receiver(request):
 
     return render(request, "receiver.html", {"SERVER_IP": settings.SERVER_IP})
 
 
+@extend_schema(
+    summary="Settings Page",
+    description="Renders the settings page, which allows users to configure application settings. It passes the server IP to the template.",
+    responses={200: {"description": "The settings page."}},
+)
 @login_required
 def setting(request):
 
     return render(request, "setting.html", {"SERVER_IP": settings.SERVER_IP})
 
 
+@extend_schema(
+    summary="Clock View Page",
+    description="Renders a page that displays a clock.",
+    responses={200: {"description": "The clock view page."}},
+)
 @login_required
 def clock_view(request):
 
     return render(request, "clock_view.html")
 
-
+@extend_schema(
+    summary="User Login",
+    description="Handles user authentication and login.",
+    request={"type": "object", "properties": {"username": {"type": "string"}, "password": {"type": "string"}}},
+    responses={200: {"description": "User successfully logged in."}, 400: {"description": "Invalid credentials."}},
+)
 class CustomLoginView(LoginView):
     template_name = "login.html"
 
 
+@extend_schema(
+    summary="Get Latest Screenshot",
+    description="Returns the most recent screenshot taken, encoded in base64 format.",
+    responses={200: {"description": "The latest screenshot as a base64 encoded string."}},
+)
 class ScreenshotAPIView(generics.GenericAPIView):
     """Return the filename of the latest screenshot"""
 
@@ -263,6 +332,12 @@ class ScreenshotAPIView(generics.GenericAPIView):
         return Response({"base64image": base64image})
 
 
+@extend_schema(
+    summary="Create or Update Browser Window",
+    description="This endpoint is used to create or update a browser window. It takes the window's properties as input and applies them.",
+    request=BrowserWindowSerializer,
+    responses={200: {"description": "The browser window was successfully created or updated."}, 400: {"description": "Invalid data."}},
+)
 class BrowserWindowAPIView(generics.GenericAPIView):
     serializer_class = BrowserWindowSerializer
     permission_classes = [IsAuthenticated]
@@ -271,16 +346,18 @@ class BrowserWindowAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name="browser-window", data=serializer.validated_data)
-            # try:
             response = browserWindowAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Manage Screen Share Window",
+    description="Manages the screen sharing window. It takes the window's properties and applies them to the screen sharing session.",
+    request=ScreenShareWindowSerializer,
+    responses={200: {"description": "The screen share window was successfully managed."}, 400: {"description": "Invalid data."}},
+)
 class ScreenShareWindowAPIView(generics.GenericAPIView):
     serializer_class = ScreenShareWindowSerializer
     permission_classes = [IsAuthenticated]
@@ -291,13 +368,18 @@ class ScreenShareWindowAPIView(generics.GenericAPIView):
             api_call = Api_calls(
                 name="screen-share-window", data=serializer.validated_data
             )
-            # try:
             response = screenShareWindowAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Handle Expired Alarm",
+    description="This endpoint is triggered when an alarm expires. It logs the event and performs any necessary actions.",
+    request=AlarmExpiredSerializer,
+    responses={200: {"description": "The expired alarm was successfully handled."}, 400: {"description": "Invalid data."}},
+)
 class AlarmExpiredAPIView(generics.GenericAPIView):
     serializer_class = AlarmExpiredSerializer
 
@@ -305,34 +387,37 @@ class AlarmExpiredAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name="alarm/expired/", data=serializer.validated_data)
-            # try:
             response = alarmExpiredAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Clear an Alarm",
+    description="Clears an active alarm. This is used to acknowledge and dismiss an alarm that has been triggered.",
+    request=AlarmClearSerializer,
+    responses={200: {"description": "The alarm was successfully cleared."}, 400: {"description": "Invalid data."}},
+)
 class AlarmClearAPIView(generics.GenericAPIView):
     serializer_class = AlarmClearSerializer
-    # permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name="alarm/clear", data=serializer.validated_data)
-            # try:
             response = alarmClearAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Trigger an Alarm",
+    description="Triggers a new alarm in the system. It takes the alarm details as input and creates a new alarm event.",
+    request=AlarmSerializer,
+    responses={200: {"description": "The alarm was successfully triggered."}, 400: {"description": "Invalid data."}},
+)
 class AlarmAPIView(generics.GenericAPIView):
     serializer_class = AlarmSerializer
     permission_classes = [IsAuthenticated]
@@ -341,16 +426,18 @@ class AlarmAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name="alarm", data=serializer.validated_data)
-            # try:
             response = alarmAPIService(serializer.validated_data, api_call)
             api_call.save()
             return response
-            # except Exception as e:
-            #     # Handle any exceptions raised during save, e.g., integrity errors, validation failures, etc.
-            #     print(f"Failed to save Api_calls object: {e}")
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Change Stream",
+    description="Changes the currently active stream. This can be used to switch between different video or data streams.",
+    request=ChangeStreamSerializer,
+    responses={200: {"description": "The stream was successfully changed."}, 400: {"description": "Invalid data."}},
+)
 class ChangeStreamAPIView(generics.GenericAPIView):
     serializer_class = ChangeStreamSerializer
     permission_classes = [IsAuthenticated]
@@ -366,6 +453,12 @@ class ChangeStreamAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Perform a Switch Action",
+    description="Performs a generic switch action. The exact behavior of this endpoint is determined by the service layer.",
+    request=SwitchSerializer,
+    responses={200: {"description": "The switch action was successfully performed."}, 400: {"description": "Invalid data."}},
+)
 class SwitchAPIView(generics.GenericAPIView):
     serializer_class = SwitchSerializer
     permission_classes = [IsAuthenticated]
@@ -381,6 +474,12 @@ class SwitchAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Perform a Zoom Action",
+    description="Performs a zoom action, either zooming in or out. The details of the zoom are specified in the request.",
+    request=ZoomSerializer,
+    responses={200: {"description": "The zoom action was successfully performed."}, 400: {"description": "Invalid data."}},
+)
 class ZoomAPIView(generics.GenericAPIView):
     serializer_class = ZoomSerializer
     permission_classes = [IsAuthenticated]
@@ -396,6 +495,12 @@ class ZoomAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Restart a Service",
+    description="Restarts a service or the entire application. The exact scope of the restart is determined by the service layer.",
+    request=ResetSerializer,
+    responses={200: {"description": "The restart command was successfully issued."}, 400: {"description": "Invalid data."}},
+)
 class RestartAPIView(generics.GenericAPIView):
     serializer_class = ResetSerializer
     permission_classes = [IsAuthenticated]
@@ -404,7 +509,6 @@ class RestartAPIView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         if serializer.is_valid():
             api_call = Api_calls(name="reset", data=serializer.validated_data)
-            # try:
             response = restartAPIService(serializer.validated_data)
             api_call.save()
             return response
@@ -412,6 +516,12 @@ class RestartAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Reset a Setting or a Service",
+    description="Resets a specific setting or service to its default state.",
+    request=ResetSerializer,
+    responses={200: {"description": "The reset command was successfully issued."}, 400: {"description": "Invalid data."}},
+)
 class ResetAPIView(generics.GenericAPIView):
     serializer_class = ResetSerializer
     permission_classes = [IsAuthenticated]
@@ -427,6 +537,12 @@ class ResetAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Control a Browser",
+    description="This endpoint is used to control a browser instance, such as opening a new tab or navigating to a URL.",
+    request=BrowserSerializer,
+    responses={200: {"description": "The browser command was successfully executed."}, 400: {"description": "Invalid data."}},
+)
 class BrowserAPIView(generics.GenericAPIView):
     serializer_class = BrowserSerializer
     permission_classes = [IsAuthenticated]
@@ -444,6 +560,12 @@ class BrowserAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=400)
 
 
+@extend_schema(
+    summary="Change Layout",
+    description="Changes the layout of the user interface. The new layout is specified in the request.",
+    request=ChangeLayoutSerializer,
+    responses={200: {"description": "The layout was successfully changed."}, 400: {"description": "Invalid data."}},
+)
 class ChangeLayoutAPIView(generics.GenericAPIView):
     serializer_class = ChangeLayoutSerializer
     permission_classes = [IsAuthenticated]
@@ -459,7 +581,13 @@ class ChangeLayoutAPIView(generics.GenericAPIView):
         return Response(serializer.errors, status=400)
 
 
-class UpdateState:
+@extend_schema(
+    summary="Update Application State",
+    description="Updates the overall state of the application. This includes information about the number of windows, active windows, and any ongoing alarms.",
+    request=StateSerializer,
+    responses={200: {"description": "The application state was successfully updated."}, 400: {"description": "Invalid data."}},
+)
+class UpdateState(generics.GenericAPIView):
     serializer_class = StateSerializer
     permission_classes = [IsAuthenticated]
 

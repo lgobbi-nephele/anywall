@@ -2,6 +2,7 @@ from django.urls import path
 from.views import *
 from django.contrib.auth.views import LogoutView
 from django.contrib import admin
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from django.views.generic.base import RedirectView
 
 urlpatterns = [
@@ -33,6 +34,10 @@ urlpatterns = [
     path('logout', LogoutView.as_view(), name='logout'),
     path('setting', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
     path('settings', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    # Optional UI:
+    path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+    path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('', RedirectView.as_view(url='/anywall'), name='setting-redirect'),
 ]
 
