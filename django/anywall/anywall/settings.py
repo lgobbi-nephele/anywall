@@ -22,6 +22,9 @@ logger = setup_logger(__name__)
 import os
 import sys
 
+# Check if running in PyInstaller bundle
+def is_pyinstaller():
+    return getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS')
 
 try:
     python_exe_path = sys.executable
@@ -29,16 +32,12 @@ try:
 except Exception:
     python_exe_path = sys.executable
 
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 logger.debug(f"settings BASE_DIR + 1: {Path(__file__).resolve().parent}")
 logger.debug(f"Path(__file__): {Path(__file__)}")
 
 external_migrations_dir = RESOURCES_DIR
-
-
 sys.path.append(external_migrations_dir)
 
 SECRET_KEY = 'django-insecure-=mff#jb50a%mh=sg(np!0qo1*g6n-%0_5zgd!v00msq-+z9d5@'
@@ -51,34 +50,10 @@ LOGOUT_REDIRECT_URL = '/login'
 
 ASGI_APPLICATION = 'anywall.asgi.application'
 
-
-
 ALLOWED_HOSTS = [SERVER_IP, 'localhost', '127.0.0.1']
-
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
-
-# # Redirect all HTTP traffic to HTTPS
-# SECURE_SSL_REDIRECT = True
-
-# # Use the `X-Forwarded-Proto` header to determine if the request is secure (useful for reverse proxies)
-# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-# # Enable HTTP Strict Transport Security (HSTS)
-# SECURE_HSTS_SECONDS = 31536000  # 1 year
-# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-# SECURE_HSTS_PRELOAD = True
-
-# CHANNEL_LAYERS = {
-#     'default': {
-#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
-#         'CONFIG': {
-#             "hosts": [(SERVER_IP, 6379)],
-#         },# Enable secure cookies
-
-#     },
-# }
 
 from channels.layers import InMemoryChannelLayer
 CHANNEL_LAYERS = {
@@ -91,7 +66,8 @@ WS_PORT = 8000
 
 CSRF_TRUSTED_ORIGINS = ['http://'+ SERVER_IP, 'http://127.0.0.1:8000', 'http://localhost:8000']
 
-INSTALLED_APPS = [
+# Base installed apps that work in both environments
+BASE_INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -104,8 +80,37 @@ INSTALLED_APPS = [
     'anywall_app',
     'drf_yasg',
     'channels',
-    'drf_spectacular', 
 ]
+
+# Check if we're in PyInstaller environment
+if is_pyinstaller():
+    logger.info("Running in PyInstaller environment - excluding drf_spectacular")
+    INSTALLED_APPS = BASE_INSTALLED_APPS
+    # Use fallback schema class for PyInstaller
+    REST_FRAMEWORK = {
+        'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    }
+else:
+    logger.info("Running in development environment - including drf_spectacular")
+    # Try to import drf_spectacular, but don't fail if it's not available
+    try:
+        import drf_spectacular
+        INSTALLED_APPS = BASE_INSTALLED_APPS + ['drf_spectacular']
+        REST_FRAMEWORK = {
+            'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+        }
+        SPECTACULAR_SETTINGS = {
+            'TITLE': 'Your Project API',
+            'DESCRIPTION': 'A detailed description of your project API.',
+            'VERSION': '1.0.0',
+            'SERVE_INCLUDE_SCHEMA': False,
+        }
+    except ImportError:
+        logger.warning("drf_spectacular not available, using fallback")
+        INSTALLED_APPS = BASE_INSTALLED_APPS
+        REST_FRAMEWORK = {
+            'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+        }
 
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
@@ -116,7 +121,6 @@ SWAGGER_SETTINGS = {
 }
 
 MEDIA_ROOT = RESOURCES_DIR + '\\'
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -150,7 +154,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'anywall.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -182,29 +185,12 @@ MIGRATION_MODULES = {
 }
 
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Europe/Rome'
-
 USE_I18N = True
-
 USE_TZ = True
 
 STATIC_URL = '/static/'
-
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-REST_FRAMEWORK = {
-    # YOUR OTHER DRF SETTINGS
-    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
-
-SPECTACULAR_SETTINGS = {
-    'TITLE': 'Your Project API',
-    'DESCRIPTION': 'A detailed description of your project API.',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
-    # OTHER SETTINGS
-}

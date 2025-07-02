@@ -1,7 +1,37 @@
 from rest_framework import generics
 from rest_framework.response import Response
-from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 
+# Conditional import for drf_spectacular
+import sys
+
+def is_pyinstaller():
+    return getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS')
+
+# Try to import drf_spectacular, but provide fallbacks if not available
+try:
+    if not is_pyinstaller():
+        from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
+        DRF_SPECTACULAR_AVAILABLE = True
+    else:
+        DRF_SPECTACULAR_AVAILABLE = False
+except ImportError:
+    DRF_SPECTACULAR_AVAILABLE = False
+
+# Fallback decorators and types if drf_spectacular is not available
+if not DRF_SPECTACULAR_AVAILABLE:
+    # Create dummy decorators that do nothing
+    def extend_schema(*args, **kwargs):
+        def decorator(func):
+            return func
+        return decorator
+    
+    class OpenApiParameter:
+        def __init__(self, *args, **kwargs):
+            pass
+    
+    class OpenApiTypes:
+        STR = "string"
+        INT = "integer"
 
 from anywall_app.models import *
 from anywall_app.serializers import *
