@@ -55,6 +55,7 @@ a = Analysis(
     'drf_yasg', 
     'drf_yasg.generators', 
     'numpy', 
+    'drf_spectacular'
     'whitenoise', 
     'whitenoise.middleware', 
     'whitenoise.runserver_nostatic', 
