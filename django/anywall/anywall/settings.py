@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from config import SERVER_IP
+from config import API_SERVER_URL
+from config import WS_SERVER_URL
 from config import DB_NAME
 from config import DB_PASSWORD
 from config import RESOURCES_DIR
@@ -69,7 +71,7 @@ CHANNEL_LAYERS = {
 
 WS_PORT = 8000
 
-CSRF_TRUSTED_ORIGINS = ['http://'+ SERVER_IP, 'http://127.0.0.1:8000', 'http://localhost:8000', 'https://'+ SERVER_IP, 'https://127.0.0.1:8000', 'https://localhost:8000']
+CSRF_TRUSTED_ORIGINS = [ API_SERVER_URL, 'http://127.0.0.1:8000', 'http://localhost:8000', 'https://127.0.0.1:8000', 'https://localhost:8000']
 
 # Base installed apps that work in both environments
 BASE_INSTALLED_APPS = [

@@ -311,7 +311,7 @@ def success(request):
 @login_required
 def receiver(request):
 
-    return render(request, "receiver.html", {"SERVER_IP": settings.SERVER_IP})
+    return render(request, "receiver.html", {"WS_SERVER_URL": settings.WS_SERVER_URL})
 
 
 @extend_schema(
@@ -322,7 +322,7 @@ def receiver(request):
 @login_required
 def setting(request):
 
-    return render(request, "setting.html", {"SERVER_IP": settings.SERVER_IP})
+    return render(request, "setting.html", {"API_SERVER_URL": settings.API_SERVER_URL, "WS_SERVER_URL": settings.WS_SERVER_URL})
 
 
 @extend_schema(

@@ -6,7 +6,8 @@ from PyQt5.QtCore import Qt, QUrl, QTimer
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineProfile
 from dotenv import load_dotenv
 from config import CONFIG_FILE
-from config import SERVER_IP
+from config import DEFAULT_USERNAME
+from config import DEFAULT_PASSWORD
 
 from anywall_app.models import VISUALIZZAZIONE
 from anywall_app.logger import setup_logger
@@ -123,8 +124,8 @@ class BrowserHandler(QMainWindow):
 
             login_script = """
             if (document.getElementById('username') && document.getElementById('password')) {
-                document.getElementById('username').value = 'admin';
-                document.getElementById('password').value = 'ViabilitaAnywall2';
+                document.getElementById('username').value = '""" + DEFAULT_USERNAME + """';
+                document.getElementById('password').value = '""" + DEFAULT_PASSWORD + """';
                 document.querySelector('form').submit();
             }
             """

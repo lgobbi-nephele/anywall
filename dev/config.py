@@ -23,7 +23,11 @@ SERVER_HOST = "0.0.0.0"
 SERVER_IP = str(os.getenv("SERVER_IP", "127.0.0.1"))
 SERVER_PORT = "8000"
 HTTP = "http://"
-API_SERVER_URL = f"{HTTP}{SERVER_IP}:{SERVER_PORT}"
+HTTPS = "https://"
+WS = "ws://"
+WSS = "wss://"
+API_SERVER_URL = f"{HTTPS}{SERVER_IP}"
+WS_SERVER_URL = f"{WSS}{SERVER_IP}"
 
 #DB settings
 DB_NAME = os.getenv("DB_NAME", "myDatabase")

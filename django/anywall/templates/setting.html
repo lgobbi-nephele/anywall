@@ -513,7 +513,7 @@
                     </select>
                     <button id="startScreenShare"> <i class="fas fa-play"></i> Start Screen Share</button>
                     <script>
-                        const SERVER_IP = "{{ SERVER_IP }}";
+                        const WS_SERVER_URL = "{{ WS_SERVER_URL }}";
                     </script>
                     <script src="{% static 'anywall_app/start_screen_share.js' %}"></script>
                 </div>
@@ -909,7 +909,7 @@
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrfToken
                 },
-                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: 'https://{{ SERVER_IP }}/clock-view' })
+                body: JSON.stringify({ window_id: parseInt(windowId), urlBrowser: '{{ API_SERVER_URL }}/clock-view' })
             })
             .then(response => {
                 if(response.status == 403) {
