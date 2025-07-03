@@ -5,6 +5,7 @@ from pathlib import Path
 import platform
 import re
 import sys
+import drf_yasg
 
 def remove_last_decimal(s):
     last_dot_index = s.rfind('.')
@@ -24,14 +25,17 @@ print(f"env_path: {env_path}")
 python_version = platform.python_version()
 python_version = re.sub(r'\.\d+$', '', python_version)
 
+drf_yasg_path = os.path.dirname(drf_yasg.__file__)
+
 a = Analysis(
     ['./dev/monitor.py'],
-    pathex=[os.path.join(BASE_DIR, 'django/anywall'), os.path.join(BASE_DIR, 'dev')],
+    pathex=[os.path.join(BASE_DIR, 'django/anywall'), os.path.join(BASE_DIR, 'django/anywall/anywall_app'), os.path.join(BASE_DIR, 'dev')],
     binaries=[],
     datas=[
         (os.path.join(BASE_DIR, 'dev'), './dev'),
-        (os.path.join(BASE_DIR, 'django/anywall/templates'), './templates'),
-        (os.path.join(BASE_DIR, 'django/anywall/static'), './static'),
+        (os.path.join(BASE_DIR, 'django/anywall/templates'), 'templates'),
+        (os.path.join(BASE_DIR, 'django/anywall/static'), 'static'),
+        (drf_yasg_path, 'drf_yasg'),
     ],
     hiddenimports=[
         'anywall', 

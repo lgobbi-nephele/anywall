@@ -25,9 +25,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('', include('anywall_app.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('', include('anywall_app.urls')),
 ]
 
 # Only add drf_spectacular URLs if not in PyInstaller environment and if available
