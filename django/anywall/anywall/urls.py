@@ -12,12 +12,9 @@ def is_pyinstaller():
 
 schema_view = get_schema_view(
     openapi.Info(
-        title="My API",
-        default_version='v1',
-        description="My API description",
-        terms_of_service="https://www.example.com/terms/",
-        contact=openapi.Contact(email="contact@example.com"),
-        license=openapi.License(name="Awesome License"),
+        title="AnyWall API",
+        default_version='v2',
+        description="API di comando per il display node",
     ),
     public=True,
     permission_classes=(AllowAny,),
